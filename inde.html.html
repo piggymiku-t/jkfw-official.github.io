@@ -1,0 +1,669 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.5">
+    <title>JKFW 2026 深海孵化 | Japan Kids Fashion Week</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300..800&display=swap" rel="stylesheet">
+    <style>
+        /* ==== 深海孵化色盘 & 重置 ==== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --abyss: #0A1A2F;
+            --deep-blue: #0C2738;
+            --biolight: #00D4C8;
+            --metamorph-gold: #E6C87C;
+            --data-white: #F0F8FF;
+            --wood-brown: #7C6A4D;
+            --dark-overlay: rgba(6, 18, 30, 0.85);
+            --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        }
+
+        body {
+            font-family: var(--font-sans);
+            background-color: var(--abyss);
+            color: var(--data-white);
+            line-height: 1.7;
+            overflow-x: hidden;
+            margin: 0;
+            min-height: 100vh;
+        }
+
+        /* 深海静态背景 (颜色层) */
+        .deep-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: radial-gradient(circle at 50% 40%, var(--deep-blue) 0%, var(--abyss) 80%);
+            z-index: -2;
+        }
+
+        /* 气泡粒子画布 (鼠标交互) */
+        #bubble-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;  /* 鼠标穿透，画布不阻挡点击 */
+            z-index: -1;
+        }
+
+        /* 主容器 */
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 32px;
+            position: relative;
+            z-index: 5;
+        }
+
+        .gradient-text {
+            background: linear-gradient(135deg, var(--biolight), var(--metamorph-gold));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            font-weight: 800;
+        }
+
+        /* 导航 (玻璃态) */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 24px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.08);
+            backdrop-filter: blur(10px);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: rgba(10,26,47,0.7);
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        .logo {
+            font-size: 30px;
+            font-weight: 800;
+            letter-spacing: 4px;
+        }
+        .logo span {
+            color: var(--metamorph-gold);
+        }
+        .nav-links {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+        .nav-links a {
+            color: var(--data-white);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 15px;
+            padding: 8px 16px;
+            border-radius: 40px;
+            transition: 0.3s;
+        }
+        .nav-links a:hover {
+            background: rgba(0,212,200,0.1);
+            color: var(--biolight);
+        }
+
+        /* 板块通用 */
+        .section {
+            padding: 90px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+        .section-title {
+            font-size: 44px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            position: relative;
+            display: inline-block;
+        }
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -12px;
+            left: 0;
+            width: 100px;
+            height: 4px;
+            background: linear-gradient(90deg, var(--biolight), var(--metamorph-gold));
+            border-radius: 4px;
+        }
+        .section-sub {
+            font-size: 18px;
+            color: rgba(240,248,255,0.7);
+            margin-bottom: 50px;
+            max-width: 800px;
+        }
+
+        /* 卡片网格 */
+        .grid-3, .grid-4 {
+            display: grid;
+            gap: 30px;
+            margin: 40px 0;
+        }
+        .grid-3 { grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); }
+        .grid-4 { grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); }
+
+        .card {
+            background: rgba(12,39,56,0.5);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 24px;
+            padding: 32px 24px;
+            transition: 0.3s;
+        }
+        .card:hover {
+            border-color: var(--biolight);
+            transform: translateY(-6px);
+            background: rgba(0,212,200,0.08);
+        }
+
+        /* 数据里程碑 */
+        .milestone-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            gap: 25px;
+            margin: 40px 0;
+        }
+        .milestone-item {
+            background: rgba(0,0,0,0.25);
+            border-radius: 24px;
+            padding: 30px 20px;
+            text-align: center;
+            border-bottom: 4px solid var(--metamorph-gold);
+        }
+        .milestone-number {
+            font-size: 52px;
+            font-weight: 800;
+            color: var(--biolight);
+            line-height: 1;
+        }
+        .milestone-label {
+            font-size: 16px;
+            color: var(--data-white);
+            opacity: 0.9;
+        }
+
+        /* 按钮 */
+        .btn {
+            display: inline-block;
+            padding: 14px 38px;
+            border-radius: 50px;
+            font-weight: 700;
+            text-decoration: none;
+            transition: 0.3s;
+            border: 1px solid transparent;
+        }
+        .btn-primary {
+            background: var(--metamorph-gold);
+            color: var(--abyss);
+            box-shadow: 0 0 20px rgba(230,200,124,0.3);
+        }
+        .btn-primary:hover {
+            background: #f8d68f;
+            transform: translateY(-3px);
+        }
+        .btn-outline {
+            border: 1px solid var(--data-white);
+            color: var(--data-white);
+            background: transparent;
+        }
+        .btn-outline:hover {
+            border-color: var(--biolight);
+            color: var(--biolight);
+        }
+        .line-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: #00B900;
+            color: white;
+            padding: 16px 48px;
+            border-radius: 60px;
+            font-weight: 700;
+            font-size: 18px;
+            text-decoration: none;
+            box-shadow: 0 4px 20px rgba(0,185,0,0.3);
+        }
+        .line-btn:hover {
+            background: #00c300;
+            transform: scale(1.02);
+        }
+
+        /* 光之门视觉 */
+        .gate-visual {
+            width: 260px;
+            height: 260px;
+            position: relative;
+            margin: 0 auto;
+        }
+        .whirlpool {
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 30% 50%, rgba(0,212,200,0.2) 0%, transparent 70%);
+            border-radius: 50%;
+            box-shadow: 0 0 60px rgba(0,212,200,0.2);
+            animation: pulse 8s infinite;
+        }
+        .whirlpool::before {
+            content: '';
+            position: absolute;
+            top: 10%;
+            left: 10%;
+            width: 80%;
+            height: 80%;
+            border: 2px dashed rgba(230,200,124,0.3);
+            border-radius: 50%;
+            animation: spin 30s linear infinite;
+        }
+        .gate-text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(10,26,47,0.8);
+            backdrop-filter: blur(4px);
+            padding: 12px 24px;
+            border-radius: 40px;
+            border: 1px solid var(--metamorph-gold);
+            color: var(--metamorph-gold);
+            font-weight: 700;
+            letter-spacing: 4px;
+        }
+        @keyframes pulse { 0%,100%{opacity:0.9;} 50%{opacity:1;} }
+        @keyframes spin { 0%{transform:rotate(0deg);} 100%{transform:rotate(360deg);} }
+
+        .model-card {
+            background: rgba(0,0,0,0.2);
+            border-radius: 20px;
+            padding: 24px;
+            border-left: 4px solid var(--biolight);
+        }
+
+        .support-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px 50px;
+            justify-content: center;
+            margin: 40px 0;
+            font-weight: 600;
+            color: rgba(255,255,255,0.8);
+            font-size: 18px;
+        }
+
+        footer {
+            padding: 60px 0 40px;
+            color: rgba(240,248,255,0.6);
+            font-size: 14px;
+        }
+
+        @media (max-width: 768px) {
+            .navbar { flex-direction: column; }
+            .nav-links { justify-content: center; }
+            .section-title { font-size: 34px; }
+        }
+    </style>
+</head>
+<body>
+    <!-- 深海静态背景 (固定) -->
+    <div class="deep-bg"></div>
+
+    <!-- 新增：荧光气泡画布 (鼠标交互) -->
+    <canvas id="bubble-canvas"></canvas>
+
+    <!-- 固定导航 -->
+    <div class="container">
+        <div class="navbar">
+            <div class="logo">JKFW<span>2026</span></div>
+            <div class="nav-links">
+                <a href="#concept">CONCEPT</a>
+                <a href="#theme">深海テーマ</a>
+                <a href="#dual">双舞台</a>
+                <a href="#stats">実績</a>
+                <a href="#models">卒業生</a>
+                <a href="#venue">会場</a>
+                <a href="#entry">ENTRY</a>
+            </div>
+        </div>
+    </div>
+
+    <main class="container">
+        <!-- HERO -->
+        <section style="padding: 60px 0 80px;">
+            <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 50px;">
+                <div style="flex: 1 1 400px;">
+                    <h1 style="font-size: 60px; font-weight: 800; line-height: 1.2; margin-bottom: 20px;">
+                        TAKE DREAMS<br>
+                        <span class="gradient-text" style="font-size: 56px;">FLY TO THE DEEP</span>
+                    </h1>
+                    <p style="font-size: 18px; color: rgba(240,248,255,0.9); max-width: 600px; margin-bottom: 30px;">
+                        「夢や希望を持つこと」は一人ひとりに与えられた権利。<br>
+                        2026年、深海が孵す新たなステージ。リアルとバーチャル、二つの深海へ。
+                    </p>
+                    <div style="display: flex; gap: 20px; flex-wrap: wrap;">
+                        <a href="#entry" class="btn btn-primary">エントリー受付中</a>
+                        <a href="#theme" class="btn btn-outline">テーマを観る</a>
+                    </div>
+                </div>
+                <div style="flex: 1 1 300px; display: flex; justify-content: center;">
+                    <div class="gate-visual">
+                        <div class="whirlpool"></div>
+                        <div class="gate-text">OPEN</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CONCEPT -->
+        <section id="concept" class="section">
+            <h2 class="section-title">OUR TEAM CONCEPT</h2>
+            <div style="display: flex; flex-wrap: wrap; gap: 40px; margin: 40px 0;">
+                <div style="flex:2; min-width:300px;">
+                    <p style="font-size: 20px; font-weight: 600; color: var(--biolight);">「子どもの可能性は無限大」</p>
+                    <p style="margin: 20px 0;">
+                        子ども達の視野が広がり人間形成にも役立ちます。その視野を日本国内だけでなく、もっと世界に目を向け、異文化の考え方も吸収しながら、より多くの選択肢から自分に合った将来像を見つけてほしい。<br>
+                        <strong style="color: var(--metamorph-gold);">2026年は深海へ。生命の源から、未来の自分を孵す。</strong>
+                    </p>
+                </div>
+                <div style="flex:1; background: rgba(0,212,200,0.05); padding: 30px; border-radius: 24px;">
+                    <p style="font-weight: 700;">FAIR & EQUITY</p>
+                    <p style="color: rgba(255,255,255,0.8);">大人の意向を遮断し、子どもたちの才能をフラットに評価。公正・公平なステージはJKFWのDNAです。</p>
+                </div>
+            </div>
+            <div class="grid-4">
+                <div class="card"><span style="font-size:40px;">🤝</span><h3 style="margin:15px 0;">FRIENDSHIP</h3><p>同じ志をもった仲間と切磋琢磨</p></div>
+                <div class="card"><span style="font-size:40px;">✨</span><h3 style="margin:15px 0;">UNIQUE</h3><p>一人ひとりの「異なる光」を見つける</p></div>
+                <div class="card"><span style="font-size:40px;">🚀</span><h3 style="margin:15px 0;">FUTURE</h3><p>目指すはその先の未来</p></div>
+                <div class="card"><span style="font-size:40px;">👨‍👩‍👧</span><h3 style="margin:15px 0;">FAMILY</h3><p>親と子の新たな関係性</p></div>
+            </div>
+        </section>
+
+        <!-- THEME -->
+        <section id="theme" class="section">
+            <h2 class="section-title">DEEP OCEAN <span style="color:var(--biolight);">× NATUREVERSE</span></h2>
+            <p class="section-sub">生命の源「深海」とデジタルの深淵。建築家・坂茂氏の「森を飛ぶ竜」で、生命への感謝を紡ぐ。</p>
+            <div style="background: linear-gradient(145deg, rgba(0,212,200,0.1), transparent); padding: 40px; border-radius: 32px;">
+                <p style="font-size: 22px; font-weight: 700; margin-bottom: 20px;">—— 深海が孵す、新しいわたし。</p>
+                <p>会場となる淡路島・NATUREVERSE施設は、座禅・ヨガ・瞑想の聖域。木造のドームはまさに深海から昇る龍の姿。その背骨をランウェイに変え、リアルとバーチャルが交錯する叙事詩が始まります。</p>
+            </div>
+        </section>
+
+        <!-- DUAL STAGE -->
+        <section id="dual" class="section">
+            <h2 class="section-title">DUAL STAGE <span style="color:var(--biolight);">二つの深海</span></h2>
+            <div class="grid-3">
+                <div class="card">
+                    <div style="font-size: 48px;">🌊</div>
+                    <h3>REAL ME</h3>
+                    <p>身体性を纏い、深海の光が降り注ぐリアルランウェイ。プロの指導、本番の舞台、世界への扉。</p>
+                </div>
+                <div class="card">
+                    <div style="font-size: 48px;">🧬</div>
+                    <h3>VIRTUAL BEING</h3>
+                    <p>場所も身体も越えて。3Dアバターで深海を翔ける。デジタル衣装、メタバース展覧会。</p>
+                </div>
+                <div class="card">
+                    <div style="font-size: 48px;">🤝</div>
+                    <h3>TWIN DESIGN</h3>
+                    <p>リアルとバーチャルのペアで一つのコンセプトを具現化。新しい才能の形。</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- STATS -->
+        <section id="stats" class="section">
+            <h2 class="section-title">ACHIEVEMENTS</h2>
+            <div class="milestone-grid">
+                <div class="milestone-item"><div class="milestone-number">3,600+</div><div class="milestone-label">総エントリー</div></div>
+                <div class="milestone-item"><div class="milestone-number">89k+</div><div class="milestone-label">総視聴数(2024)</div></div>
+                <div class="milestone-item"><div class="milestone-number">300+</div><div class="milestone-label">出演者</div></div>
+                <div class="milestone-item"><div class="milestone-number">15+</div><div class="milestone-label">国際提携</div></div>
+            </div>
+            <div style="display: flex; flex-wrap: wrap; gap: 20px; justify-content: center; margin: 50px 0;">
+                <div style="background:rgba(0,0,0,0.2); padding:20px; border-radius:16px; min-width:140px;"><span style="color:var(--biolight); font-weight:700;">2021</span><br>780名応募<br>名古屋能楽堂</div>
+                <div style="background:rgba(0,0,0,0.2); padding:20px; border-radius:16px;"><span style="color:var(--biolight);">2022</span><br>800名応募<br>横浜・香港進出</div>
+                <div style="background:rgba(0,0,0,0.2); padding:20px; border-radius:16px;"><span style="color:var(--biolight);">2023</span><br>1,020名応募<br>パリ・カナダ</div>
+                <div style="background:rgba(0,0,0,0.2); padding:20px; border-radius:16px;"><span style="color:var(--biolight);">2024</span><br>KCON出演<br>韓国SKRW</div>
+            </div>
+        </section>
+
+        <!-- MODELS -->
+        <section id="models" class="section">
+            <h2 class="section-title">JKFW’S MODEL <span style="color:var(--biolight);">ACTIVE WORLDWIDE</span></h2>
+            <div class="grid-3">
+                <div class="model-card"><span style="color:var(--metamorph-gold);">MIU</span> (2021 GP) : 2022香港Kids Fashion Week NYチャリティーショー出演</div>
+                <div class="model-card"><span style="color:var(--metamorph-gold);">室はんな</span> (2022準GP) : 2023パリGlobal Kids Fashion Show 総合グランプリ</div>
+                <div class="model-card"><span style="color:var(--metamorph-gold);">さざなみ</span> (2022 BEST HOPE) : 2023パリGlobal Kids キッズ部門グランプリ</div>
+                <div class="model-card"><span style="color:var(--metamorph-gold);">ことみ</span> (2023 GP) : 2023香港CENTRESTAGE HKKFW出演</div>
+                <div class="model-card"><span style="color:var(--metamorph-gold);">AKANE</span> (2023準GP) : 2023韓国SKRW Best Model & 契約・雑誌表紙</div>
+                <div class="model-card"><span style="color:var(--metamorph-gold);">Avery Chan</span> (2023キッズGP) : 2023カナダInternational Fashion Gala出演</div>
+            </div>
+            <p style="margin-top: 30px; text-align: right; font-style: italic;">—— 次の深海へ羽ばたくのは、あなた。</p>
+        </section>
+
+        <!-- VENUE -->
+        <section id="venue" class="section">
+            <h2 class="section-title">VENUE <span style="color:var(--biolight);">2026</span></h2>
+            <div style="display: flex; flex-wrap: wrap; gap: 30px;">
+                <div style="flex:2;">
+                    <h3 style="font-size: 28px; color: var(--metamorph-gold);">愛知県国際展示場 Aichi Sky Expo</h3>
+                    <p>2026年アジア競技大会会場でもある日本一新しい国際会議・展示場。日本初の国際空港直結型保税展示場。</p>
+                    <p style="margin-top: 20px;">➕ 特別連携：兵庫・淡路島 NATUREVERSE（坂茂設計）—— 深海の龍が舞う木造ドームで、リアル・バーチャルが融合。</p>
+                </div>
+                <div style="flex:1; background: rgba(124,106,77,0.2); padding: 30px; border-radius: 24px;">
+                    <p style="font-weight:700;">後援</p>
+                    <p>愛知県 / 名古屋市 / 常滑市 / 東海テレビ</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ENTRY -->
+        <section id="entry" class="section">
+            <h2 class="section-title">ENTRY <span style="color:var(--biolight);">深海への一歩</span></h2>
+            <div style="display: flex; flex-wrap: wrap; gap: 40px; align-items: center;">
+                <div style="flex: 2;">
+                    <p style="font-size: 20px; font-weight: 700;">エントリー受付中 / 追加募集決定</p>
+                    <ul style="margin: 20px 0; list-style: none;">
+                        <li>✔ 応募資格：2007年～2015年生まれ (REAL ME) / 年齢不問 (VIRTUAL BEING)</li>
+                        <li>✔ 必要書類：写真3点／自己紹介動画(任意)／参加同意書</li>
+                        <li>✔ 事務手数料：3,300円 (JKFW運営費)</li>
+                    </ul>
+                    <a href="#" class="line-btn">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="white"><path d="M19.2 4.8H4.8C3.6 4.8 2.4 6 2.4 7.2v9.6c0 1.2 1.2 2.4 2.4 2.4h14.4c1.2 0 2.4-1.2 2.4-2.4V7.2c0-1.2-1.2-2.4-2.4-2.4z"/></svg>
+                        LINEで深海を受信
+                    </a>
+                </div>
+                <div style="flex:1; background: rgba(0,212,200,0.05); padding: 30px; border-radius: 32px; text-align: center;">
+                    <p style="color:var(--metamorph-gold); font-weight:700;">予約特典</p>
+                    <p>優先案内・限定コンテンツ</p>
+                    <p style="margin-top: 15px; font-size: 14px;">@jkfw2026 をID検索</p>
+                </div>
+            </div>
+            <div style="display: flex; flex-wrap: wrap; justify-content: space-around; margin-top: 60px; gap: 20px;">
+                <div style="text-align:center;"><span style="background:var(--biolight); color:var(--abyss); padding:10px 20px; border-radius:40px;">1</span><p>エントリー</p></div>
+                <div style="text-align:center;"><span style="background:var(--biolight); color:var(--abyss); padding:10px 20px; border-radius:40px;">2</span><p>書類選考</p></div>
+                <div style="text-align:center;"><span style="background:var(--biolight); color:var(--abyss); padding:10px 20px; border-radius:40px;">3</span><p>面接</p></div>
+                <div style="text-align:center;"><span style="background:var(--biolight); color:var(--abyss); padding:10px 20px; border-radius:40px;">4</span><p>出場者決定</p></div>
+            </div>
+        </section>
+
+        <!-- SUPPORTERS -->
+        <section style="padding: 40px 0;">
+            <h2 class="section-title" style="font-size: 32px;">SUPPORTERS</h2>
+            <div class="support-list">
+                <span>愛知県</span> <span>名古屋市</span> <span>常滑市</span> <span>東海テレビ</span> <span>GUCCI</span> <span>DIOR</span> <span>FENDI</span>
+            </div>
+        </section>
+
+        <!-- FOOTER -->
+        <footer>
+            <div style="display: flex; flex-wrap: wrap; justify-content: space-between; gap: 40px;">
+                <div>
+                    <div style="font-size: 26px; font-weight: 800; margin-bottom: 12px;">JKFW 2026</div>
+                    <div>Deep Ocean · NATUREVERSE</div>
+                    <div style="margin-top: 30px;">
+                        〒251-0042 神奈川県藤沢市辻堂新町1-16-1 青木ビル2階<br>
+                        MAIL: info@jkfw.jp / TEL: (0466)47-8458
+                    </div>
+                </div>
+                <div style="text-align: right;">
+                    <div>JKFW運営委員会</div>
+                    <div>一般社団法人 日本キッズ協会</div>
+                    <div style="margin-top: 30px;">© 2026 Japan Kids Fashion Week</div>
+                </div>
+            </div>
+        </footer>
+    </main>
+
+    <!-- 鼠标交互荧光气泡脚本 -->
+    <script>
+        (function() {
+            const canvas = document.getElementById('bubble-canvas');
+            const ctx = canvas.getContext('2d');
+            let width, height;
+            let particles = [];
+            let lastMouseX = 0, lastMouseY = 0;
+            let mouseMoveTimer = null;
+
+            // 调整画布大小
+            function resizeCanvas() {
+                width = window.innerWidth;
+                height = window.innerHeight;
+                canvas.width = width;
+                canvas.height = height;
+            }
+
+            // 在鼠标位置附近生成几个新气泡
+            function spawnBubbles(x, y, count = 2) {
+                for (let i = 0; i < count; i++) {
+                    // 在鼠标周围随机偏移
+                    const offsetX = (Math.random() - 0.5) * 60; // 偏移范围 ±30px
+                    const offsetY = (Math.random() - 0.5) * 40;
+                    const bubble = {
+                        x: (x + offsetX) / width,  // 存储相对位置 0~1
+                        y: (y + offsetY) / height,
+                        size: 4 + Math.random() * 10,       // 4~14px
+                        speedY: 0.0005 + Math.random() * 0.001, // 极慢上升
+                        opacity: 0.4 + Math.random() * 0.3,
+                        life: 1.0,                   // 初始生命值
+                        fadeSpeed: 0.002 + Math.random() * 0.003, // 逐渐淡出
+                        colorType: Math.random() > 0.6 ? 'gold' : 'cyan', // 金或青
+                        phase: Math.random() * Math.PI * 2,   // 水平摆动相位
+                    };
+                    particles.push(bubble);
+                }
+            }
+
+            // 鼠标移动事件处理 (使用节流)
+            function onMouseMove(e) {
+                const x = e.clientX;
+                const y = e.clientY;
+                // 计算移动距离，避免太频繁生成
+                const dist = Math.hypot(x - lastMouseX, y - lastMouseY);
+                if (dist > 30) { // 移动超过30px才生成新气泡
+                    spawnBubbles(x, y, 1); // 每次移动生成1个
+                    lastMouseX = x;
+                    lastMouseY = y;
+                }
+
+                // 清除之前的定时器，实现鼠标停止后不再生成
+                if (mouseMoveTimer) clearTimeout(mouseMoveTimer);
+                mouseMoveTimer = setTimeout(() => {
+                    // 鼠标停止后，不再生成新气泡
+                }, 100);
+            }
+
+            // 更新粒子状态 (上升、淡出)
+            function updateParticles() {
+                for (let i = particles.length - 1; i >= 0; i--) {
+                    const p = particles[i];
+                    // 上升
+                    p.y -= p.speedY;
+                    // 水平微摆动
+                    p.x += Math.sin(Date.now() * 0.001 + p.phase) * 0.0003;
+                    // 生命衰减
+                    p.life -= p.fadeSpeed;
+
+                    // 超出顶部或生命耗尽则移除
+                    if (p.y < 0 || p.life <= 0) {
+                        particles.splice(i, 1);
+                    }
+                }
+            }
+
+            // 绘制所有粒子
+            function drawParticles() {
+                ctx.clearRect(0, 0, width, height);
+                for (let p of particles) {
+                    const x = p.x * width;
+                    const y = p.y * height;
+                    const size = p.size * (0.8 + 0.4 * Math.sin(Date.now() * 0.002 + p.phase)); // 轻微呼吸效果
+
+                    // 根据颜色类型和生命值设置渐变
+                    let color1, color2;
+                    if (p.colorType === 'gold') {
+                        color1 = `rgba(255, 240, 200, ${p.life * 0.8})`;
+                        color2 = `rgba(230, 200, 124, ${p.life * 0.3})`;
+                    } else {
+                        color1 = `rgba(200, 255, 240, ${p.life * 0.8})`;
+                        color2 = `rgba(0, 212, 200, ${p.life * 0.3})`;
+                    }
+                    const gradient = ctx.createRadialGradient(x-2, y-2, 1, x, y, size*1.5);
+                    gradient.addColorStop(0, color1);
+                    gradient.addColorStop(0.6, color2);
+                    gradient.addColorStop(1, 'transparent');
+
+                    ctx.beginPath();
+                    ctx.arc(x, y, size, 0, Math.PI * 2);
+                    ctx.fillStyle = gradient;
+                    ctx.fill();
+
+                    // 加一点内光晕
+                    ctx.beginPath();
+                    ctx.arc(x-1, y-1, size * 0.3, 0, Math.PI * 2);
+                    ctx.fillStyle = `rgba(255,255,255,${p.life * 0.3})`;
+                    ctx.fill();
+                }
+            }
+
+            // 动画循环
+            function animate() {
+                updateParticles();
+                drawParticles();
+                requestAnimationFrame(animate);
+            }
+
+            // 初始化
+            function setup() {
+                resizeCanvas();
+                // 监听鼠标移动
+                window.addEventListener('mousemove', onMouseMove);
+                // 触摸设备支持
+                window.addEventListener('touchmove', (e) => {
+                    e.preventDefault();
+                    if (e.touches.length > 0) {
+                        const touch = e.touches[0];
+                        onMouseMove(touch);
+                    }
+                }, { passive: false });
+                animate();
+            }
+
+            // 窗口大小改变时重置画布
+            window.addEventListener('resize', resizeCanvas);
+
+            setup();
+        })();
+    </script>
+    <style> html { scroll-behavior: smooth; } </style>
+</body>
+</html>
