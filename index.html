@@ -80,7 +80,7 @@
             position: relative; /* 修复定位层级 */
         }
 
-        /* ==== 视频背景样式 ==== */
+        /* ==== 视频背景样式（完全保留你原来的配置） ==== */
         .video-bg-container {
             position: fixed;
             top: 0;
@@ -571,7 +571,7 @@
     </style>
 </head>
 <body>
-    <!-- 视频背景 -->
+    <!-- 视频背景（完全保留你原来的配置，确保正常播放） -->
     <div class="video-bg-container">
         <video class="bg-video" autoplay loop muted playsinline>
             <source src="https://raw.githubusercontent.com/piggymiku-T/jkfw-official.github.io/main/videos/videosbackground.mp4" type="video/mp4">
@@ -856,143 +856,4 @@
                     <div style="font-size: 26px; font-weight: 800; margin-bottom: 12px;">JKFW 2026</div>
                     <div>Deep Ocean · NATUREVERSE</div>
                     <div style="margin-top: 30px;">
-                        〒116-0014 東京都荒川区東日暮里6-14-2 SK.BLD 3階 301<br>
-                        MAIL: info@jkfw.jp / TEL: (0466)47-8458
-                    </div>
-                </div>
-                <div style="text-align: right;">
-                    <div>JKFW運営委員会</div>
-                    <div>一般社団法人 日本キッズ協会</div>
-                    <div style="margin-top: 30px;">© 2026 Japan Kids Fashion Week</div>
-                </div>
-            </div>
-        </footer>
-    </main>
-
-    <!-- 鼠标交互荧光气泡脚本 -->
-    <script>
-        (function() {
-            const canvas = document.getElementById('bubble-canvas');
-            const ctx = canvas.getContext('2d');
-            let width, height;
-            let particles = [];
-            let lastMouseX = 0, lastMouseY = 0;
-            let mouseMoveTimer = null;
-
-            // 调整画布大小
-            function resizeCanvas() {
-                width = window.innerWidth;
-                height = window.innerHeight;
-                canvas.width = width;
-                canvas.height = height;
-            }
-
-            // 在鼠标位置附近生成几个新气泡
-            function spawnBubbles(x, y, count = 2) {
-                for (let i = 0; i < count; i++) {
-                    const offsetX = (Math.random() - 0.5) * 60;
-                    const offsetY = (Math.random() - 0.5) * 40;
-                    const bubble = {
-                        x: (x + offsetX) / width,
-                        y: (y + offsetY) / height,
-                        size: 4 + Math.random() * 10,
-                        speedY: 0.0005 + Math.random() * 0.001,
-                        opacity: 0.4 + Math.random() * 0.3,
-                        life: 1.0,
-                        fadeSpeed: 0.002 + Math.random() * 0.003,
-                        colorType: Math.random() > 0.6 ? 'gold' : 'cyan',
-                        phase: Math.random() * Math.PI * 2,
-                    };
-                    particles.push(bubble);
-                }
-            }
-
-            // 鼠标移动事件处理 (节流)
-            function onMouseMove(e) {
-                const x = e.clientX;
-                const y = e.clientY;
-                const dist = Math.hypot(x - lastMouseX, y - lastMouseY);
-                if (dist > 30) {
-                    spawnBubbles(x, y, 1);
-                    lastMouseX = x;
-                    lastMouseY = y;
-                }
-
-                if (mouseMoveTimer) clearTimeout(mouseMoveTimer);
-                mouseMoveTimer = setTimeout(() => {}, 100);
-            }
-
-            // 更新粒子状态
-            function updateParticles() {
-                for (let i = particles.length - 1; i >= 0; i--) {
-                    const p = particles[i];
-                    p.y -= p.speedY;
-                    p.x += Math.sin(Date.now() * 0.001 + p.phase) * 0.0003;
-                    p.life -= p.fadeSpeed;
-
-                    if (p.y < 0 || p.life <= 0) {
-                        particles.splice(i, 1);
-                    }
-                }
-            }
-
-            // 绘制所有粒子
-            function drawParticles() {
-                ctx.clearRect(0, 0, width, height);
-                for (let p of particles) {
-                    const x = p.x * width;
-                    const y = p.y * height;
-                    const size = p.size * (0.8 + 0.4 * Math.sin(Date.now() * 0.002 + p.phase));
-
-                    let color1, color2;
-                    if (p.colorType === 'gold') {
-                        color1 = `rgba(255, 240, 200, ${p.life * 0.8})`;
-                        color2 = `rgba(230, 200, 124, ${p.life * 0.3})`;
-                    } else {
-                        color1 = `rgba(200, 255, 240, ${p.life * 0.8})`;
-                        color2 = `rgba(0, 212, 200, ${p.life * 0.3})`;
-                    }
-                    const gradient = ctx.createRadialGradient(x-2, y-2, 1, x, y, size*1.5);
-                    gradient.addColorStop(0, color1);
-                    gradient.addColorStop(0.6, color2);
-                    gradient.addColorStop(1, 'transparent');
-
-                    ctx.beginPath();
-                    ctx.arc(x, y, size, 0, Math.PI * 2);
-                    ctx.fillStyle = gradient;
-                    ctx.fill();
-
-                    ctx.beginPath();
-                    ctx.arc(x-1, y-1, size * 0.3, 0, Math.PI * 2);
-                    ctx.fillStyle = `rgba(255,255,255,${p.life * 0.3})`;
-                    ctx.fill();
-                }
-            }
-
-            // 动画循环
-            function animate() {
-                updateParticles();
-                drawParticles();
-                requestAnimationFrame(animate);
-            }
-
-            // 初始化
-            function setup() {
-                resizeCanvas();
-                window.addEventListener('mousemove', onMouseMove);
-                window.addEventListener('touchmove', (e) => {
-                    e.preventDefault();
-                    if (e.touches.length > 0) {
-                        const touch = e.touches[0];
-                        onMouseMove(touch);
-                    }
-                }, { passive: false });
-                animate();
-            }
-
-            window.addEventListener('resize', resizeCanvas);
-            setup();
-        })();
-    </script>
-</body>
-</html>
+                        〒116-0014 東京都荒川区東日暮里6-14-2 SK.BLD 3階
