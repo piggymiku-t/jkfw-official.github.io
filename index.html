@@ -399,17 +399,50 @@
                         JKFW2026は、深海が孵す新たなステージ。リアルとバーチャル、二つの深海へ。
                     </p>
                     <!-- 替换原HERO区域的按钮代码 -->
-　　　　　　　　　　　<div style="display: flex; gap: 20px; flex-wrap: wrap;">
-    　　　　　　　　　　  <!-- 核心修改：href改为谷歌表单链接，新增target="_blank"打开新窗口 -->
-                        <a href="https://docs.google.com/forms/d/1LZ1951Rfi1HiNjhuCpRNbASVxDDVLfrhoNPXqvJc8fg/edit" 
-                           class="btn btn-primary" 
-                           target="_blank" 
-                           rel="noopener noreferrer">エントリー受付中</a>
-                        <a href="https://docs.google.com/forms/d/1S0lRA8eizQDZ_yXrklZ7SI2jhQFxfUKVZ9zbkl6Xga4/edit" 
-                           class="btn btn-outline"
-                           target="_blank"
-                           rel="noopener noreferrer">新たな自分へ</a>
-                    </div>
+　　　　　　　　　　　<div style="
+    display: flex;
+    flex-direction: row;
+    align-items: center; /* 强制垂直同一水平线 */
+    justify-content: flex-start; /* 整体左移 */
+    gap: 20px;
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto;
+    padding-left: 0;
+    box-sizing: border-box;
+    -webkit-box-sizing: border-box; /* 兼容Safari/iPhone */
+">
+    <!-- エントリー受付中按钮（左移+固定高度+跳转指定链接） -->
+    <a href="https://docs.google.com/forms/d/1LZ1951Rfi1HiNjhuCpRNbASVxDDVLfrhoNPXqvJc8fg/edit" 
+       class="btn btn-primary" 
+       target="_blank" 
+       rel="noopener noreferrer"
+       style="
+           flex: 0 0 auto;
+           height: 60px;
+           line-height: 60px;
+           padding: 0 40px;
+           margin: 0;
+           -webkit-tap-highlight-color: transparent; /* iPhone点击无高亮 */
+       ">
+        エントリー受付中
+    </a>
+    <!-- 新たな自分へ按钮（同高对齐+跳转新的报名链接） -->
+    <a href="https://docs.google.com/forms/d/1S0lRA8eizQDZ_yXrklZ7SI2jhQFxfUKVZ9zbkl6Xga4/edit" 
+       class="btn btn-outline"
+       target="_blank" 
+       rel="noopener noreferrer"
+       style="
+           flex: 0 0 auto;
+           height: 60px; /* 和左侧按钮同高，严格水平对齐 */
+           line-height: 60px;
+           padding: 0 40px;
+           margin: 0;
+           -webkit-tap-highlight-color: transparent; /* iPhone点击无高亮 */
+       ">
+        新たな自分へ
+    </a>
+</div>
                 </div>
                 <div style="flex: 1 1 300px; display: flex; justify-content: center;">
                     <div class="gate-visual">
