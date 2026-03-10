@@ -1,45 +1,145 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ja">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Website</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>JKFW Official Site</title>
     <style>
+        /* 重置样式 */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            font-family: 'Helvetica Neue', Arial, sans-serif;
         }
+
         body {
-            position: relative;
+            color: #fff;
+            overflow-x: hidden;
+        }
+
+        /* 视频背景容器 */
+        .video-bg-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: -3;
             overflow: hidden;
         }
-        .video-background {
+
+        /* 视频样式：全屏覆盖，保持比例 */
+        .video-bg {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0.85;
+        }
+
+        /* 视频遮罩：保证文字清晰 */
+        .video-overlay {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            z-index: -1;
-        }
-        .content {
-            position: relative;
+            background: rgba(10, 26, 47, 0.6);
             z-index: 1;
-            color: white;
-            text-align: center;
-            padding: 20px;
+        }
+
+        /* 页面内容容器 */
+        .container {
+            position: relative;
+            z-index: 2;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        /* 导航栏 */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 80px;
+        }
+
+        .logo {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #fff;
+            text-decoration: none;
+        }
+
+        .nav-links a {
+            color: #fff;
+            text-decoration: none;
+            margin-left: 30px;
+            font-size: 1rem;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: #87CEEB;
+        }
+
+        /* 主标题 */
+        .main-title {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            line-height: 1.2;
+        }
+
+        .sub-title {
+            font-size: 1.5rem;
+            color: #ddd;
+            margin-bottom: 60px;
+        }
+
+        /* 按钮样式 */
+        .cta-btn {
+            display: inline-block;
+            padding: 15px 30px;
+            background: #1E90FF;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            transition: background 0.3s;
+        }
+
+        .cta-btn:hover {
+            background: #00BFFF;
         }
     </style>
 </head>
 <body>
-    <video autoplay muted loop class="video-background">
-        <source src="background-video.mp4" type="video/mp4">
-        Your browser does not support the video tag.
-    </video>
-    <div class="content">
-        <h1>Welcome to My Website</h1>
-        <p>This is a sample website with a video background.</p>
+    <!-- 视频背景 -->
+    <div class="video-bg-container">
+        <video class="video-bg" autoplay muted loop playsinline>
+            <!-- 你的视频 Raw 链接（已适配） -->
+            <source src="https://raw.githubusercontent.com/piggymiku-T/jkfw-official.github.io/main/videos/videosbackground.mp4" type="video/mp4">
+            您的浏览器不支持视频播放，请升级浏览器。
+        </video>
+        <div class="video-overlay"></div>
+    </div>
+
+    <!-- 页面内容 -->
+    <div class="container">
+        <div class="navbar">
+            <a href="#" class="logo">JKFW</a>
+            <div class="nav-links">
+                <a href="#concept">コンセプト</a>
+                <a href="#theme">テーマ</a>
+                <a href="#entry">エントリー</a>
+                <a href="#contact">お問合せ</a>
+            </div>
+        </div>
+
+        <h1 class="main-title">深海への一歩</h1>
+        <p class="sub-title">JKFW 2026 オフィシャルサイト</p>
+        <a href="#entry" class="cta-btn">エントリーする</a>
     </div>
 </body>
 </html>
