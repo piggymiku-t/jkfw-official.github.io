@@ -502,20 +502,18 @@ body {
                     </div>
                 </div>
             </div>
-<!-- CONCEPT（完全重构：交替排版+等比布局+多端兼容+高可读性） -->
+<!-- CONCEPT（最终版：交替图文+4大价值观横向图片卡片+全端兼容） -->
 <section id="concept" class="section">
     <h2 class="section-title">OUR TEAM CONCEPT</h2>
     <p class="section-sub">子どもの可能性は無限大 —— 夢を叶える舞台を提供し、未来への一歩を踏み出す瞬間を創り出す</p>
 
     <!-- 1. 核心理念：左图右文（PC端） -->
     <div class="concept-block concept-left-img">
-        <!-- 图片：PC占50%，手机占100% -->
         <div class="concept-img-wrap">
             <img src="images/concept01.jpg" 
                  alt="子どもの可能性は無限大" 
                  class="concept-img">
         </div>
-        <!-- 文字：毛玻璃背景+抗干扰，PC占50%，手机占100% -->
         <div class="concept-text-wrap">
             <p class="concept-main-title">Possibility of all|子どもの可能性は無限大</p>
             <p class="concept-desc">
@@ -525,9 +523,8 @@ body {
         </div>
     </div>
 
-    <!-- 2. 公正公平：右图左文（PC端），视觉对称 -->
+    <!-- 2. 公正公平：右图左文（PC端） -->
     <div class="concept-block concept-right-img">
-        <!-- 文字：毛玻璃背景+抗干扰 -->
         <div class="concept-text-wrap">
             <p class="concept-main-title">A truly fair stage for all|公正･公平な評価を目指す</p>
             <p class="concept-desc">
@@ -535,7 +532,6 @@ body {
                 このステージは、子どもたち一人ひとりの輝きを引き出し、その個性を尊重する場です。
             </p>
         </div>
-        <!-- 图片：替换为你的concept02.jpg（需先上传到images文件夹） -->
         <div class="concept-img-wrap">
             <img src="images/concept02.jpg" 
                  alt="公正･公平な評価" 
@@ -543,20 +539,65 @@ body {
         </div>
     </div>
 
-    <!-- 3. 4大价值观卡片（保留原有风格，优化移动端适配） -->
+    <!-- 3. 4大价值观：横向图片卡片（同一水平线） -->
     <div class="concept-values">
         <h3 class="values-title">Core Values | 核となる価値観</h3>
-        <div class="grid-4">
-            <div class="card"><span style="font-size:40px;">🤝</span><h3 style="margin:15px 0;">FRIENDSHIP</h3><p>同じ志をもった仲間と切磋琢磨</p></div>
-            <div class="card"><span style="font-size:40px;">✨</span><h3 style="margin:15px 0;">UNIQUE</h3><p>一人ひとりの「異なる光」を見つける</p></div>
-            <div class="card"><span style="font-size:40px;">🚀</span><h3 style="margin:15px 0;">FUTURE</h3><p>目指すはその先の未来</p></div>
-            <div class="card"><span style="font-size:40px;">👨‍👩‍👧</span><h3 style="margin:15px 0;">FAMILY</h3><p>親と子の新たな関係性</p></div>
+        <!-- 4列横向布局容器 -->
+        <div class="values-grid">
+            <!-- 1. FRIENDSHIP -->
+            <div class="value-card">
+                <div class="value-img-wrap">
+                    <img src="images/friendship.jpg" 
+                         alt="FRIENDSHIP" 
+                         class="value-img">
+                </div>
+                <div class="value-text-wrap">
+                    <h4 class="value-title">FRIENDSHIP</h4>
+                    <p class="value-desc">同じ志をもった仲間と切磋琢磨</p>
+                </div>
+            </div>
+            <!-- 2. UNIQUE -->
+            <div class="value-card">
+                <div class="value-img-wrap">
+                    <img src="images/lights.jpg" 
+                         alt="UNIQUE" 
+                         class="value-img">
+                </div>
+                <div class="value-text-wrap">
+                    <h4 class="value-title">UNIQUE</h4>
+                    <p class="value-desc">一人ひとりの「異なる光」を見つける</p>
+                </div>
+            </div>
+            <!-- 3. FUTURE -->
+            <div class="value-card">
+                <div class="value-img-wrap">
+                    <img src="images/future.jpg" 
+                         alt="FUTURE" 
+                         class="value-img">
+                </div>
+                <div class="value-text-wrap">
+                    <h4 class="value-title">FUTURE</h4>
+                    <p class="value-desc">目指すはその先の未来</p>
+                </div>
+            </div>
+            <!-- 4. FAMILY -->
+            <div class="value-card">
+                <div class="value-img-wrap">
+                    <img src="images/family.jpg" 
+                         alt="FAMILY" 
+                         class="value-img">
+                </div>
+                <div class="value-text-wrap">
+                    <h4 class="value-title">FAMILY</h4>
+                    <p class="value-desc">親と子の新たな関係性</p>
+                </div>
+            </div>
         </div>
     </div>
 
-    <!-- 新增：多端兼容的核心样式（嵌入板块内，避免与全局冲突） -->
+    <!-- 全局样式：包含所有兼容+布局规则 -->
     <style>
-        /* 基础布局：图文等比，交替排版 */
+        /* ========== 基础图文布局 ========== */
         .concept-block {
             display: flex;
             flex-wrap: wrap;
@@ -564,44 +605,37 @@ body {
             margin: 60px 0;
             align-items: center;
             width: 100%;
+            box-sizing: border-box;
+            -webkit-box-sizing: border-box;
         }
-        /* PC端：左图右文 */
-        .concept-left-img {
-            flex-direction: row;
-        }
-        /* PC端：右图左文（对称） */
-        .concept-right-img {
-            flex-direction: row-reverse;
-        }
-        /* 图文容器：PC各占50%，手机100% */
+        .concept-left-img { flex-direction: row; }
+        .concept-right-img { flex-direction: row-reverse; }
         .concept-img-wrap, .concept-text-wrap {
-            flex: 1 1 450px; /* 核心：小于450px自动堆叠，大于则各占50% */
+            flex: 1 1 450px; /* PC各50%，手机100% */
             width: 100%;
+            box-sizing: border-box;
+            -webkit-box-sizing: border-box;
         }
-        /* 图片样式：统一尺寸+圆角+阴影，适配多端 */
         .concept-img {
             width: 100%;
-            max-width: 550px; /* 最大宽度，避免过大 */
-            height: auto; /* 保持比例，不拉伸 */
+            max-width: 550px;
+            height: auto;
             border-radius: 20px;
             box-shadow: 0 10px 30px rgba(0,212,200,0.15);
             border: 1px solid rgba(0,212,200,0.2);
             display: block;
-            margin: 0 auto; /* 居中显示 */
+            margin: 0 auto;
         }
-        /* 文字容器：毛玻璃背景，解决动态背景干扰问题 */
         .concept-text-wrap {
             padding: 35px 40px;
             border-radius: 24px;
-            /* 毛玻璃核心：兼容Safari/Chrome/华为浏览器 */
             background: rgba(10,26,47,0.85);
             backdrop-filter: blur(8px);
             -webkit-backdrop-filter: blur(8px);
             border: 1px solid rgba(255,255,255,0.1);
         }
-        /* 文字样式层级：提升可读性 */
         .concept-main-title {
-            font-size: clamp(18px, 3vw, 24px); /* 响应式字号：手机18px，大屏24px */
+            font-size: clamp(18px, 3vw, 24px);
             font-weight: 700;
             color: var(--biolight);
             margin-bottom: 16px;
@@ -619,17 +653,84 @@ body {
             color: var(--metamorph-gold);
             font-weight: 600;
         }
-        /* 价值观板块适配 */
+
+        /* ========== 4大价值观横向布局 ========== */
         .concept-values {
-            margin: 80px 0 20px;
+            margin: 80px 0 40px;
+            width: 100%;
+            box-sizing: border-box;
         }
         .values-title {
             font-size: clamp(16px, 2.5vw, 22px);
             font-weight: 700;
             color: var(--data-white);
             margin-bottom: 30px;
+            text-align: center; /* 标题居中，更美观 */
         }
-        /* 移动端（768px以下）：强制堆叠，取消交替，统一居中 */
+        /* 核心：4列横向等宽布局 */
+        .values-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); /* 自动适配列数 */
+            gap: 20px; /* 卡片间距 */
+            width: 100%;
+        }
+        /* 价值观卡片样式 */
+        .value-card {
+            background: rgba(10,26,47,0.8);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            border: 1px solid rgba(0,212,200,0.2);
+            border-radius: 16px;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease; /* 悬浮动效 */
+        }
+        .value-card:hover {
+            transform: translateY(-5px); /* 悬浮上移，提升交互感 */
+        }
+        /* 卡片图片容器 */
+        .value-img-wrap {
+            width: 100%;
+            height: 150px; /* 统一图片高度，保证对齐 */
+            overflow: hidden;
+            border-radius: 12px;
+            margin-bottom: 15px;
+        }
+        .value-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* 图片裁剪填充，不变形 */
+            transition: transform 0.3s ease;
+        }
+        .value-card:hover .value-img {
+            transform: scale(1.05); /* 悬浮图片放大，增强视觉 */
+        }
+        /* 卡片文字样式 */
+        .value-title {
+            font-size: clamp(16px, 2vw, 18px);
+            font-weight: 700;
+            color: var(--metamorph-gold);
+            margin-bottom: 8px;
+        }
+        .value-desc {
+            font-size: clamp(12px, 1.5vw, 14px);
+            color: rgba(240,248,255,0.9);
+            line-height: 1.5;
+        }
+
+        /* ========== 多端兼容媒体查询 ========== */
+        /* 平板端（768-1024px）：2列布局 */
+        @media (max-width: 1024px) and (min-width: 768px) {
+            .values-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 25px;
+            }
+            .value-img-wrap {
+                height: 180px; /* 平板端图片更高 */
+            }
+        }
+        /* 手机端（768px以下）：1列布局 + 适配 */
         @media (max-width: 768px) {
             .concept-left-img, .concept-right-img {
                 flex-direction: column;
@@ -638,14 +739,37 @@ body {
                 padding: 25px 20px;
             }
             .concept-img {
-                max-width: 100%; /* 手机端图片铺满容器 */
+                max-width: 100%;
+            }
+            .values-grid {
+                grid-template-columns: 1fr; /* 1列 */
+                gap: 15px;
+            }
+            .value-img-wrap {
+                height: 200px; /* 手机端图片更高，更易看 */
+            }
+            .value-card {
+                padding: 18px;
             }
         }
-        /* Safari特殊兼容：修复毛玻璃失效 */
+
+        /* ========== Safari/华为浏览器兼容 ========== */
         @supports not (backdrop-filter: blur(8px)) and (-webkit-backdrop-filter: blur(8px)) {
-            .concept-text-wrap {
-                background: rgba(10,26,47,0.9); /* Safari不支持毛玻璃时，加深背景色 */
+            .concept-text-wrap, .value-card {
+                background: rgba(10,26,47,0.95); /* 降级加深背景 */
             }
+        }
+        /* 取消iPhone点击高亮 */
+        .value-card, .concept-text-wrap {
+            -webkit-tap-highlight-color: transparent;
+            touch-action: manipulation;
+        }
+        /* 全局盒模型兼容 */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-box-sizing: border-box;
         }
     </style>
 </section>
