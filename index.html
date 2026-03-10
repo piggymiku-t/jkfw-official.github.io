@@ -502,79 +502,153 @@ body {
                     </div>
                 </div>
             </div>
-        </section>
-
-        <!-- CONCEPT -->
-        <section id="concept" class="section">
+<!-- CONCEPT（完全重构：交替排版+等比布局+多端兼容+高可读性） -->
+<section id="concept" class="section">
     <h2 class="section-title">OUR TEAM CONCEPT</h2>
     <p class="section-sub">子どもの可能性は無限大 —— 夢を叶える舞台を提供し、未来への一歩を踏み出す瞬間を創り出す</p>
 
-    <!-- PDF核心理念：子どもの可能性は無限大 -->
-    <div style="margin: 60px 0; display: flex; flex-wrap: wrap; gap: 40px; align-items: center;">
-        <!-- 替换为你的PPT图片1（核心理念页） -->
-        <img src="images/concept01.jpg" 
-             alt="子どもの可能性は無限大" 
-             style="flex: 1 1 350px; max-width: 550px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,212,200,0.15); border: 1px solid rgba(0,212,200,0.2);">
-        <div style="flex: 2 1 450px;">
-            <p style="font-size: 24px; font-weight: 700; color: var(--biolight); margin-bottom: 20px;">「子どもの可能性は無限大」</p>
-            <p style="font-size: 18px; line-height: 1.8; color: rgba(240,248,255,0.9); margin-bottom: 20px;">
+    <!-- 1. 核心理念：左图右文（PC端） -->
+    <div class="concept-block concept-left-img">
+        <!-- 图片：PC占50%，手机占100% -->
+        <div class="concept-img-wrap">
+            <img src="images/concept01.jpg" 
+                 alt="子どもの可能性は無限大" 
+                 class="concept-img">
+        </div>
+        <!-- 文字：毛玻璃背景+抗干扰，PC占50%，手机占100% -->
+        <div class="concept-text-wrap">
+            <p class="concept-main-title">「子どもの可能性は無限大」</p>
+            <p class="concept-desc">
                 子ども達の視野が広がり人間形成にも役立ちます。その視野を日本国内だけでなく、もっと世界に目を向け、異文化の考え方も吸収しながら、より多くの選択肢から自分に合った将来像を見つけてほしい。
             </p>
-            <p style="font-size: 18px; line-height: 1.8; color: var(--metamorph-gold); font-weight: 600;">
-                2026年は深海へ。生命の源から、未来の自分を孵す。
+            <p class="concept-highlight">2026年は深海へ。生命の源から、未来の自分を孵す。</p>
+        </div>
+    </div>
+
+    <!-- 2. 公正公平：右图左文（PC端），视觉对称 -->
+    <div class="concept-block concept-right-img">
+        <!-- 文字：毛玻璃背景+抗干扰 -->
+        <div class="concept-text-wrap">
+            <p class="concept-main-title">A truly fair stage for all | 公正･公平な評価を目指す</p>
+            <p class="concept-desc">
+                Japan Kids Fashion Week では、すべての子どもたちが平等にその才能を評価されるステージを提供しています。出身や所属する事務所の規模に関わらず、すべての参加者が同じチャンスを手にします。<br>
+                このステージは、子どもたち一人ひとりの輝きを引き出し、その個性を尊重する場です。
             </p>
         </div>
-            </div>
+        <!-- 图片：替换为你的concept02.jpg（需先上传到images文件夹） -->
+        <div class="concept-img-wrap">
+            <img src="images/concept02.jpg" 
+                 alt="公正･公平な評価" 
+                 class="concept-img">
+        </div>
+    </div>
 
-             <!-- 补充：公正･公平な評価を目指す -->
-  <div style="margin: 80px 0; background: linear-gradient(135deg, rgba(0,212,200,0.08), transparent); padding: 40px; border-radius: 24px; border-left: 4px solid var(--biolight);">
-    <!-- 替换为你的PPT图片1（核心理念页） -->
-        <img src="images/concept02.jpg" 
-      <h3 style="font-size: 22px; font-weight: 700; margin-bottom: 16px; color: var(--biolight);">A truly fair stage for all | 公正･公平な評価を目指す</h3>
-    <p style="font-size: 17px; line-height: 1.7; color: rgba(240,248,255,0.9);">
-      Japan Kids Fashion Week では、すべての子どもたちが平等にその才能を評価されるステージを提供しています。出身や所属する事務所の規模に関わらず、すべての参加者が同じチャンスを手にします。<br>
-      このステージは、子どもたち一人ひとりの輝きを引き出し、その個性を尊重する場です。
-    </p>
-  </div>
-            <div class="grid-4">
-                <div class="card"><span style="font-size:40px;">🤝</span><h3 style="margin:15px 0;">FRIENDSHIP</h3><p>同じ志をもった仲間と切磋琢磨</p></div>
-                <div class="card"><span style="font-size:40px;">✨</span><h3 style="margin:15px 0;">UNIQUE</h3><p>一人ひとりの「異なる光」を見つける</p></div>
-                <div class="card"><span style="font-size:40px;">🚀</span><h3 style="margin:15px 0;">FUTURE</h3><p>目指すはその先の未来</p></div>
-                <div class="card"><span style="font-size:40px;">👨‍👩‍👧</span><h3 style="margin:15px 0;">FAMILY</h3><p>親と子の新たな関係性</p></div>
-            </div>
-        </section>
+    <!-- 3. 4大价值观卡片（保留原有风格，优化移动端适配） -->
+    <div class="concept-values">
+        <h3 class="values-title">Core Values | 核となる価値観</h3>
+        <div class="grid-4">
+            <div class="card"><span style="font-size:40px;">🤝</span><h3 style="margin:15px 0;">FRIENDSHIP</h3><p>同じ志をもった仲間と切磋琢磨</p></div>
+            <div class="card"><span style="font-size:40px;">✨</span><h3 style="margin:15px 0;">UNIQUE</h3><p>一人ひとりの「異なる光」を見つける</p></div>
+            <div class="card"><span style="font-size:40px;">🚀</span><h3 style="margin:15px 0;">FUTURE</h3><p>目指すはその先の未来</p></div>
+            <div class="card"><span style="font-size:40px;">👨‍👩‍👧</span><h3 style="margin:15px 0;">FAMILY</h3><p>親と子の新たな関係性</p></div>
+        </div>
+    </div>
 
-        <!-- THEME -->
-        <section id="theme" class="section">
-            <h2 class="section-title">DEEP OCEAN <span style="color:var(--biolight);">× NATUREVERSE</span></h2>
-            <p class="section-sub">生命の源「深海」とデジタルの深淵。建築家・坂茂氏の「森を飛ぶ竜」で、生命への感謝を紡ぐ。</p>
-            <div style="background: linear-gradient(145deg, rgba(0,212,200,0.1), transparent); padding: 40px; border-radius: 32px;">
-                <p style="font-size: 22px; font-weight: 700; margin-bottom: 20px;">—— 深海が孵す、新しいわたし。</p>
-                <p>会場となる淡路島・NATUREVERSE施設は、座禅・ヨガ・瞑想の聖域。木造のドームはまさに深海から昇る龍の姿。その背骨をランウェイに変え、リアルとバーチャルが交錯する叙事詩が始まります。</p>
-            </div>
-        </section>
-
-        <!-- DUAL STAGE -->
-        <section id="dual" class="section">
-            <h2 class="section-title">DUAL STAGE <span style="color:var(--biolight);">二つの深海</span></h2>
-            <div class="grid-3">
-                <div class="card">
-                    <div style="font-size: 48px;">🌊</div>
-                    <h3>REAL ME</h3>
-                    <p>身体性を纏い、深海の光が降り注ぐリアルランウェイ。プロの指導、本番の舞台、世界への扉。</p>
-                </div>
-                <div class="card">
-                    <div style="font-size: 48px;">🧬</div>
-                    <h3>VIRTUAL BEING</h3>
-                    <p>場所も身体も越えて。3Dアバターで深海を翔ける。デジタル衣装、メタバース展覧会。</p>
-                </div>
-                <div class="card">
-                    <div style="font-size: 48px;">🤝</div>
-                    <h3>TWIN DESIGN</h3>
-                    <p>リアルとバーチャルのペアで一つのコンセプトを具現化。新しい才能の形。</p>
-                </div>
-            </div>
-        </section>
+    <!-- 新增：多端兼容的核心样式（嵌入板块内，避免与全局冲突） -->
+    <style>
+        /* 基础布局：图文等比，交替排版 */
+        .concept-block {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+            margin: 60px 0;
+            align-items: center;
+            width: 100%;
+        }
+        /* PC端：左图右文 */
+        .concept-left-img {
+            flex-direction: row;
+        }
+        /* PC端：右图左文（对称） */
+        .concept-right-img {
+            flex-direction: row-reverse;
+        }
+        /* 图文容器：PC各占50%，手机100% */
+        .concept-img-wrap, .concept-text-wrap {
+            flex: 1 1 450px; /* 核心：小于450px自动堆叠，大于则各占50% */
+            width: 100%;
+        }
+        /* 图片样式：统一尺寸+圆角+阴影，适配多端 */
+        .concept-img {
+            width: 100%;
+            max-width: 550px; /* 最大宽度，避免过大 */
+            height: auto; /* 保持比例，不拉伸 */
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,212,200,0.15);
+            border: 1px solid rgba(0,212,200,0.2);
+            display: block;
+            margin: 0 auto; /* 居中显示 */
+        }
+        /* 文字容器：毛玻璃背景，解决动态背景干扰问题 */
+        .concept-text-wrap {
+            padding: 35px 40px;
+            border-radius: 24px;
+            /* 毛玻璃核心：兼容Safari/Chrome/华为浏览器 */
+            background: rgba(10,26,47,0.85);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+        /* 文字样式层级：提升可读性 */
+        .concept-main-title {
+            font-size: clamp(18px, 3vw, 24px); /* 响应式字号：手机18px，大屏24px */
+            font-weight: 700;
+            color: var(--biolight);
+            margin-bottom: 16px;
+            line-height: 1.4;
+        }
+        .concept-desc {
+            font-size: clamp(14px, 2vw, 17px);
+            line-height: 1.7;
+            color: rgba(240,248,255,0.9);
+            margin-bottom: 16px;
+        }
+        .concept-highlight {
+            font-size: clamp(14px, 2vw, 17px);
+            line-height: 1.7;
+            color: var(--metamorph-gold);
+            font-weight: 600;
+        }
+        /* 价值观板块适配 */
+        .concept-values {
+            margin: 80px 0 20px;
+        }
+        .values-title {
+            font-size: clamp(16px, 2.5vw, 22px);
+            font-weight: 700;
+            color: var(--data-white);
+            margin-bottom: 30px;
+        }
+        /* 移动端（768px以下）：强制堆叠，取消交替，统一居中 */
+        @media (max-width: 768px) {
+            .concept-left-img, .concept-right-img {
+                flex-direction: column;
+            }
+            .concept-text-wrap {
+                padding: 25px 20px;
+            }
+            .concept-img {
+                max-width: 100%; /* 手机端图片铺满容器 */
+            }
+        }
+        /* Safari特殊兼容：修复毛玻璃失效 */
+        @supports not (backdrop-filter: blur(8px)) and (-webkit-backdrop-filter: blur(8px)) {
+            .concept-text-wrap {
+                background: rgba(10,26,47,0.9); /* Safari不支持毛玻璃时，加深背景色 */
+            }
+        }
+    </style>
+</section>
 
         <!-- STATS -->
         <section id="stats" class="section">
