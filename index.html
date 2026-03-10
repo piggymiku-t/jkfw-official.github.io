@@ -6,6 +6,56 @@
     <title>JKFW 2026 深海DeepOcean | Japan Kids Fashion Week</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300..800&display=swap" rel="stylesheet">
     <style>
+        /* 多端兼容核心样式（iPhone/macOS/Safari/华为浏览器适配） */
+/* 1. 重置浏览器默认样式 */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box; /* 统一盒模型，多端尺寸一致 */
+    -webkit-box-sizing: border-box; /* 兼容Safari/iPhone */
+}
+
+/* 2. 适配iPhone/iPad的触摸交互 */
+.btn {
+    -webkit-tap-highlight-color: transparent; /* 取消iPhone点击高亮 */
+    touch-action: manipulation; /* 优化移动端点击响应 */
+}
+
+/* 3. Safari视频兼容（解决iPhone视频不播放/显示问题） */
+.bg-video {
+    -webkit-object-fit: cover; /* 兼容Safari的object-fit */
+    object-fit: cover;
+    -webkit-mask-image: -webkit-radial-gradient(white, black); /* 修复Safari视频遮罩 */
+}
+
+/* 4. 响应式适配（iPhone小屏自动调整按钮） */
+@media (max-width: 768px) { /* iPhone竖屏/平板小屏 */
+    .btn {
+        height: 50px !important;
+        line-height: 50px !important;
+        padding: 0 20px !important;
+        font-size: 14px !important;
+    }
+    /* 小屏按钮自动换行，避免挤压 */
+    .btn-container {
+        flex-direction: column !important;
+        gap: 15px !important;
+        align-items: flex-start !important;
+    }
+}
+
+/* 5. macOS/Safari文字渲染兼容 */
+body {
+    -webkit-font-smoothing: antialiased; /* Safari文字抗锯齿 */
+    -moz-osx-font-smoothing: grayscale; /* macOS文字渲染优化 */
+    text-rendering: optimizeLegibility; /* 提升文字可读性 */
+}
+
+/* 6. 导航栏多端兼容 */
+.nav-links a {
+    -webkit-transition: all 0.3s ease; /* Safari过渡动画兼容 */
+    transition: all 0.3s ease;
+}
         /* ==== 深海孵化色盘 & 重置 ==== */
         * {
             margin: 0;
@@ -396,7 +446,8 @@
                     </h1>
                     <p style="font-size: 18px; color: rgba(240,248,255,0.9); max-width: 600px; margin-bottom: 30px;">
                         「夢や希望を持つこと」は一人ひとりに与えられた権利。<br>
-                        JKFW2026は、深海が孵す新たなステージ。リアルとバーチャル、二つの深海へ。
+                        JKFW2026は、深海が孵す新たなステージ。<br>
+                        リアルとバーチャル、二つの深海へ。
                     </p>
                     <!-- 替换原HERO区域的按钮代码 -->
 　　　　　　　　　　　<div style="
