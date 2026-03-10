@@ -6,34 +6,13 @@
     <title>JKFW 2026 深海DeepOcean | Japan Kids Fashion Week</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300..800&display=swap" rel="stylesheet">
     <style>
-       /* ==== 仅新增这一段视频样式，原有样式全部保留 ==== */
-/* 视频背景容器 */
-.video-bg-container {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    z-index: -999; /* 极低层级，确保不遮挡任何内容 */
-    overflow: hidden;
-}
-/* 视频样式 */
-.bg-video {
-    width: 100%;
-    height: 100%;
-    object-fit: cover; /* 全屏铺满不拉伸 */
-    opacity: 0.85; /* 透明度和原背景一致 */
-}
-/* 视频遮罩（保证文字清晰） */
-.video-overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(10,26,47,0.6); /* 和原背景色匹配 */
-    z-index: 1;
-}
+        /* ==== 深海孵化色盘 & 重置 ==== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
         :root {
             --abyss: #0A1A2F;
             --deep-blue: #0C2738;
@@ -45,36 +24,40 @@
             --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
         }
 
-      <body>
-    <!-- ==== 仅新增这一段视频代码，其余所有内容都保留 ==== -->
-    <div class="video-bg-container">
-        <video class="bg-video" autoplay loop muted playsinline>
-            <source src="https://raw.githubusercontent.com/piggymiku-T/jkfw-official.github.io/main/videos/videosbackground.mp4" type="video/mp4">
-        </video>
-        <div class="video-overlay"></div>
-    </div>
+        body {
+            font-family: var(--font-sans);
+            background-color: var(--abyss);
+            color: var(--data-white);
+            line-height: 1.7;
+            overflow-x: hidden;
+            margin: 0;
+            min-height: 100vh;
+        }
 
-    <!-- 以下所有你的原有代码（包括banner、气泡、下方活动介绍）全部保留，一字不删 -->
-    <canvas id="bubble-canvas"></canvas>
-    <div class="container">
-        <!-- 你的导航、主banner、下方所有活动介绍板块 -->
-        ...（原代码全部保留）
-    </div>
-</body>
-
-        /* 深海静态背景 (颜色层) */
-        .deep-bg {
-            .deep-bg {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    /* https://imgur.com/a/tJW6KU6 */
-    background: url("https://imgur.com/a/tJW6KU6") no-repeat center center;
-    background-size: cover; /* 图片铺满屏幕 */
-    z-index: -2;
-}
+        /* ==== 新增：视频背景样式 (替换原静态背景) ==== */
+        .video-bg-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: -2; /* 保持和原deep-bg相同层级 */
+            overflow: hidden;
+        }
+        .bg-video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* 视频全屏铺满不拉伸 */
+            opacity: 0.85; /* 和原背景透明度匹配 */
+        }
+        .video-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(10,26,47,0.6); /* 匹配原背景遮罩 */
+            z-index: 1;
         }
 
         /* 气泡粒子画布 (鼠标交互) */
@@ -375,8 +358,13 @@
     </style>
 </head>
 <body>
-    <!-- 深海静态背景 (固定) -->
-    <div class="deep-bg"></div>
+    <!-- ==== 替换：视频背景 (替换原deep-bg静态背景) ==== -->
+    <div class="video-bg-container">
+        <video class="bg-video" autoplay loop muted playsinline>
+            <source src="https://raw.githubusercontent.com/piggymiku-T/jkfw-official.github.io/main/videos/videosbackground.mp4" type="video/mp4">
+        </video>
+        <div class="video-overlay"></div>
+    </div>
 
     <!-- 新增：荧光气泡画布 (鼠标交互) -->
     <canvas id="bubble-canvas"></canvas>
