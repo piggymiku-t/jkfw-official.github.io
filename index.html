@@ -866,5 +866,149 @@
                     <div style="margin-top: 30px;">© 2026 Japan Kids Fashion Week</div>
                 </div>
             </div>
+
+            <!-- 鼠标交互荧光气泡脚本 -->
+    <script>
+        (function() {
+            const canvas = document.getElementById('bubble-canvas');
+            const ctx = canvas.getContext('2d');
+            let width, height;
+            let particles = [];
+            let lastMouseX = 0, lastMouseY = 0;
+            let mouseMoveTimer = null;
+
+            // 调整画布大小
+            function resizeCanvas() {
+                width = window.innerWidth;
+                height = window.innerHeight;
+                canvas.width = width;
+                canvas.height = height;
+            }
+
+            // 在鼠标位置附近生成几个新气泡
+            function spawnBubbles(x, y, count = 2) {
+                for (let i = 0; i < count; i++) {
+                    // 在鼠标周围随机偏移
+                    const offsetX = (Math.random() - 0.5) * 60; // 偏移范围 ±30px
+                    const offsetY = (Math.random() - 0.5) * 40;
+                    const bubble = {
+                        x: (x + offsetX) / width,  // 存储相对位置 0~1
+                        y: (y + offsetY) / height,
+                        size: 4 + Math.random() * 10,       // 4~14px
+                        speedY: 0.0005 + Math.random() * 0.001, // 极慢上升
+                        opacity: 0.4 + Math.random() * 0.3,
+                        life: 1.0,                   // 初始生命值
+                        fadeSpeed: 0.002 + Math.random() * 0.003, // 逐渐淡出
+                        colorType: Math.random() > 0.6 ? 'gold' : 'cyan', // 金或青
+                        phase: Math.random() * Math.PI * 2,   // 水平摆动相位
+                    };
+                    particles.push(bubble);
+                }
+            }
+
+            // 鼠标移动事件处理 (使用节流)
+            function onMouseMove(e) {
+                const x = e.clientX;
+                const y = e.clientY;
+                // 计算移动距离，避免太频繁生成
+                const dist = Math.hypot(x - lastMouseX, y - lastMouseY);
+                if (dist > 30) { // 移动超过30px才生成新气泡
+                    spawnBubbles(x, y, 1); // 每次移动生成1个
+                    lastMouseX = x;
+                    lastMouseY = y;
+                }
+
+                // 清除之前的定时器，实现鼠标停止后不再生成
+                if (mouseMoveTimer) clearTimeout(mouseMoveTimer);
+                mouseMoveTimer = setTimeout(() => {
+                    // 鼠标停止后，不再生成新气泡
+                }, 100);
+            }
+
+            // 更新粒子状态 (上升、淡出)
+            function updateParticles() {
+                for (let i = particles.length - 1; i >= 0; i--) {
+                    const p = particles[i];
+                    // 上升
+                    p.y -= p.speedY;
+                    // 水平微摆动
+                    p.x += Math.sin(Date.now() * 0.001 + p.phase) * 0.0003;
+                    // 生命衰减
+                    p.life -= p.fadeSpeed;
+
+                    // 超出顶部或生命耗尽则移除
+                    if (p.y < 0 || p.life <= 0) {
+                        particles.splice(i, 1);
+                    }
+                }
+            }
+
+            // 绘制所有粒子
+            function drawParticles() {
+                ctx.clearRect(0, 0, width, height);
+                for (let p of particles) {
+                    const x = p.x * width;
+                    const y = p.y * height;
+                    const size = p.size * (0.8 + 0.4 * Math.sin(Date.now() * 0.002 + p.phase)); // 轻微呼吸效果
+
+                    // 根据颜色类型和生命值设置渐变
+                    let color1, color2;
+                    if (p.colorType === 'gold') {
+                        color1 = `rgba(255, 240, 200, ${p.life * 0.8})`;
+                        color2 = `rgba(230, 200, 124, ${p.life * 0.3})`;
+                    } else {
+                        color1 = `rgba(200, 255, 240, ${p.life * 0.8})`;
+                        color2 = `rgba(0, 212, 200, ${p.life * 0.3})`;
+                    }
+                    const gradient = ctx.createRadialGradient(x-2, y-2, 1, x, y, size*1.5);
+                    gradient.addColorStop(0, color1);
+                    gradient.addColorStop(0.6, color2);
+                    gradient.addColorStop(1, 'transparent');
+
+                    ctx.beginPath();
+                    ctx.arc(x, y, size, 0, Math.PI * 2);
+                    ctx.fillStyle = gradient;
+                    ctx.fill();
+
+                    // 加一点内光晕
+                    ctx.beginPath();
+                    ctx.arc(x-1, y-1, size * 0.3, 0, Math.PI * 2);
+                    ctx.fillStyle = `rgba(255,255,255,${p.life * 0.3})`;
+                    ctx.fill();
+                }
+            }
+
+            // 动画循环
+            function animate() {
+                updateParticles();
+                drawParticles();
+                requestAnimationFrame(animate);
+            }
+
+            // 初始化
+            function setup() {
+                resizeCanvas();
+                // 监听鼠标移动
+                window.addEventListener('mousemove', onMouseMove);
+                // 触摸设备支持
+                window.addEventListener('touchmove', (e) => {
+                    e.preventDefault();
+                    if (e.touches.length > 0) {
+                        const touch = e.touches[0];
+                        onMouseMove(touch);
+                    }
+                }, { passive: false });
+                animate();
+            }
+
+            // 窗口大小改变时重置画布
+            window.addEventListener('resize', resizeCanvas);
+
+            setup();
+        })();
+    </script>
+</body>
+</html>
+
         </footer>
     </main>
