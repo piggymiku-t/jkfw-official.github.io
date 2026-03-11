@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.5, user-scalable=yes">
     <title>JKFW 2026 深海DeepOcean | Japan Kids Fashion Week</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300..800&display=swap" rel="stylesheet">
-    <!-- 添加 Font Awesome 用于返回顶部图标（水母） -->
+    <!-- Font Awesome 用于返回顶部图标（水母） -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
         /* ==== 多端兼容核心样式 ==== */
@@ -30,7 +30,7 @@
             overflow-x: hidden;
             margin: 0;
             min-height: 100vh;
-            scroll-behavior: smooth; /* 平滑滚动 */
+            scroll-behavior: smooth;
         }
         .nav-links a {
             -webkit-transition: all 0.3s ease;
@@ -179,7 +179,7 @@
             margin: 40px 0;
         }
         .grid-3 { grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); }
-        .grid-4 { grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); }
+        .grid-4 { grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); }
 
         .card {
             background: rgba(12,39,56,0.5);
@@ -284,7 +284,7 @@
         @keyframes pulse { 0%,100%{opacity:0.9;} 50%{opacity:1;} }
         @keyframes spin { 0%{transform:rotate(0deg);} 100%{transform:rotate(360deg);} }
 
-        /* 模型卡片 (Models 板块专用) */
+        /* 模型卡片 (Models 板块专用，带图片) */
         .model-card {
             background: rgba(10,26,47,0.7);
             backdrop-filter: blur(8px);
@@ -294,15 +294,92 @@
             transition: all 0.3s ease;
             border-left: 4px solid var(--biolight);
             box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
         }
         .model-card:hover {
             transform: translateY(-5px);
             border-left-color: var(--metamorph-gold);
             box-shadow: 0 12px 30px rgba(0,212,200,0.2);
         }
+        .model-photo {
+            width: 120px;
+            height: 140px;
+            border-radius: 16px;
+            overflow: hidden;
+            margin-bottom: 20px;
+            border: 2px solid var(--biolight);
+            box-shadow: 0 0 20px rgba(0,212,200,0.3);
+        }
+        .model-photo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
         .model-card span {
             color: var(--metamorph-gold);
             font-weight: 700;
+            font-size: 18px;
+            display: block;
+            margin-bottom: 6px;
+        }
+        .model-card p {
+            font-size: 14px;
+            color: rgba(240,248,255,0.9);
+        }
+
+        /* 团队卡片 (Team 板块) */
+        .team-card {
+            background: rgba(10,26,47,0.7);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(0,212,200,0.2);
+            border-radius: 20px;
+            padding: 24px;
+            transition: all 0.3s ease;
+            border-top: 4px solid var(--metamorph-gold);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+        .team-card:hover {
+            transform: translateY(-5px);
+            border-top-color: var(--biolight);
+            box-shadow: 0 12px 30px rgba(0,212,200,0.2);
+        }
+        .team-photo {
+            width: 120px;
+            height: 140px;
+            border-radius: 16px;
+            overflow: hidden;
+            margin-bottom: 20px;
+            border: 2px solid var(--metamorph-gold);
+            box-shadow: 0 0 20px rgba(230,200,124,0.3);
+        }
+        .team-photo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .team-name {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--metamorph-gold);
+            margin-bottom: 5px;
+        }
+        .team-title {
+            font-size: 16px;
+            color: var(--biolight);
+            margin-bottom: 12px;
+            font-weight: 600;
+        }
+        .team-desc {
+            font-size: 13px;
+            color: rgba(240,248,255,0.8);
+            line-height: 1.5;
         }
 
         /* VENUE 板块特别样式 */
@@ -411,7 +488,7 @@
             .btn { text-align: center; }
         }
 
-        /* CONCEPT板块样式 */
+        /* CONCEPT板块样式 (保持不变) */
         .concept-block {
             display: flex;
             flex-wrap: wrap;
@@ -537,7 +614,7 @@
             touch-action: manipulation;
         }
 
-        /* ===== 1. 累计数据卡片全新设计 ===== */
+        /* 累计数据卡片全新设计 */
         .milestone-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -603,59 +680,6 @@
             font-weight: 500;
         }
 
-        /* ===== 2. 荧光水母返回顶部按钮 ===== */
-        .jellyfish-top {
-            position: fixed;
-            bottom: 30px;
-            right: 30px;
-            width: 60px;
-            height: 60px;
-            background: rgba(10,26,47,0.7);
-            backdrop-filter: blur(8px);
-            border: 2px solid var(--biolight);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--biolight);
-            font-size: 30px;
-            box-shadow: 0 0 30px rgba(0,212,200,0.5);
-            cursor: pointer;
-            transition: all 0.3s ease;
-            z-index: 1000;
-            animation: float 3s infinite ease-in-out;
-            text-decoration: none;
-        }
-        .jellyfish-top:hover {
-            transform: scale(1.1);
-            background: var(--biolight);
-            color: var(--abyss);
-            box-shadow: 0 0 50px rgba(0,212,200,0.9);
-        }
-        .jellyfish-top i {
-            transition: transform 0.3s;
-        }
-        .jellyfish-top:hover i {
-            transform: translateY(-5px);
-        }
-        @keyframes float {
-            0% { transform: translateY(0px); }
-            50% { transform: translateY(-10px); }
-            100% { transform: translateY(0px); }
-        }
-
-        /* 历史图片样式 */
-        .history-banner {
-            margin-bottom: 40px;
-            text-align: center;
-        }
-        .history-banner img {
-            max-width: 100%;
-            border-radius: 24px;
-            box-shadow: 0 10px 30px rgba(0,212,200,0.3);
-            border: 1px solid rgba(0,212,200,0.4);
-        }
-
         /* 历史时间轴卡片 */
         .history-timeline {
             margin-top: 50px;
@@ -718,10 +742,62 @@
             border-top: 1px dashed rgba(0,212,200,0.3);
             padding-top: 10px;
         }
+
+        /* 荧光水母返回顶部按钮 */
+        .jellyfish-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 60px;
+            height: 60px;
+            background: rgba(10,26,47,0.7);
+            backdrop-filter: blur(8px);
+            border: 2px solid var(--biolight);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--biolight);
+            font-size: 30px;
+            box-shadow: 0 0 30px rgba(0,212,200,0.5);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            z-index: 1000;
+            animation: float 3s infinite ease-in-out;
+            text-decoration: none;
+        }
+        .jellyfish-top:hover {
+            transform: scale(1.1);
+            background: var(--biolight);
+            color: var(--abyss);
+            box-shadow: 0 0 50px rgba(0,212,200,0.9);
+        }
+        .jellyfish-top i {
+            transition: transform 0.3s;
+        }
+        .jellyfish-top:hover i {
+            transform: translateY(-5px);
+        }
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+
+        /* 历史图片横幅 */
+        .history-banner {
+            margin-bottom: 40px;
+            text-align: center;
+        }
+        .history-banner img {
+            max-width: 100%;
+            border-radius: 24px;
+            box-shadow: 0 10px 30px rgba(0,212,200,0.3);
+            border: 1px solid rgba(0,212,200,0.4);
+        }
     </style>
 </head>
-<body id="top"> <!-- 添加id用于返回顶部 -->
-
+<body id="top">
     <!-- 视频背景 & 气泡画布 -->
     <div class="video-bg-container">
         <video class="bg-video" autoplay loop muted playsinline>
@@ -739,6 +815,7 @@
                 <a href="#concept">CONCEPT</a>
                 <a href="#theme">DEEPOCEAN</a>
                 <a href="#stats">HISTORYS</a>
+                <a href="#team">TEAM</a>
                 <a href="#models">MODELS</a>
                 <a href="#venue">VENUE</a>
                 <a href="#entry">ENTRY</a>
@@ -746,9 +823,9 @@
         </div>
     </div>
 
-    <!-- 荧光水母返回顶部按钮（固定右下角） -->
+    <!-- 荧光水母返回顶部按钮 -->
     <a href="#top" class="jellyfish-top" title="トップへ戻る">
-        <i class="fas fa-jellyfish"></i> <!-- FontAwesome 水母图标 (FA6) -->
+        <i class="fas fa-jellyfish"></i>
     </a>
 
     <main class="container">
@@ -860,34 +937,20 @@
             </div>
         </section>
 
-        <!-- ===== STATS 板块 (全新设计卡片) ===== -->
+        <!-- ===== STATS 板块 (历史实绩) ===== -->
         <section id="stats" class="section">
             <h2 class="section-title">ACHIEVEMENTS</h2>
             <!-- 历史图片横幅 -->
             <div class="history-banner">
                 <img src="https://raw.githubusercontent.com/piggymiku-T/jkfw-official.github.io/main/images/history.jpg" alt="JKFW History Timeline">
             </div>
-
-            <!-- 累计数据卡片 (全新设计) -->
+            <!-- 累计数据卡片 -->
             <div class="milestone-grid">
-                <div class="milestone-item">
-                    <div class="milestone-number">3,600+</div>
-                    <div class="milestone-label">総エントリー</div>
-                </div>
-                <div class="milestone-item">
-                    <div class="milestone-number">89k+</div>
-                    <div class="milestone-label">総視聴数(2024)</div>
-                </div>
-                <div class="milestone-item">
-                    <div class="milestone-number">300+</div>
-                    <div class="milestone-label">出演者</div>
-                </div>
-                <div class="milestone-item">
-                    <div class="milestone-number">15+</div>
-                    <div class="milestone-label">国際提携</div>
-                </div>
+                <div class="milestone-item"><div class="milestone-number">3,600+</div><div class="milestone-label">総エントリー</div></div>
+                <div class="milestone-item"><div class="milestone-number">89k+</div><div class="milestone-label">総視聴数(2024)</div></div>
+                <div class="milestone-item"><div class="milestone-number">300+</div><div class="milestone-label">出演者</div></div>
+                <div class="milestone-item"><div class="milestone-number">15+</div><div class="milestone-label">国際提携</div></div>
             </div>
-
             <!-- 历年时间轴卡片 -->
             <div class="history-timeline">
                 <h3 class="values-title" style="margin-top: 60px; margin-bottom: 20px;">HISTORY TIMELINE</h3>
@@ -924,16 +987,124 @@
             </div>
         </section>
 
-        <!-- MODELS 板块 -->
+        <!-- ===== OUR TEAM / DREAMERS 板块 (PDF 43-45页) ===== -->
+        <section id="team" class="section">
+            <h2 class="section-title">OUR TEAM <span style="color:var(--biolight);">DREAMERS</span></h2>
+            <p class="section-sub">未来創の、夢信者集 — 情熱と専門性で子どもたちの夢を支えるチーム</p>
+
+            <!-- 核心团队 (PDF 44页) -->
+            <h3 class="values-title">Core Team | 核心チーム</h3>
+            <div class="grid-3">
+                <!-- 田中英一 -->
+                <div class="team-card">
+                    <div class="team-photo"><img src="images/team-hidekazu.jpg" alt="田中英一"></div>
+                    <div class="team-name">田中英一</div>
+                    <div class="team-title">代表理事</div>
+                    <div class="team-desc">子どもたちの夢を応援し、多くの協力パートナーを結集。彼のリーダーシップのもとJKFWは国際的な成功を収めています。</div>
+                </div>
+                <!-- 田中莉斯 -->
+                <div class="team-card">
+                    <div class="team-photo"><img src="images/team-leesu.jpg" alt="田中莉斯"></div>
+                    <div class="team-name">田中莉斯</div>
+                    <div class="team-title">専務理事</div>
+                    <div class="team-desc">イベント運営を統括し、ステージやパートナーとの調整を担当。彼女の手腕で毎年スムーズに進行しています。</div>
+                </div>
+                <!-- 博林寬曉 -->
+                <div class="team-card">
+                    <div class="team-photo"><img src="images/team-hiroaki.jpg" alt="博林寬曉"></div>
+                    <div class="team-name">博林寬曉</div>
+                    <div class="team-title">顧問（元学校教員）</div>
+                    <div class="team-desc">元学校教員の経験を活かし、ボランティアチームをまとめ、子どもたちをステージへ導きます。</div>
+                </div>
+                <!-- 俞丽丽 -->
+                <div class="team-card">
+                    <div class="team-photo"><img src="images/team-lily.jpg" alt="俞丽丽"></div>
+                    <div class="team-name">俞丽丽</div>
+                    <div class="team-title">海外名誉顧問</div>
+                    <div class="team-desc">香港キッズファッションウィーク創設者。JKFWメンバーと共に子どもたちの夢を応援しています。</div>
+                </div>
+                <!-- 浪江倫子 -->
+                <div class="team-card">
+                    <div class="team-photo"><img src="images/team-michiko.jpg" alt="浪江倫子"></div>
+                    <div class="team-name">浪江倫子</div>
+                    <div class="team-title">一般社団法人 彌榮 代表理事</div>
+                    <div class="team-desc">文化外交を通じて各業界の旗振り役を務め、日本文化の可能性を伝えています。</div>
+                </div>
+            </div>
+
+            <!-- 特别认定讲师 (PDF 45页) -->
+            <h3 class="values-title" style="margin-top: 60px;">Special Instructors | 特別認定講師</h3>
+            <div class="grid-4">
+                <!-- 岩田沙織 -->
+                <div class="team-card">
+                    <div class="team-photo"><img src="images/instructor-saori.jpg" alt="岩田沙織"></div>
+                    <div class="team-name">岩田沙織</div>
+                    <div class="team-title">MRS LEGEND UNIVERSAL2022 準グランプリ</div>
+                    <div class="team-desc">モデルとしての表現力や自信を子どもたちに教え、成長をサポートしています。</div>
+                </div>
+                <!-- 結子 -->
+                <div class="team-card">
+                    <div class="team-photo"><img src="images/instructor-yuiko.jpg" alt="結子"></div>
+                    <div class="team-name">結子</div>
+                    <div class="team-title">World Supermodel Production 2019 世界大会優勝</div>
+                    <div class="team-desc">プロフェッショナルとしての姿勢と世界レベルのパフォーマンスを指導します。</div>
+                </div>
+                <!-- 片岡まこ -->
+                <div class="team-card">
+                    <div class="team-photo"><img src="images/instructor-mako.jpg" alt="片岡まこ"></div>
+                    <div class="team-name">片岡まこ</div>
+                    <div class="team-title">ウェルビーイングディレクター</div>
+                    <div class="team-desc">子どもたちの心身のバランスを整え、内面からの美しさと健康を引き出します。</div>
+                </div>
+                <!-- 浪江倫子 (讲师) -->
+                <div class="team-card">
+                    <div class="team-photo"><img src="images/instructor-michiko.jpg" alt="浪江倫子"></div>
+                    <div class="team-name">浪江倫子</div>
+                    <div class="team-title">特別認定講師</div>
+                    <div class="team-desc">本質や本来の良さを引き出し、コーチングと心理学の要素で心身をより良い方向へ導きます。</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== MODELS 板块 (添加2024冠军) ===== -->
         <section id="models" class="section">
             <h2 class="section-title">JKFW’S MODEL <span style="color:var(--biolight);">ACTIVE WORLDWIDE</span></h2>
             <div class="grid-3">
-                <div class="model-card"><span>MIU</span> (2021 GP) : 2022香港Kids Fashion Week NYチャリティーショー出演</div>
-                <div class="model-card"><span>室はんな</span> (2022準GP) : 2023パリGlobal Kids Fashion Show 総合グランプリ</div>
-                <div class="model-card"><span>さざなみ</span> (2022 BEST HOPE) : 2023パリGlobal Kids キッズ部門グランプリ</div>
-                <div class="model-card"><span>ことみ</span> (2023 GP) : 2023香港CENTRESTAGE HKKFW出演</div>
-                <div class="model-card"><span>AKANE</span> (2023準GP) : 2023韓国SKRW Best Model & 契約・雑誌表紙</div>
-                <div class="model-card"><span>Avery Chan</span> (2023キッズGP) : 2023カナダInternational Fashion Gala出演</div>
+                <!-- 原有6位模特 -->
+                <div class="model-card">
+                    <div class="model-photo"><img src="images/model-miu.jpg" alt="MIU"></div>
+                    <div><span>MIU</span> (2021 GP) : 2022香港Kids Fashion Week NYチャリティーショー出演</div>
+                </div>
+                <div class="model-card">
+                    <div class="model-photo"><img src="images/model-hanna.jpg" alt="室はんな"></div>
+                    <div><span>室はんな</span> (2022準GP) : 2023パリGlobal Kids Fashion Show 総合グランプリ</div>
+                </div>
+                <div class="model-card">
+                    <div class="model-photo"><img src="images/model-sazanami.jpg" alt="さざなみ"></div>
+                    <div><span>さざなみ</span> (2022 BEST HOPE) : 2023パリGlobal Kids キッズ部門グランプリ</div>
+                </div>
+                <div class="model-card">
+                    <div class="model-photo"><img src="images/model-kotomi.jpg" alt="ことみ"></div>
+                    <div><span>ことみ</span> (2023 GP) : 2023香港CENTRESTAGE HKKFW出演</div>
+                </div>
+                <div class="model-card">
+                    <div class="model-photo"><img src="images/model-akane.jpg" alt="AKANE"></div>
+                    <div><span>AKANE</span> (2023準GP) : 2023韓国SKRW Best Model & 契約・雑誌表紙</div>
+                </div>
+                <div class="model-card">
+                    <div class="model-photo"><img src="images/model-avery.jpg" alt="Avery Chan"></div>
+                    <div><span>Avery Chan</span> (2023キッズGP) : 2023カナダInternational Fashion Gala出演</div>
+                </div>
+                <!-- 新增：2024综合冠军 MIKO -->
+                <div class="model-card">
+                    <div class="model-photo"><img src="images/model-miko.jpg" alt="MIKO"></div>
+                    <div><span>MIKO</span> (2024 総合GP) : 2024 KCON JAPAN出演 / 韓国SKRW進出</div>
+                </div>
+                <!-- 新增：2024少儿组冠军 Micheal Taigar -->
+                <div class="model-card">
+                    <div class="model-photo"><img src="images/model-micheal.jpg" alt="Micheal Taigar"></div>
+                    <div><span>Micheal Taigar</span> (2024 キッズ部門GP) : 2024 KCON JAPAN出演 / 日韓文化交流</div>
+                </div>
             </div>
             <p style="margin-top: 40px; text-align: center; font-size: 20px; color: var(--metamorph-gold);">—— 次の深海へ羽ばたくのは、あなた。</p>
         </section>
