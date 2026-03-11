@@ -2,11 +2,11 @@
 <html lang="ja">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.5">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.5, user-scalable=yes">
     <title>JKFW 2026 深海DeepOcean | Japan Kids Fashion Week</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300..800&display=swap" rel="stylesheet">
     <style>
-        /* ==== 多端兼容核心样式 (保持不变，确保基础稳定) ==== */
+        /* ==== 多端兼容核心样式 ==== */
         * {
             margin: 0;
             padding: 0;
@@ -21,13 +21,20 @@
             -webkit-font-smoothing: antialiased;
             -moz-osx-font-smoothing: grayscale;
             text-rendering: optimizeLegibility;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background-color: #0A1A2F;
+            color: #F0F8FF;
+            line-height: 1.7;
+            overflow-x: hidden;
+            margin: 0;
+            min-height: 100vh;
         }
         .nav-links a {
             -webkit-transition: all 0.3s ease;
             transition: all 0.3s ease;
         }
 
-        /* ==== 深海孵化色盘 & 重置 (保持不变) ==== */
+        /* ==== 深海孵化色盘 ==== */
         :root {
             --abyss: #0A1A2F;
             --deep-blue: #0C2738;
@@ -36,20 +43,9 @@
             --data-white: #F0F8FF;
             --wood-brown: #7C6A4D;
             --dark-overlay: rgba(6, 18, 30, 0.85);
-            --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
         }
 
-        body {
-            font-family: var(--font-sans);
-            background-color: var(--abyss);
-            color: var(--data-white);
-            line-height: 1.7;
-            overflow-x: hidden;
-            margin: 0;
-            min-height: 100vh;
-        }
-
-        /* ==== 视频背景 & 气泡画布 (保持不变) ==== */
+        /* ==== 视频背景 & 气泡画布 ==== */
         .video-bg-container {
             position: fixed;
             top: 0;
@@ -82,6 +78,7 @@
             height: 100%;
             pointer-events: none;
             z-index: -1;
+            touch-action: none; /* 确保触摸事件不干扰滚动 */
         }
 
         /* 主容器 */
@@ -284,7 +281,7 @@
         @keyframes pulse { 0%,100%{opacity:0.9;} 50%{opacity:1;} }
         @keyframes spin { 0%{transform:rotate(0deg);} 100%{transform:rotate(360deg);} }
 
-        /* ========== 模型卡片 (Models 板块专用) ========== */
+        /* 模型卡片 (Models 板块专用) */
         .model-card {
             background: rgba(10,26,47,0.7);
             backdrop-filter: blur(8px);
@@ -305,7 +302,7 @@
             font-weight: 700;
         }
 
-        /* ========== VENUE 板块特别样式 ========== */
+        /* VENUE 板块特别样式 */
         .venue-main {
             background: rgba(10,26,47,0.6);
             backdrop-filter: blur(8px);
@@ -346,7 +343,7 @@
             margin-bottom: 15px;
         }
 
-        /* ========== ENTRY 板块细节强化 ========== */
+        /* ENTRY 板块细节强化 */
         .entry-step {
             text-align: center;
             background: rgba(0,212,200,0.05);
@@ -411,7 +408,7 @@
             .btn { text-align: center; }
         }
 
-        /* CONCEPT板块样式 (从您原代码中完整保留) */
+        /* CONCEPT板块样式 (保持不变) */
         .concept-block {
             display: flex;
             flex-wrap: wrap;
@@ -536,10 +533,73 @@
             -webkit-tap-highlight-color: transparent;
             touch-action: manipulation;
         }
+
+        /* ===== 新增：HISTORY 卡片时间轴样式 ===== */
+        .history-timeline {
+            margin-top: 50px;
+        }
+        .history-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 25px;
+            margin-top: 30px;
+        }
+        .history-card {
+            background: rgba(10,26,47,0.7);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(0,212,200,0.3);
+            border-radius: 24px;
+            padding: 30px 20px;
+            text-align: center;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+            position: relative;
+            overflow: hidden;
+        }
+        .history-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--biolight), var(--metamorph-gold));
+        }
+        .history-card:hover {
+            transform: translateY(-8px);
+            border-color: var(--metamorph-gold);
+            box-shadow: 0 15px 30px rgba(0,212,200,0.3);
+        }
+        .history-year {
+            font-size: 42px;
+            font-weight: 800;
+            color: var(--metamorph-gold);
+            line-height: 1;
+            margin-bottom: 15px;
+            text-shadow: 0 0 10px rgba(230,200,124,0.5);
+        }
+        .history-location {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--biolight);
+            margin-bottom: 10px;
+        }
+        .history-detail {
+            font-size: 16px;
+            color: rgba(240,248,255,0.9);
+            margin-bottom: 5px;
+        }
+        .history-support {
+            font-size: 14px;
+            color: rgba(255,255,255,0.6);
+            margin-top: 10px;
+            border-top: 1px dashed rgba(0,212,200,0.3);
+            padding-top: 10px;
+        }
     </style>
 </head>
 <body>
-    <!-- 视频背景 & 气泡画布 (保持不变) -->
+    <!-- 视频背景 & 气泡画布 -->
     <div class="video-bg-container">
         <video class="bg-video" autoplay loop muted playsinline>
             <source src="https://raw.githubusercontent.com/piggymiku-T/jkfw-official.github.io/main/videos/videosbackground.mp4" type="video/mp4">
@@ -548,7 +608,7 @@
     </div>
     <canvas id="bubble-canvas"></canvas>
 
-    <!-- 固定导航 (保持不变) -->
+    <!-- 固定导航 -->
     <div class="container">
         <div class="navbar">
             <div class="logo">JKFW<span>2026</span></div>
@@ -564,7 +624,7 @@
     </div>
 
     <main class="container">
-        <!-- HERO (保持不变) -->
+        <!-- HERO -->
         <section style="padding: 60px 0 80px;">
             <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 50px;">
                 <div style="flex: 1 1 400px;">
@@ -591,11 +651,10 @@
             </div>
         </section>
 
-        <!-- CONCEPT (您原代码的完整板块，此处保持原样) -->
+        <!-- CONCEPT (完整保留) -->
         <section id="concept" class="section">
             <h2 class="section-title">OUR TEAM CONCEPT</h2>
             <p class="section-sub">子どもの可能性は無限大 —— 夢を叶える舞台を提供し、未来への一歩を踏み出す瞬間を創り出す</p>
-            <!-- 1. 核心理念：左图右文（PC端） -->
             <div class="concept-block concept-left-img">
                 <div class="concept-img-wrap">
                     <img src="https://raw.githubusercontent.com/piggymiku-T/jkfw-official.github.io/main/images/concept01.jpg" alt="子どもの可能性は無限大" class="concept-img">
@@ -606,7 +665,6 @@
                     <p class="concept-highlight">2026年は深海へ。生命の源から、未来の自分を孵す。</p>
                 </div>
             </div>
-            <!-- 2. 公正公平：右图左文（PC端） -->
             <div class="concept-block concept-right-img">
                 <div class="concept-text-wrap">
                     <p class="concept-main-title">Truly fair stage for all|公正･公平な評価</p>
@@ -616,51 +674,30 @@
                     <img src="https://raw.githubusercontent.com/piggymiku-T/jkfw-official.github.io/main/images/concept02.jpg" alt="公正･公平な評価" class="concept-img">
                 </div>
             </div>
-            <!-- 3. 4大价值观：横向图片卡片（同一水平线） -->
             <div class="concept-values">
                 <h3 class="values-title">Core Values | 核となる価値観</h3>
                 <div class="values-grid">
                     <div class="value-card">
-                        <div class="value-img-wrap">
-                            <img src="https://raw.githubusercontent.com/piggymiku-T/jkfw-official.github.io/main/images/value-friendship.jpg" alt="FRIENDSHIP" class="value-img">
-                        </div>
-                        <div class="value-text-wrap">
-                            <h4 class="value-title">FRIENDSHIP</h4>
-                            <p class="value-desc">同じ志をもった仲間と切磋琢磨<br>世界中から集まる志の高い仲間と共に歩み、文化や国境を越えた友情を育みます。多様な視点を持つ仲間と過ごす体験は、未来へ進む大きな力となります。</p>
-                        </div>
+                        <div class="value-img-wrap"><img src="https://raw.githubusercontent.com/piggymiku-T/jkfw-official.github.io/main/images/value-friendship.jpg" alt="FRIENDSHIP" class="value-img"></div>
+                        <div class="value-text-wrap"><h4 class="value-title">FRIENDSHIP</h4><p class="value-desc">同じ志をもった仲間と切磋琢磨<br>世界中から集まる志の高い仲間と共に歩み、文化や国境を越えた友情を育みます。多様な視点を持つ仲間と過ごす体験は、未来へ進む大きな力となります。</p></div>
                     </div>
                     <div class="value-card">
-                        <div class="value-img-wrap">
-                            <img src="images/value-unique.jpg.jpg" alt="UNIQUE" class="value-img">
-                        </div>
-                        <div class="value-text-wrap">
-                            <h4 class="value-title">UNIQUE</h4>
-                            <p class="value-desc">一人ひとりの「異なる光」を見つける<br>子どもたち一人ひとりが持つ「異なる光」を見つけ出し、かけがえのない個性を輝かせます。誰もが夢を抱き、その夢に向かう自分だけの光をもっています。</p>
-                        </div>
+                        <div class="value-img-wrap"><img src="images/value-unique.jpg.jpg" alt="UNIQUE" class="value-img"></div>
+                        <div class="value-text-wrap"><h4 class="value-title">UNIQUE</h4><p class="value-desc">一人ひとりの「異なる光」を見つける<br>子どもたち一人ひとりが持つ「異なる光」を見つけ出し、かけがえのない個性を輝かせます。誰もが夢を抱き、その夢に向かう自分だけの光をもっています。</p></div>
                     </div>
                     <div class="value-card">
-                        <div class="value-img-wrap">
-                            <img src="https://raw.githubusercontent.com/piggymiku-T/jkfw-official.github.io/main/images/value-future.jpg" alt="FUTURE" class="value-img">
-                        </div>
-                        <div class="value-text-wrap">
-                            <h4 class="value-title">FUTURE</h4>
-                            <p class="value-desc">目指すはその先の未来<br>ランウェイの先にある未来を見据え、自分の夢に挑戦する子どもたちの世界へ飛び出す扉を開きます。自信を胸に、まだ見ぬ広い世界へと力強く羽ばたきます。</p>
-                        </div>
+                        <div class="value-img-wrap"><img src="https://raw.githubusercontent.com/piggymiku-T/jkfw-official.github.io/main/images/value-future.jpg" alt="FUTURE" class="value-img"></div>
+                        <div class="value-text-wrap"><h4 class="value-title">FUTURE</h4><p class="value-desc">目指すはその先の未来<br>ランウェイの先にある未来を見据え、自分の夢に挑戦する子どもたちの世界へ飛び出す扉を開きます。自信を胸に、まだ見ぬ広い世界へと力強く羽ばたきます。</p></div>
                     </div>
                     <div class="value-card">
-                        <div class="value-img-wrap">
-                            <img src="https://raw.githubusercontent.com/piggymiku-T/jkfw-official.github.io/main/images/value-family.jpg" alt="FAMILY" class="value-img">
-                        </div>
-                        <div class="value-text-wrap">
-                            <h4 class="value-title">FAMILY</h4>
-                            <p class="value-desc">親と子の新たな関係性<br>親子で共に挑戦し、過ごすかけがえのない時間。ランウェイを通じて成長と絆を深める瞬間は、一生忘れられない思い出となり、未来への大切な一歩となります。</p>
-                        </div>
+                        <div class="value-img-wrap"><img src="https://raw.githubusercontent.com/piggymiku-T/jkfw-official.github.io/main/images/value-family.jpg" alt="FAMILY" class="value-img"></div>
+                        <div class="value-text-wrap"><h4 class="value-title">FAMILY</h4><p class="value-desc">親と子の新たな関係性<br>親子で共に挑戦し、過ごすかけがえのない時間。ランウェイを通じて成長と絆を深める瞬間は、一生忘れられない思い出となり、未来への大切な一歩となります。</p></div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- THEME (您原代码的完整板块，此处保持原样) -->
+        <!-- THEME (完整保留) -->
         <section id="theme" class="section">
             <h2 class="section-title">DeepOcean × NATUREVERSE</h2>
             <p class="section-sub">2026年のテーマ「深海」—— 生命の源から未来を孵し、リアルとバーチャルが融合する新たな世界</p>
@@ -687,45 +724,69 @@
             <div class="concept-values">
                 <h3 class="values-title">THEME KEYWORDS | テーマキーワード</h3>
                 <div class="values-grid">
-                    <div class="value-card">
-                        <div class="value-img-wrap"><img src="images/keyword-shine.jpg" alt="誕生" class="value-img"></div>
-                        <div class="value-text-wrap"><h4 class="value-title">誕生</h4><p class="value-desc">生命の源から新たな自分が誕生する瞬間</p></div>
-                    </div>
-                    <div class="value-card">
-                        <div class="value-img-wrap"><img src="images/keyword-fusion.jpg" alt="融合" class="value-img"></div>
-                        <div class="value-text-wrap"><h4 class="value-title">融合</h4><p class="value-desc">リアルとバーチャルが融合する新たな体験</p></div>
-                    </div>
-                    <div class="value-card">
-                        <div class="value-img-wrap"><img src="images/keyword-light.jpg" alt="旅" class="value-img"></div>
-                        <div class="value-text-wrap"><h4 class="value-title">旅</h4><p class="value-desc">深海を舞台にした自分自身との旅</p></div>
-                    </div>
-                    <div class="value-card">
-                        <div class="value-img-wrap"><img src="images/keyword-journey.jpg" alt="輝き" class="value-img"></div>
-                        <div class="value-text-wrap"><h4 class="value-title">輝き</h4><p class="value-desc">一人ひとりの個性が深海で輝く瞬間</p></div>
-                    </div>
+                    <div class="value-card"><div class="value-img-wrap"><img src="images/keyword-shine.jpg" alt="誕生" class="value-img"></div><div class="value-text-wrap"><h4 class="value-title">誕生</h4><p class="value-desc">生命の源から新たな自分が誕生する瞬間</p></div></div>
+                    <div class="value-card"><div class="value-img-wrap"><img src="images/keyword-fusion.jpg" alt="融合" class="value-img"></div><div class="value-text-wrap"><h4 class="value-title">融合</h4><p class="value-desc">リアルとバーチャルが融合する新たな体験</p></div></div>
+                    <div class="value-card"><div class="value-img-wrap"><img src="images/keyword-light.jpg" alt="旅" class="value-img"></div><div class="value-text-wrap"><h4 class="value-title">旅</h4><p class="value-desc">深海を舞台にした自分自身との旅</p></div></div>
+                    <div class="value-card"><div class="value-img-wrap"><img src="images/keyword-journey.jpg" alt="輝き" class="value-img"></div><div class="value-text-wrap"><h4 class="value-title">輝き</h4><p class="value-desc">一人ひとりの個性が深海で輝く瞬間</p></div></div>
                 </div>
             </div>
         </section>
 
-        <!-- ===== STATS 板块 - 增强细节 ===== -->
+        <!-- ===== STATS 板块 (大幅增强) ===== -->
         <section id="stats" class="section">
             <h2 class="section-title">ACHIEVEMENTS</h2>
+            <!-- 历史图片横幅 -->
+            <div style="margin-bottom: 40px; text-align: center;">
+                <img src="https://raw.githubusercontent.com/piggymiku-T/jkfw-official.github.io/main/images/history.jpg" 
+                     alt="JKFW History Timeline" 
+                     style="max-width: 100%; border-radius: 24px; box-shadow: 0 10px 30px rgba(0,212,200,0.3); border: 1px solid rgba(0,212,200,0.4);">
+            </div>
+
+            <!-- 累计数据卡片 -->
             <div class="milestone-grid">
                 <div class="milestone-item"><div class="milestone-number">3,600+</div><div class="milestone-label">総エントリー</div></div>
                 <div class="milestone-item"><div class="milestone-number">89k+</div><div class="milestone-label">総視聴数(2024)</div></div>
                 <div class="milestone-item"><div class="milestone-number">300+</div><div class="milestone-label">出演者</div></div>
                 <div class="milestone-item"><div class="milestone-number">15+</div><div class="milestone-label">国際提携</div></div>
             </div>
-            <div class="values-title" style="margin-top: 60px; margin-bottom: 30px;">年度別ハイライト</div>
-            <div style="display: flex; flex-wrap: wrap; gap: 20px; justify-content: center;">
-                <div style="background:rgba(0,0,0,0.3); padding:20px; border-radius:16px; min-width:140px; text-align:center; border-left:3px solid var(--biolight);"><span style="color:var(--biolight); font-weight:700; font-size:20px;">2021</span><br>780名応募<br>名古屋能楽堂</div>
-                <div style="background:rgba(0,0,0,0.3); padding:20px; border-radius:16px; min-width:140px; text-align:center; border-left:3px solid var(--metamorph-gold);"><span style="color:var(--metamorph-gold); font-weight:700; font-size:20px;">2022</span><br>800名応募<br>横浜・香港進出</div>
-                <div style="background:rgba(0,0,0,0.3); padding:20px; border-radius:16px; min-width:140px; text-align:center; border-left:3px solid var(--biolight);"><span style="color:var(--biolight); font-weight:700; font-size:20px;">2023</span><br>1,020名応募<br>パリ・カナダ</div>
-                <div style="background:rgba(0,0,0,0.3); padding:20px; border-radius:16px; min-width:140px; text-align:center; border-left:3px solid var(--metamorph-gold);"><span style="color:var(--metamorph-gold); font-weight:700; font-size:20px;">2024</span><br>KCON出演<br>韓国SKRW</div>
+
+            <!-- 历年时间轴卡片 -->
+            <div class="history-timeline">
+                <h3 class="values-title" style="margin-top: 60px; margin-bottom: 20px;">HISTORY TIMELINE</h3>
+                <div class="history-grid">
+                    <!-- 2021 卡片 -->
+                    <div class="history-card">
+                        <div class="history-year">2021</div>
+                        <div class="history-location">名古屋能楽堂</div>
+                        <div class="history-detail">780名応募・90名出演</div>
+                        <div class="history-support">名古屋市・教育委員会後援</div>
+                    </div>
+                    <!-- 2022 卡片 -->
+                    <div class="history-card">
+                        <div class="history-year">2022</div>
+                        <div class="history-location">横浜 大さん橋ホール</div>
+                        <div class="history-detail">800名応募・54名出演</div>
+                        <div class="history-support">横浜市後援</div>
+                    </div>
+                    <!-- 2023 卡片 -->
+                    <div class="history-card">
+                        <div class="history-year">2023</div>
+                        <div class="history-location">東京 Studio Earth</div>
+                        <div class="history-detail">1,020名応募・82名出演</div>
+                        <div class="history-support">東京都後援</div>
+                    </div>
+                    <!-- 2024 卡片 -->
+                    <div class="history-card">
+                        <div class="history-year">2024</div>
+                        <div class="history-location">愛知県国際展示場</div>
+                        <div class="history-detail">KCON出演・韓国SKRW進出</div>
+                        <div class="history-support">愛知県・名古屋市・東海テレビ</div>
+                    </div>
+                </div>
             </div>
         </section>
 
-        <!-- ===== MODELS 板块 - 增强细节 ===== -->
+        <!-- MODELS 板块 (保持不变) -->
         <section id="models" class="section">
             <h2 class="section-title">JKFW’S MODEL <span style="color:var(--biolight);">ACTIVE WORLDWIDE</span></h2>
             <div class="grid-3">
@@ -739,7 +800,7 @@
             <p style="margin-top: 40px; text-align: center; font-size: 20px; color: var(--metamorph-gold);">—— 次の深海へ羽ばたくのは、あなた。</p>
         </section>
 
-        <!-- ===== VENUE 板块 - 大幅增强细节 ===== -->
+        <!-- VENUE 板块 (保持不变) -->
         <section id="venue" class="section">
             <h2 class="section-title">VENUE <span style="color:var(--biolight);">2026</span></h2>
             <div class="venue-main" style="display: flex; flex-wrap: wrap; gap: 40px;">
@@ -759,7 +820,7 @@
             </div>
         </section>
 
-        <!-- ===== ENTRY 板块 - 增强细节 ===== -->
+        <!-- ENTRY 板块 (保持不变) -->
         <section id="entry" class="section">
             <h2 class="section-title">ENTRY <span style="color:var(--biolight);">深海への一歩</span></h2>
             <div style="display: flex; flex-wrap: wrap; gap: 40px; align-items: center; margin-bottom: 50px;">
@@ -787,7 +848,7 @@
             </div>
         </section>
 
-        <!-- SUPPORTERS (保持不变) -->
+        <!-- SUPPORTERS -->
         <section style="padding: 40px 0;">
             <h2 class="section-title" style="font-size: 32px;">SUPPORTERS</h2>
             <div class="support-list">
@@ -795,7 +856,7 @@
             </div>
         </section>
 
-        <!-- FOOTER (保持不变) -->
+        <!-- FOOTER -->
         <footer>
             <div style="display: flex; flex-wrap: wrap; justify-content: space-between; gap: 40px;">
                 <div>
@@ -812,7 +873,7 @@
         </footer>
     </main>
 
-    <!-- 鼠标交互荧光气泡脚本 (保持不变) -->
+    <!-- 鼠标交互荧光气泡脚本 (修复滑动问题) -->
     <script>
         (function() {
             const canvas = document.getElementById('bubble-canvas');
@@ -859,6 +920,14 @@
                 }
                 if (mouseMoveTimer) clearTimeout(mouseMoveTimer);
                 mouseMoveTimer = setTimeout(() => {}, 100);
+            }
+
+            function onTouchMove(e) {
+                // 关键修复：不阻止默认滚动，仅获取触摸点生成气泡
+                if (e.touches.length > 0) {
+                    const touch = e.touches[0];
+                    onMouseMove(touch);
+                }
             }
 
             function updateParticles() {
@@ -911,13 +980,7 @@
             function setup() {
                 resizeCanvas();
                 window.addEventListener('mousemove', onMouseMove);
-                window.addEventListener('touchmove', (e) => {
-                    e.preventDefault();
-                    if (e.touches.length > 0) {
-                        const touch = e.touches[0];
-                        onMouseMove(touch);
-                    }
-                }, { passive: false });
+                window.addEventListener('touchmove', onTouchMove, { passive: true }); // passive:true 确保不阻塞滚动
                 animate();
             }
 
