@@ -451,6 +451,8 @@
             transition: 0.3s;
             position: relative;
             z-index: 2;
+            flex: 1;
+            min-width: 120px;
         }
         .entry-step:hover {
             transform: translateY(-5px);
@@ -470,32 +472,90 @@
             box-shadow: 0 0 20px rgba(0,212,200,0.5);
         }
 
-        /* 步骤引导水母 */
+        /* ===== 步骤引导水母增强版 ===== */
         .step-guide {
             position: relative;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin: 20px 0 30px;
             width: 100%;
+            height: 80px; /* 增加高度以容纳轨迹 */
+            margin: 10px 0 20px;
+            overflow: visible;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .guide-line {
+            position: absolute;
+            top: 50%;
+            left: 5%;
+            width: 90%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--biolight), var(--metamorph-gold), var(--biolight), transparent);
+            opacity: 0.5;
+            box-shadow: 0 0 10px var(--biolight);
+            transform: translateY(-50%);
+            z-index: 0;
         }
         .guide-jellyfish {
             position: absolute;
             left: 0;
             top: 50%;
-            transform: translateY(-50%);
+            transform: translateY(-50%) rotate(-20deg); /* 倾斜让水母头朝右 */
             color: var(--biolight);
-            font-size: 24px;
-            filter: drop-shadow(0 0 10px var(--biolight));
-            animation: swim 8s infinite ease-in-out;
+            font-size: 32px;
+            filter: drop-shadow(0 0 15px var(--biolight)) drop-shadow(0 0 5px var(--metamorph-gold));
+            animation: swim 6s infinite cubic-bezier(0.45, 0, 0.55, 1);
             z-index: 1;
             pointer-events: none;
+            text-shadow: 0 0 10px var(--metamorph-gold);
+        }
+        /* 水母拖尾效果：三个光点跟随 */
+        .jellyfish-trail {
+            position: absolute;
+            top: 50%;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+        .jellyfish-trail::before,
+        .jellyfish-trail::after,
+        .jellyfish-trail span {
+            content: '';
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            background: var(--biolight);
+            border-radius: 50%;
+            filter: blur(2px);
+            opacity: 0.7;
+            animation: trailMove 6s infinite;
+        }
+        .jellyfish-trail::before { left: 0%; animation-delay: -0.5s; }
+        .jellyfish-trail::after { left: 0%; animation-delay: -1s; }
+        .jellyfish-trail span { 
+            display: block; 
+            left: 0%; 
+            animation-delay: -1.5s; 
+            background: var(--metamorph-gold);
         }
         @keyframes swim {
+            0% { left: 0%; opacity: 0; transform: translateY(-50%) rotate(-20deg) scale(0.8); }
+            10% { opacity: 1; transform: translateY(-50%) rotate(-20deg) scale(1); }
+            90% { opacity: 1; transform: translateY(-50%) rotate(-20deg) scale(1); }
+            100% { left: 95%; opacity: 0; transform: translateY(-50%) rotate(-20deg) scale(0.8); }
+        }
+        @keyframes trailMove {
             0% { left: 0%; opacity: 0; }
-            10% { opacity: 1; }
-            90% { opacity: 1; }
-            100% { left: 95%; opacity: 0; }
+            5% { opacity: 0.7; }
+            20% { left: 20%; opacity: 0.7; }
+            40% { left: 40%; opacity: 0.5; }
+            60% { left: 60%; opacity: 0.3; }
+            80% { left: 80%; opacity: 0.2; }
+            100% { left: 100%; opacity: 0; }
+        }
+        /* 移动端隐藏 */
+        @media (max-width: 768px) {
+            .step-guide { display: none; }
         }
 
         /* 支持者列表 */
@@ -534,7 +594,6 @@
             .gradient-text { font-size: 36px !important; }
             .btn-container { flex-direction: column; align-items: stretch; }
             .btn { text-align: center; }
-            .step-guide { display: none; } /* 小屏隐藏水母引导，避免拥挤 */
         }
 
         /* CONCEPT板块样式 (保持不变) */
@@ -870,7 +929,7 @@
             text-shadow: 0 0 10px rgba(230,200,124,0.5);
         }
 
-        /* ===== 新增：荧光水母二维码样式 ===== */
+        /* 荧光水母二维码样式 */
         .jellyfish-qr {
             background: rgba(10,26,47,0.5);
             backdrop-filter: blur(8px);
@@ -1291,7 +1350,7 @@
                     <!-- 替换为荧光水母二维码 -->
                     <div class="jellyfish-qr">
                         <a href="https://lin.ee/1n4YOHY" target="_blank" rel="noopener noreferrer">
-                            <img src="line.png" alt="LINE QR Code" class="qr-code-img">
+                            <img src="https://chart.googleapis.com/chart?chs=150x150&cht=qr&chl=https://lin.ee/1n4YOHY" alt="LINE QR Code" class="qr-code-img">
                         </a>
                         <p>LINEで情報受信</p>
                         <p style="font-size: 12px; margin-top: 5px;">@jkfw2026</p>
@@ -1299,9 +1358,13 @@
                 </div>
             </div>
 
-            <!-- 步骤引导水母 (仅在桌面显示) -->
+            <!-- 步骤引导水母增强版 (带轨迹线和拖尾) -->
             <div class="step-guide">
+                <div class="guide-line"></div>
                 <i class="fas fa-jellyfish guide-jellyfish"></i>
+                <div class="jellyfish-trail">
+                    <span></span>
+                </div>
             </div>
 
             <div style="display: flex; flex-wrap: wrap; justify-content: space-around; gap: 20px; position: relative;">
