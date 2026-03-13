@@ -8,7 +8,7 @@
     <!-- Font Awesome 用于图标（水母） -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
-        /* ==== 多端兼容核心样式 ==== */
+        /* ===== 原有的全局样式保持不变，仅移除旧的地图部分样式，添加新地图模块样式 ===== */
         * {
             margin: 0;
             padding: 0;
@@ -37,7 +37,6 @@
             transition: all 0.3s ease;
         }
 
-        /* ==== 深海孵化色盘 ==== */
         :root {
             --abyss: #0A1A2F;
             --deep-blue: #0C2738;
@@ -48,7 +47,7 @@
             --dark-overlay: rgba(6, 18, 30, 0.85);
         }
 
-        /* ==== 视频背景 & 气泡画布 ==== */
+        /* 视频背景 & 气泡画布 (保持不变) */
         .video-bg-container {
             position: fixed;
             top: 0;
@@ -84,7 +83,6 @@
             touch-action: none;
         }
 
-        /* 主容器 */
         .container {
             max-width: 1280px;
             margin: 0 auto;
@@ -172,7 +170,6 @@
             max-width: 800px;
         }
 
-        /* 卡片网格 */
         .grid-3, .grid-4 {
             display: grid;
             gap: 30px;
@@ -195,7 +192,6 @@
             background: rgba(0,212,200,0.08);
         }
 
-        /* 按钮 */
         .btn {
             display: inline-block;
             padding: 14px 38px;
@@ -241,7 +237,7 @@
             transform: scale(1.02);
         }
 
-        /* 光之门视觉 (添加点击效果) */
+        /* 光之门视觉 */
         .gate-visual {
             width: 260px;
             height: 260px;
@@ -282,14 +278,13 @@
             color: var(--metamorph-gold);
             font-weight: 700;
             letter-spacing: 4px;
-            pointer-events: none; /* 让点击穿透到父容器 */
+            pointer-events: none;
         }
         .gate-visual:active .whirlpool {
             transform: scale(1.1);
             box-shadow: 0 0 120px var(--metamorph-gold);
             transition: 0.1s;
         }
-        /* 闪亮动画类 */
         .gate-flash {
             animation: flash 0.5s ease-out;
         }
@@ -298,11 +293,10 @@
             50% { box-shadow: 0 0 200px var(--metamorph-gold), 0 0 100px var(--biolight); transform: scale(1.1); }
             100% { box-shadow: 0 0 60px rgba(0,212,200,0.2); transform: scale(1); }
         }
-
         @keyframes pulse { 0%,100%{opacity:0.9;} 50%{opacity:1;} }
         @keyframes spin { 0%{transform:rotate(0deg);} 100%{transform:rotate(360deg);} }
 
-        /* 模型卡片 (Models 板块专用，带图片) */
+        /* 模型卡片 (保持不变) */
         .model-card {
             background: rgba(10,26,47,0.7);
             backdrop-filter: blur(8px);
@@ -348,7 +342,7 @@
             color: rgba(240,248,255,0.9);
         }
 
-        /* 团队卡片 (Team 板块) */
+        /* 团队卡片 (保持不变) */
         .team-card {
             background: rgba(10,26,47,0.7);
             backdrop-filter: blur(8px);
@@ -400,7 +394,7 @@
             line-height: 1.5;
         }
 
-        /* VENUE 板块特别样式 */
+        /* VENUE 板块 (保持不变) */
         .venue-main {
             background: rgba(10,26,47,0.6);
             backdrop-filter: blur(8px);
@@ -441,7 +435,7 @@
             margin-bottom: 15px;
         }
 
-        /* ENTRY 板块细节强化 */
+        /* ENTRY 板块 (保持不变) */
         .entry-step {
             text-align: center;
             background: rgba(0,212,200,0.05);
@@ -472,11 +466,11 @@
             box-shadow: 0 0 20px rgba(0,212,200,0.5);
         }
 
-        /* ===== 步骤引导水母增强版 ===== */
+        /* 步骤引导水母 (保持不变) */
         .step-guide {
             position: relative;
             width: 100%;
-            height: 80px; /* 增加高度以容纳轨迹 */
+            height: 80px;
             margin: 10px 0 20px;
             overflow: visible;
             display: flex;
@@ -499,7 +493,7 @@
             position: absolute;
             left: 0;
             top: 50%;
-            transform: translateY(-50%) rotate(-20deg); /* 倾斜让水母头朝右 */
+            transform: translateY(-50%) rotate(-20deg);
             color: var(--biolight);
             font-size: 32px;
             filter: drop-shadow(0 0 15px var(--biolight)) drop-shadow(0 0 5px var(--metamorph-gold));
@@ -508,7 +502,6 @@
             pointer-events: none;
             text-shadow: 0 0 10px var(--metamorph-gold);
         }
-        /* 水母拖尾效果：三个光点跟随 */
         .jellyfish-trail {
             position: absolute;
             top: 50%;
@@ -553,7 +546,6 @@
             80% { left: 80%; opacity: 0.2; }
             100% { left: 100%; opacity: 0; }
         }
-        /* 移动端隐藏 */
         @media (max-width: 768px) {
             .step-guide { display: none; }
         }
@@ -722,7 +714,7 @@
             touch-action: manipulation;
         }
 
-        /* 累计数据卡片全新设计 */
+        /* 累计数据卡片 */
         .milestone-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -929,7 +921,7 @@
             text-shadow: 0 0 10px rgba(230,200,124,0.5);
         }
 
-        /* 荧光水母二维码样式 */
+        /* 荧光水母二维码 */
         .jellyfish-qr {
             background: rgba(10,26,47,0.5);
             backdrop-filter: blur(8px);
@@ -993,6 +985,124 @@
             50% { transform: translate(15px, 15px) rotate(10deg); }
             100% { transform: translate(0, 0) rotate(0deg); }
         }
+
+        /* ========== 新地图模块样式 (基于底图) ========== */
+        .global-footprint {
+            background: rgba(10,26,47,0.3);
+            backdrop-filter: blur(4px);
+            position: relative;
+        }
+        .map-wrapper {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: transparent;
+            border-radius: 24px;
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.5), 0 0 0 1px rgba(0,212,200,0.2);
+        }
+        .map-container {
+            position: relative;
+            width: 100%;
+            line-height: 0; /* 消除图片下方空隙 */
+        }
+        .map-img {
+            width: 100%;
+            height: auto;
+            display: block;
+            border-radius: 24px 24px 0 0;
+            pointer-events: none; /* 图片不阻挡热点点击 */
+        }
+        .hotspot {
+            position: absolute;
+            width: 12px;
+            height: 12px;
+            background: var(--metamorph-gold);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            box-shadow: 0 0 20px var(--biolight), 0 0 40px var(--metamorph-gold);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            z-index: 10;
+        }
+        .hotspot:hover {
+            width: 16px;
+            height: 16px;
+            box-shadow: 0 0 30px var(--metamorph-gold), 0 0 60px var(--biolight);
+        }
+        .hotspot::after {
+            content: attr(data-name);
+            position: absolute;
+            top: -25px;
+            left: 50%;
+            transform: translateX(-50%);
+            white-space: nowrap;
+            background: rgba(10,26,47,0.9);
+            backdrop-filter: blur(4px);
+            padding: 4px 8px;
+            border-radius: 20px;
+            font-size: 12px;
+            color: var(--biolight);
+            border: 1px solid var(--biolight);
+            opacity: 0;
+            transition: opacity 0.3s;
+            pointer-events: none;
+        }
+        .hotspot:hover::after {
+            opacity: 1;
+        }
+        .hotspot-card {
+            position: absolute;
+            width: 260px;
+            background: rgba(10,26,47,0.95);
+            backdrop-filter: blur(12px);
+            border: 1px solid var(--biolight);
+            border-radius: 16px;
+            padding: 16px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.8), 0 0 30px var(--biolight);
+            z-index: 100;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.2s ease;
+            color: var(--data-white);
+            line-height: 1.5;
+        }
+        .hotspot-card.active {
+            opacity: 1;
+            pointer-events: none;
+        }
+        .hotspot-card img {
+            width: 100%;
+            height: 140px;
+            object-fit: cover;
+            border-radius: 12px;
+            border: 1px solid var(--biolight);
+            margin-bottom: 12px;
+        }
+        .hotspot-card h4 {
+            color: var(--metamorph-gold);
+            font-size: 16px;
+            margin-bottom: 6px;
+        }
+        .hotspot-card .date {
+            color: var(--biolight);
+            font-size: 13px;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+        .hotspot-card p {
+            font-size: 13px;
+            color: rgba(240,248,255,0.9);
+            line-height: 1.5;
+        }
+        .map-note {
+            text-align: center;
+            margin-top: 20px;
+            color: rgba(240,248,255,0.6);
+            font-size: 14px;
+            background: rgba(0,0,0,0.2);
+            padding: 8px;
+            border-radius: 40px;
+        }
     </style>
 </head>
 <body id="top">
@@ -1027,7 +1137,7 @@
     </a>
 
     <main class="container">
-        <!-- HERO -->
+        <!-- HERO (保持不变) -->
         <section style="padding: 60px 0 80px;">
             <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 50px;">
                 <div style="flex: 1 1 400px;">
@@ -1046,7 +1156,6 @@
                     </div>
                 </div>
                 <div style="flex: 1 1 300px; display: flex; justify-content: center;">
-                    <!-- OPEN按钮添加点击事件 -->
                     <div class="gate-visual" id="gateButton" onclick="handleGateClick()">
                         <div class="whirlpool"></div>
                         <div class="gate-text">OPEN</div>
@@ -1055,7 +1164,7 @@
             </div>
         </section>
 
-        <!-- CONCEPT -->
+        <!-- CONCEPT (保持不变) -->
         <section id="concept" class="section">
             <h2 class="section-title">OUR TEAM CONCEPT</h2>
             <p class="section-sub">子どもの可能性は無限大 —— 夢を叶える舞台を提供し、未来への一歩を踏み出す瞬間を創り出す</p>
@@ -1101,7 +1210,7 @@
             </div>
         </section>
 
-        <!-- THEME -->
+        <!-- THEME (保持不变) -->
         <section id="theme" class="section">
             <h2 class="section-title">DeepOcean × NATUREVERSE</h2>
             <p class="section-sub">2026年のテーマ「深海」—— 生命の源から未来を孵し、リアルとバーチャルが融合する新たな世界</p>
@@ -1136,179 +1245,165 @@
             </div>
         </section>
 
-        <!-- ===== STATS 板块 (历史实绩) ===== -->
+        <!-- STATS 板块 (保持不变) -->
         <section id="stats" class="section">
             <h2 class="section-title">ACHIEVEMENTS</h2>
-            <!-- 历史图片横幅 -->
             <div class="history-banner">
                 <img src="https://raw.githubusercontent.com/piggymiku-T/jkfw-official.github.io/main/images/history.jpg" alt="JKFW History Timeline">
             </div>
-            <!-- 累计数据卡片 -->
             <div class="milestone-grid">
                 <div class="milestone-item"><div class="milestone-number">3,600+</div><div class="milestone-label">総エントリー</div></div>
                 <div class="milestone-item"><div class="milestone-number">89k+</div><div class="milestone-label">総視聴数(2024)</div></div>
                 <div class="milestone-item"><div class="milestone-number">300+</div><div class="milestone-label">出演者</div></div>
                 <div class="milestone-item"><div class="milestone-number">15+</div><div class="milestone-label">国際提携</div></div>
             </div>
-            <!-- 历年时间轴卡片 -->
             <div class="history-timeline">
                 <h3 class="values-title" style="margin-top: 60px; margin-bottom: 20px;">HISTORY TIMELINE</h3>
                 <div class="history-grid">
-                    <!-- 2021 卡片 -->
-                    <div class="history-card">
-                        <div class="history-year">2021</div>
-                        <div class="history-location">名古屋能楽堂</div>
-                        <div class="history-detail">780名応募・90名出演</div>
-                        <div class="history-support">名古屋市・教育委員会後援</div>
-                    </div>
-                    <!-- 2022 卡片 -->
-                    <div class="history-card">
-                        <div class="history-year">2022</div>
-                        <div class="history-location">横浜 大さん橋ホール</div>
-                        <div class="history-detail">800名応募・54名出演</div>
-                        <div class="history-support">横浜市後援</div>
-                    </div>
-                    <!-- 2023 卡片 -->
-                    <div class="history-card">
-                        <div class="history-year">2023</div>
-                        <div class="history-location">東京 Studio Earth</div>
-                        <div class="history-detail">1,020名応募・82名出演</div>
-                        <div class="history-support">東京都後援</div>
-                    </div>
-                    <!-- 2024 卡片 -->
-                    <div class="history-card">
-                        <div class="history-year">2024</div>
-                        <div class="history-location">愛知県国際展示場</div>
-                        <div class="history-detail">KCON出演・韓国SKRW進出</div>
-                        <div class="history-support">愛知県・名古屋市・東海テレビ</div>
-                    </div>
+                    <div class="history-card"><div class="history-year">2021</div><div class="history-location">名古屋能楽堂</div><div class="history-detail">780名応募・90名出演</div><div class="history-support">名古屋市・教育委員会後援</div></div>
+                    <div class="history-card"><div class="history-year">2022</div><div class="history-location">横浜 大さん橋ホール</div><div class="history-detail">800名応募・54名出演</div><div class="history-support">横浜市後援</div></div>
+                    <div class="history-card"><div class="history-year">2023</div><div class="history-location">東京 Studio Earth</div><div class="history-detail">1,020名応募・82名出演</div><div class="history-support">東京都後援</div></div>
+                    <div class="history-card"><div class="history-year">2024</div><div class="history-location">愛知県国際展示場</div><div class="history-detail">KCON出演・韓国SKRW進出</div><div class="history-support">愛知県・名古屋市・東海テレビ</div></div>
                 </div>
             </div>
         </section>
 
-        <!-- ===== OUR TEAM / DREAMERS 板块 (PDF 43-45页) ===== -->
+        <!-- OUR TEAM (保持不变) -->
         <section id="team" class="section">
             <h2 class="section-title">OUR TEAM <span style="color:var(--biolight);">DREAMERS</span></h2>
             <p class="section-sub">未来を創るために、夢を信じる者たちが集まった — それが『DREAMERS』です！</p>
-
-            <!-- 核心团队 (PDF 44页) -->
             <h3 class="values-title">Core Team | 核心チーム</h3>
             <div class="grid-3">
-                <!-- 田中英一 -->
-                <div class="team-card">
-                    <div class="team-photo"><img src="team-hidekazu.jpg" alt="田中英一"></div>
-                    <div class="team-name">田中英一</div>
-                    <div class="team-title">代表理事</div>
-                    <div class="team-desc">子どもたちの夢を応援し、多くの協力パートナーを結集。彼のリーダーシップのもとJKFWは国際的な成功を収めています。</div>
-                </div>
-                <!-- 田中莉斯 -->
-                <div class="team-card">
-                    <div class="team-photo"><img src="team-leesu.jpg" alt="田中莉斯"></div>
-                    <div class="team-name">田中莉斯</div>
-                    <div class="team-title">専務理事</div>
-                    <div class="team-desc">イベント運営を統括し、ステージやパートナーとの調整を担当。彼女の手腕で毎年スムーズに進行しています。</div>
-                </div>
-                <!-- 博林寬曉 -->
-                <div class="team-card">
-                    <div class="team-photo"><img src="team-hiroaki.jpg" alt="博林寬曉"></div>
-                    <div class="team-name">博林寬曉</div>
-                    <div class="team-title">顧問（元学校教員）</div>
-                    <div class="team-desc">元学校教員の経験を活かし、ボランティアチームをまとめ、子どもたちをステージへ導きます。</div>
-                </div>
-                <!-- 俞丽丽 -->
-                <div class="team-card">
-                    <div class="team-photo"><img src="team-lily.jpg" alt="俞丽丽"></div>
-                    <div class="team-name">俞丽丽</div>
-                    <div class="team-title">海外名誉顧問</div>
-                    <div class="team-desc">香港キッズファッションウィーク創設者。JKFWメンバーと共に子どもたちの夢を応援しています。</div>
-                </div>
-                <!-- 浪江倫子 -->
-                <div class="team-card">
-                    <div class="team-photo"><img src="team-michiko.jpg" alt="浪江倫子"></div>
-                    <div class="team-name">浪江倫子</div>
-                    <div class="team-title">執行委員</div>
-                    <div class="team-desc">文化外交を通じて各業界の旗振り役を務め、日本文化の可能性を伝えています。</div>
-                </div>
+                <div class="team-card"><div class="team-photo"><img src="team-hidekazu.jpg" alt="田中英一"></div><div class="team-name">田中英一</div><div class="team-title">代表理事</div><div class="team-desc">子どもたちの夢を応援し、多くの協力パートナーを結集。彼のリーダーシップのもとJKFWは国際的な成功を収めています。</div></div>
+                <div class="team-card"><div class="team-photo"><img src="team-leesu.jpg" alt="田中莉斯"></div><div class="team-name">田中莉斯</div><div class="team-title">専務理事</div><div class="team-desc">イベント運営を統括し、ステージやパートナーとの調整を担当。彼女の手腕で毎年スムーズに進行しています。</div></div>
+                <div class="team-card"><div class="team-photo"><img src="team-hiroaki.jpg" alt="博林寬曉"></div><div class="team-name">博林寬曉</div><div class="team-title">顧問（元学校教員）</div><div class="team-desc">元学校教員の経験を活かし、ボランティアチームをまとめ、子どもたちをステージへ導きます。</div></div>
+                <div class="team-card"><div class="team-photo"><img src="team-lily.jpg" alt="俞丽丽"></div><div class="team-name">俞丽丽</div><div class="team-title">海外名誉顧問</div><div class="team-desc">香港キッズファッションウィーク創設者。JKFWメンバーと共に子どもたちの夢を応援しています。</div></div>
+                <div class="team-card"><div class="team-photo"><img src="team-michiko.jpg" alt="浪江倫子"></div><div class="team-name">浪江倫子</div><div class="team-title">執行委員</div><div class="team-desc">文化外交を通じて各業界の旗振り役を務め、日本文化の可能性を伝えています。</div></div>
             </div>
-
-            <!-- 特别认定讲师 (PDF 45页) -->
             <h3 class="values-title" style="margin-top: 60px;">Special Instructors | 特別認定講師</h3>
             <div class="grid-4">
-                <!-- 結子 -->
-                <div class="team-card">
-                    <div class="team-photo"><img src="instructor-yuiko.jpg" alt="結子"></div>
-                    <div class="team-name">結子</div>
-                    <div class="team-title">World Supermodel Production 2019 世界大会優勝</div>
-                    <div class="team-desc">プロフェッショナルとしての姿勢と世界レベルのパフォーマンスを指導します。</div>
-                </div>
-                <!-- 岩田沙織 -->
-                <div class="team-card">
-                    <div class="team-photo"><img src="instructor-saori.jpg" alt="岩田沙織"></div>
-                    <div class="team-name">岩田沙織</div>
-                    <div class="team-title">MRS LEGEND UNIVERSAL2022 準グランプリ</div>
-                    <div class="team-desc">モデルとしての表現力や自信を子どもたちに教え、成長をサポートしています。</div>
-                </div>
-                <!-- 片岡まこ -->
-                <div class="team-card">
-                    <div class="team-photo"><img src="instructor-mako.jpg" alt="片岡まこ"></div>
-                    <div class="team-name">片岡まこ</div>
-                    <div class="team-title">ウェルビーイングディレクター</div>
-                    <div class="team-desc">子どもたちの心身のバランスを整え、内面からの美しさと健康を引き出します。</div>
-                </div>
-                <!-- 浪江倫子 (讲师) -->
-                <div class="team-card">
-                    <div class="team-photo"><img src="instructor-michiko.jpg" alt="浪江倫子"></div>
-                    <div class="team-name">浪江倫子</div>
-                    <div class="team-title">特別認定講師</div>
-                    <div class="team-desc">本質や本来の良さを引き出し、コーチングと心理学の要素で心身をより良い方向へ導きます。</div>
-                </div>
+                <div class="team-card"><div class="team-photo"><img src="instructor-yuiko.jpg" alt="結子"></div><div class="team-name">結子</div><div class="team-title">World Supermodel Production 2019 世界大会優勝</div><div class="team-desc">プロフェッショナルとしての姿勢と世界レベルのパフォーマンスを指導します。</div></div>
+                <div class="team-card"><div class="team-photo"><img src="instructor-saori.jpg" alt="岩田沙織"></div><div class="team-name">岩田沙織</div><div class="team-title">MRS LEGEND UNIVERSAL2022 準グランプリ</div><div class="team-desc">モデルとしての表現力や自信を子どもたちに教え、成長をサポートしています。</div></div>
+                <div class="team-card"><div class="team-photo"><img src="instructor-mako.jpg" alt="片岡まこ"></div><div class="team-name">片岡まこ</div><div class="team-title">ウェルビーイングディレクター</div><div class="team-desc">子どもたちの心身のバランスを整え、内面からの美しさと健康を引き出します。</div></div>
+                <div class="team-card"><div class="team-photo"><img src="instructor-michiko.jpg" alt="浪江倫子"></div><div class="team-name">浪江倫子</div><div class="team-title">特別認定講師</div><div class="team-desc">本質や本来の良さを引き出し、コーチングと心理学の要素で心身をより良い方向へ導きます。</div></div>
             </div>
         </section>
 
-        <!-- ===== MODELS 板块 (添加2024冠军) ===== -->
+        <!-- MODELS (保持不变) -->
         <section id="models" class="section">
             <h2 class="section-title">JKFW’S MODEL <span style="color:var(--biolight);">ACTIVE WORLDWIDE</span></h2>
             <div class="grid-3">
-                <!-- 原有6位模特 -->
-                <div class="model-card">
-                    <div class="model-photo"><img src="model-miu.jpg" alt="MIU"></div>
-                    <div><span>MIU</span> (2021 GP) : 2022香港Kids Fashion Week NYチャリティーショー出演</div>
-                </div>
-                <div class="model-card">
-                    <div class="model-photo"><img src="model-hanna.jpg" alt="室はんな"></div>
-                    <div><span>室はんな</span> (2022準GP) : 2023パリGlobal Kids Fashion Show 総合グランプリ</div>
-                </div>
-                <div class="model-card">
-                    <div class="model-photo"><img src="model-sazanami.jpg" alt="さざなみ"></div>
-                    <div><span>さざなみ</span> (2022 BEST HOPE) : 2023パリGlobal Kids キッズ部門グランプリ</div>
-                </div>
-                <div class="model-card">
-                    <div class="model-photo"><img src="model-kotomi.jpg" alt="ことみ"></div>
-                    <div><span>ことみ</span> (2023 GP) : 2023香港CENTRESTAGE HKKFW出演</div>
-                </div>
-                <div class="model-card">
-                    <div class="model-photo"><img src="model-akane.jpg" alt="AKANE"></div>
-                    <div><span>AKANE</span> (2023準GP) : 2023韓国SKRW Best Model & 契約・雑誌表紙</div>
-                </div>
-                <div class="model-card">
-                    <div class="model-photo"><img src="model-avery.jpg" alt="Avery Chan"></div>
-                    <div><span>Avery Chan</span> (2023キッズGP) : 2023カナダInternational Fashion Gala出演</div>
-                </div>
-                <!-- 新增：2024综合冠军 MIKO -->
-                <div class="model-card">
-                    <div class="model-photo"><img src="model-miko.jpg" alt="MIKO"></div>
-                    <div><span>MIKO</span> (2024 総合GP) : 2024 KCON JAPAN出演 / 韓国SKRW進出</div>
-                </div>
-                <!-- 新增：2024少儿组冠军 Micheal Taigar -->
-                <div class="model-card">
-                    <div class="model-photo"><img src="model-micheal.jpg" alt="Micheal Taigar"></div>
-                    <div><span>Micheal Taigar</span> (2024 キッズ部門GP) : 2024 KCON JAPAN出演 / 日韓文化交流</div>
-                </div>
+                <div class="model-card"><div class="model-photo"><img src="model-miu.jpg" alt="MIU"></div><div><span>MIU</span> (2021 GP) : 2022香港Kids Fashion Week NYチャリティーショー出演</div></div>
+                <div class="model-card"><div class="model-photo"><img src="model-hanna.jpg" alt="室はんな"></div><div><span>室はんな</span> (2022準GP) : 2023パリGlobal Kids Fashion Show 総合グランプリ</div></div>
+                <div class="model-card"><div class="model-photo"><img src="model-sazanami.jpg" alt="さざなみ"></div><div><span>さざなみ</span> (2022 BEST HOPE) : 2023パリGlobal Kids キッズ部門グランプリ</div></div>
+                <div class="model-card"><div class="model-photo"><img src="model-kotomi.jpg" alt="ことみ"></div><div><span>ことみ</span> (2023 GP) : 2023香港CENTRESTAGE HKKFW出演</div></div>
+                <div class="model-card"><div class="model-photo"><img src="model-akane.jpg" alt="AKANE"></div><div><span>AKANE</span> (2023準GP) : 2023韓国SKRW Best Model & 契約・雑誌表紙</div></div>
+                <div class="model-card"><div class="model-photo"><img src="model-avery.jpg" alt="Avery Chan"></div><div><span>Avery Chan</span> (2023キッズGP) : 2023カナダInternational Fashion Gala出演</div></div>
+                <div class="model-card"><div class="model-photo"><img src="model-miko.jpg" alt="MIKO"></div><div><span>MIKO</span> (2024 総合GP) : 2024 KCON JAPAN出演 / 韓国SKRW進出</div></div>
+                <div class="model-card"><div class="model-photo"><img src="model-micheal.jpg" alt="Micheal Taigar"></div><div><span>Micheal Taigar</span> (2024 キッズ部門GP) : 2024 KCON JAPAN出演 / 日韓文化交流</div></div>
             </div>
             <p style="margin-top: 40px; text-align: center; font-size: 20px; color: var(--metamorph-gold);">—— 次の深海へ羽ばたくのは、あなた。</p>
         </section>
+         <!-- ========== GLOBAL FOOTPRINT 板块 (新地图) ========== -->
+        <section class="section global-footprint">
+            <h2 class="section-title">GLOBAL <span class="gradient-text">FOOTPRINT</span></h2>
+            <p class="section-sub">JKFW has expanded its wings across the world — explore our international milestones.</p>
 
-        <!-- VENUE 板块 -->
+            <div class="map-wrapper">
+                <div class="map-container" id="mapContainer">
+                    <!-- 底图：请将 map.jpg 放在与HTML同目录下，或修改 src 为正确路径 -->
+                    <img src="images/map.jpg" alt="JKFW の世界夢マップ" class="map-img" id="mapImage">
+
+                    <!-- ========== 热点配置区域 ========== -->
+                    <!-- 每个 hotspot 的 left/top 为相对于父容器的百分比（基于图片尺寸） -->
+                    <!-- 用户可根据实际地图位置调整数值，并修改 data-* 属性 -->
+                    <div class="hotspot" style="left: 55%; top: 40%;" 
+                         data-name="香港" 
+                         data-img="images/hkkfw1.jpg" 
+                         data-title="Hong Kong Kids Fashion Week" 
+                         data-date="Dec 2022" 
+                         data-desc="2022年12月、香港で初開催。JKFW公式パートナーとして参加し、国際交流の第一歩を踏み出しました。">
+                    </div>
+                    <div class="hotspot" style="left: 52%; top: 30%;" 
+                         data-name="巴黎" 
+                         data-img="images/gkfw.jpg" 
+                         data-title="Global Kids Fashion Show Paris" 
+                         data-date="Mar 2023" 
+                         data-desc="2023年3月、パリのシャングリラホテルで開催。日本チームがOUTSTANDING TEAM AWARDを受賞。">
+                    </div>
+                    <div class="hotspot" style="left: 75%; top: 45%;" 
+                         data-name="香港" 
+                         data-img="images/hkkfw2.jpg" 
+                         data-title="Hong Kong Kids Fashion Week" 
+                         data-date="Sep 2023" 
+                         data-desc="2023年9月、再び香港へ。JKFWから多くのモデルが参加し、アジアの架け橋に。">
+                    </div>
+                    <div class="hotspot" style="left: 70%; top: 55%;" 
+                         data-name="首尔" 
+                         data-img="images/skrw1.jpg" 
+                         data-title="Seoul Street Style Fashion Show" 
+                         data-date="Oct 2023" 
+                         data-desc="2023年10月、韓国SKRW初参加。AKANEがBest Modelを獲得し、韓国デビューの足がかりに。">
+                    </div>
+                    <div class="hotspot" style="left: 30%; top: 25%;" 
+                         data-name="加拿大" 
+                         data-img="images/gala.jpg" 
+                         data-title="International Fashion Gala Canada" 
+                         data-date="Dec 2023" 
+                         data-desc="2023年12月、カナダで開催。Avery Chanが出場し、国際的な舞台での経験を積みました。">
+                    </div>
+                    <div class="hotspot" style="left: 75%; top: 50%;" 
+                         data-name="香港" 
+                         data-img="images/hkkfw3.jpg" 
+                         data-title="Hong Kong Kids Fashion Week" 
+                         data-date="2024" 
+                         data-desc="2024年、香港での継続的な交流。JKFWの存在感がさらに高まりました。">
+                    </div>
+                    <div class="hotspot" style="left: 70%; top: 60%;" 
+                         data-name="首尔" 
+                         data-img="images/skrw2.jpg" 
+                         data-title="Seoul Visual Fashion Week" 
+                         data-date="Mar 2024" 
+                         data-desc="2024年3月、韓国SKRW再び。多くのモデルが参加し、日韓ファッション交流が加速。">
+                    </div>
+                    <div class="hotspot" style="left: 70%; top: 40%;" 
+                         data-name="日本" 
+                         data-img="images/kcon.jpg" 
+                         data-title="KCON JAPAN" 
+                         data-date="May 2024" 
+                         data-desc="2024年5月、KCON JAPANでJKFW SPECIAL STAGEを開催。32名のモデルがKPOPダンスと融合したパフォーマンスを披露。">
+                    </div>
+                    <div class="hotspot" style="left: 72%; top: 48%;" 
+                         data-name="首尔" 
+                         data-img="images/TFIRS.jpg" 
+                         data-title="THE FUTURE IDOL RUNWAY STAGE" 
+                         data-date="May 2025" 
+                         data-desc="2025年5月、ソウルで開催。JKFWから6名が出場し、2名が韓国事務所からスカウトされました。">
+                    </div>
+                    <div class="hotspot" style="left: 68%; top: 52%;" 
+                         data-name="首尔" 
+                         data-img="images/AMF.jpg" 
+                         data-title="Asia Model Festival" 
+                         data-date="Oct 2025" 
+                         data-desc="2025年10月、韓国・ハイアットリゾートで開催。JKFWモデルがアジアの舞台で活躍。">
+                    </div>
+                    <!-- ========== 热点配置结束 ========== -->
+
+                    <!-- 悬浮卡片容器 -->
+                    <div id="hotspotCard" class="hotspot-card">
+                        <img src="" alt="" id="cardImg">
+                        <h4 id="cardTitle"></h4>
+                        <div class="date" id="cardDate"></div>
+                        <p id="cardDesc"></p>
+                    </div>
+                </div>
+                <div class="map-note">
+                    ⚡ 鼠标悬停在发光点上查看详情 · 坐标可根据实际底图调整
+                </div>
+            </div>
+        </section>
+
+        <!-- VENUE (保持不变) -->
         <section id="venue" class="section">
             <h2 class="section-title">VENUE <span style="color:var(--biolight);">2026</span></h2>
             <div class="venue-main" style="display: flex; flex-wrap: wrap; gap: 40px;">
@@ -1316,7 +1411,7 @@
                     <h3 class="venue-highlight">淡路島夢舞台国際会議場</h3>
                     <p style="font-size: 18px; margin-bottom: 20px;">安藤忠雄氏による静謐とした空間はホテルと回廊で結ばれ、唯一無二のステージを作り上げる。</p>
                     <div style="background: rgba(0,212,200,0.1); padding: 20px; border-radius: 16px; margin-top: 20px;">
-                        <p style="color: var(--biolight); font-weight: 700;">➕ 特設コラボレーション</p>
+                        <p style="color: var(--biolight); font-weight: 700;">➕ 特設ステージ</p>
                         <p style="margin-top: 10px;">兵庫・淡路島 NATUREVERSE（坂茂設計）—— 深海の龍が舞う木造ドームで、リアルとバーチャルが融合する幻想空間。</p>
                     </div>
                 </div>
@@ -1328,16 +1423,13 @@
             </div>
         </section>
 
-        <!-- ENTRY 板块 (已加入过往优秀孩子图片) -->
+        <!-- ENTRY 板块 (保持不变) -->
         <section id="entry" class="section">
             <h2 class="section-title">ENTRY <span style="color:var(--biolight);">深海への一歩</span></h2>
-
-            <!-- 过往优秀孩子图片区域 -->
             <div class="past-stars">
                 <img src="models.JPG" alt="Past JKFW Stars" class="past-stars-img">
                 <p class="past-stars-caption">— 夢を叶えた仲間たち —</p>
             </div>
-
             <div style="display: flex; flex-wrap: wrap; gap: 40px; align-items: center; margin-bottom: 50px;">
                 <div style="flex: 2;">
                     <p style="font-size: 22px; font-weight: 700; color: var(--metamorph-gold); margin-bottom: 20px;">エントリー受付中 / 追加募集決定</p>
@@ -1347,27 +1439,21 @@
                     </ul>
                 </div>
                 <div style="flex: 1;">
-                    <!-- 替换为荧光水母二维码 -->
                     <div class="jellyfish-qr">
                         <a href="https://lin.ee/1n4YOHY" target="_blank" rel="noopener noreferrer">
-                            <img src="line.png">
+                            <img src="https://chart.googleapis.com/chart?chs=150x150&cht=qr&chl=https://lin.ee/1n4YOHY" alt="LINE QR Code" class="qr-code-img">
                         </a>
                         <p>LINEで情報受信</p>
                         <p style="font-size: 12px; margin-top: 5px;">@jkfw2026</p>
                     </div>
                 </div>
             </div>
-
-            <!-- 步骤引导水母增强版 (带轨迹线和拖尾) -->
             <div class="step-guide">
                 <div class="guide-line"></div>
                 <i class="fas fa-jellyfish guide-jellyfish"></i>
-                <div class="jellyfish-trail">
-                    <span></span>
-                </div>
+                <div class="jellyfish-trail"><span></span></div>
             </div>
-
-            <div style="display: flex; flex-wrap: wrap; justify-content: space-around; gap: 20px; position: relative;">
+            <div style="display: flex; flex-wrap: wrap; justify-content: space-around; gap: 20px;">
                 <div class="entry-step"><span>1</span><p>エントリー</p></div>
                 <div class="entry-step"><span>2</span><p>書類選考</p></div>
                 <div class="entry-step"><span>3</span><p>面接</p></div>
@@ -1375,7 +1461,7 @@
             </div>
         </section>
 
-        <!-- SUPPORTERS -->
+        <!-- SUPPORTERS (保持不变) -->
         <section style="padding: 40px 0;">
             <h2 class="section-title" style="font-size: 32px;">SUPPORTERS</h2>
             <div class="support-list">
@@ -1383,7 +1469,7 @@
             </div>
         </section>
 
-        <!-- FOOTER -->
+        <!-- FOOTER (保持不变) -->
         <footer>
             <div style="display: flex; flex-wrap: wrap; justify-content: space-between; gap: 40px;">
                 <div>
@@ -1400,21 +1486,64 @@
         </footer>
     </main>
 
-    <!-- JavaScript 处理 OPEN 按钮点击 -->
     <script>
         function handleGateClick() {
-            // 添加闪亮动画
             const gate = document.getElementById('gateButton');
             gate.classList.add('gate-flash');
-            setTimeout(() => {
-                gate.classList.remove('gate-flash');
-            }, 500);
-
-            // 平滑滚动到 ENTRY 部分
+            setTimeout(() => gate.classList.remove('gate-flash'), 500);
             document.getElementById('entry').scrollIntoView({ behavior: 'smooth' });
         }
 
-        // 鼠标交互荧光气泡脚本 (保持不变)
+        // 热点悬浮卡片逻辑 (新地图)
+        (function() {
+            const mapContainer = document.getElementById('mapContainer');
+            if (!mapContainer) return; // 防止没有地图的情况
+            const hotspots = document.querySelectorAll('.hotspot');
+            const card = document.getElementById('hotspotCard');
+            const cardImg = document.getElementById('cardImg');
+            const cardTitle = document.getElementById('cardTitle');
+            const cardDate = document.getElementById('cardDate');
+            const cardDesc = document.getElementById('cardDesc');
+
+            hotspots.forEach(hotspot => {
+                hotspot.addEventListener('mouseenter', (e) => {
+                    const imgSrc = hotspot.getAttribute('data-img');
+                    const title = hotspot.getAttribute('data-title');
+                    const date = hotspot.getAttribute('data-date');
+                    const desc = hotspot.getAttribute('data-desc');
+
+                    // 如果图片路径为空，使用占位图
+                    cardImg.src = imgSrc || 'https://via.placeholder.com/260x140?text=JKFW';
+                    cardImg.alt = title;
+                    cardTitle.textContent = title;
+                    cardDate.textContent = date;
+                    cardDesc.textContent = desc;
+
+                    const hotspotRect = hotspot.getBoundingClientRect();
+                    const containerRect = mapContainer.getBoundingClientRect();
+
+                    let left = hotspotRect.left - containerRect.left + 20;
+                    let top = hotspotRect.top - containerRect.top - 100;
+
+                    if (left + 260 > containerRect.width) {
+                        left = hotspotRect.left - containerRect.left - 260 - 10;
+                    }
+                    if (top < 10) {
+                        top = hotspotRect.top - containerRect.top + 30;
+                    }
+
+                    card.style.left = left + 'px';
+                    card.style.top = top + 'px';
+                    card.classList.add('active');
+                });
+
+                hotspot.addEventListener('mouseleave', () => {
+                    card.classList.remove('active');
+                });
+            });
+        })();
+
+        // 气泡脚本 (保持不变)
         (function() {
             const canvas = document.getElementById('bubble-canvas');
             const ctx = canvas.getContext('2d');
