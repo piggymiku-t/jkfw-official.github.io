@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.5, user-scalable=yes">
     <title>JKFW 2026 深海DeepOcean | Japan Kids Fashion Week</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300..800&display=swap" rel="stylesheet">
-    <!-- Font Awesome 用于返回顶部图标（水母） -->
+    <!-- Font Awesome 用于图标（水母） -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
         /* ==== 多端兼容核心样式 ==== */
@@ -241,12 +241,13 @@
             transform: scale(1.02);
         }
 
-        /* 光之门视觉 */
+        /* 光之门视觉 (添加点击效果) */
         .gate-visual {
             width: 260px;
             height: 260px;
             position: relative;
             margin: 0 auto;
+            cursor: pointer;
         }
         .whirlpool {
             width: 100%;
@@ -255,6 +256,7 @@
             border-radius: 50%;
             box-shadow: 0 0 60px rgba(0,212,200,0.2);
             animation: pulse 8s infinite;
+            transition: all 0.3s ease;
         }
         .whirlpool::before {
             content: '';
@@ -280,7 +282,23 @@
             color: var(--metamorph-gold);
             font-weight: 700;
             letter-spacing: 4px;
+            pointer-events: none; /* 让点击穿透到父容器 */
         }
+        .gate-visual:active .whirlpool {
+            transform: scale(1.1);
+            box-shadow: 0 0 120px var(--metamorph-gold);
+            transition: 0.1s;
+        }
+        /* 闪亮动画类 */
+        .gate-flash {
+            animation: flash 0.5s ease-out;
+        }
+        @keyframes flash {
+            0% { box-shadow: 0 0 60px rgba(0,212,200,0.2); }
+            50% { box-shadow: 0 0 200px var(--metamorph-gold), 0 0 100px var(--biolight); transform: scale(1.1); }
+            100% { box-shadow: 0 0 60px rgba(0,212,200,0.2); transform: scale(1); }
+        }
+
         @keyframes pulse { 0%,100%{opacity:0.9;} 50%{opacity:1;} }
         @keyframes spin { 0%{transform:rotate(0deg);} 100%{transform:rotate(360deg);} }
 
@@ -431,6 +449,8 @@
             border-radius: 60px 60px 30px 30px;
             border-bottom: 4px solid var(--biolight);
             transition: 0.3s;
+            position: relative;
+            z-index: 2;
         }
         .entry-step:hover {
             transform: translateY(-5px);
@@ -448,6 +468,34 @@
             font-weight: 800;
             margin-bottom: 15px;
             box-shadow: 0 0 20px rgba(0,212,200,0.5);
+        }
+
+        /* 步骤引导水母 */
+        .step-guide {
+            position: relative;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 20px 0 30px;
+            width: 100%;
+        }
+        .guide-jellyfish {
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--biolight);
+            font-size: 24px;
+            filter: drop-shadow(0 0 10px var(--biolight));
+            animation: swim 8s infinite ease-in-out;
+            z-index: 1;
+            pointer-events: none;
+        }
+        @keyframes swim {
+            0% { left: 0%; opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { left: 95%; opacity: 0; }
         }
 
         /* 支持者列表 */
@@ -486,6 +534,7 @@
             .gradient-text { font-size: 36px !important; }
             .btn-container { flex-direction: column; align-items: stretch; }
             .btn { text-align: center; }
+            .step-guide { display: none; } /* 小屏隐藏水母引导，避免拥挤 */
         }
 
         /* CONCEPT板块样式 (保持不变) */
@@ -795,6 +844,96 @@
             box-shadow: 0 10px 30px rgba(0,212,200,0.3);
             border: 1px solid rgba(0,212,200,0.4);
         }
+
+        /* 过往优秀孩子图片区域 */
+        .past-stars {
+            margin: 40px 0 60px;
+            text-align: center;
+        }
+        .past-stars-img {
+            max-width: 100%;
+            border-radius: 24px;
+            box-shadow: 0 15px 40px rgba(0,212,200,0.4), 0 0 0 2px rgba(230,200,124,0.2);
+            border: 1px solid var(--biolight);
+            transition: transform 0.3s ease;
+        }
+        .past-stars-img:hover {
+            transform: scale(1.01);
+            box-shadow: 0 20px 50px rgba(0,212,200,0.6);
+        }
+        .past-stars-caption {
+            margin-top: 20px;
+            font-size: 18px;
+            color: var(--metamorph-gold);
+            letter-spacing: 2px;
+            font-weight: 500;
+            text-shadow: 0 0 10px rgba(230,200,124,0.5);
+        }
+
+        /* ===== 新增：荧光水母二维码样式 ===== */
+        .jellyfish-qr {
+            background: rgba(10,26,47,0.5);
+            backdrop-filter: blur(8px);
+            border-radius: 30px;
+            padding: 20px;
+            text-align: center;
+            border: 2px solid var(--biolight);
+            box-shadow: 0 0 40px rgba(0,212,200,0.5);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        .jellyfish-qr::before {
+            content: '';
+            position: absolute;
+            top: -30px;
+            left: -30px;
+            width: 100px;
+            height: 100px;
+            background: radial-gradient(circle, rgba(0,212,200,0.3) 0%, transparent 70%);
+            border-radius: 50%;
+            animation: float-tentacle 8s infinite;
+            pointer-events: none;
+        }
+        .jellyfish-qr::after {
+            content: '';
+            position: absolute;
+            bottom: -30px;
+            right: -30px;
+            width: 120px;
+            height: 120px;
+            background: radial-gradient(circle, rgba(230,200,124,0.3) 0%, transparent 70%);
+            border-radius: 50%;
+            animation: float-tentacle 10s infinite reverse;
+            pointer-events: none;
+        }
+        .jellyfish-qr:hover {
+            transform: scale(1.02);
+            box-shadow: 0 0 60px rgba(0,212,200,0.8);
+        }
+        .qr-code-img {
+            width: 150px;
+            height: 150px;
+            border-radius: 20px;
+            border: 2px solid var(--metamorph-gold);
+            box-shadow: 0 0 20px var(--biolight);
+            margin-bottom: 10px;
+            transition: transform 0.3s;
+        }
+        .qr-code-img:hover {
+            transform: rotate(2deg) scale(1.05);
+        }
+        .jellyfish-qr p {
+            color: var(--metamorph-gold);
+            font-weight: 600;
+            margin-top: 10px;
+            font-size: 14px;
+        }
+        @keyframes float-tentacle {
+            0% { transform: translate(0, 0) rotate(0deg); }
+            50% { transform: translate(15px, 15px) rotate(10deg); }
+            100% { transform: translate(0, 0) rotate(0deg); }
+        }
     </style>
 </head>
 <body id="top">
@@ -848,7 +987,8 @@
                     </div>
                 </div>
                 <div style="flex: 1 1 300px; display: flex; justify-content: center;">
-                    <div class="gate-visual">
+                    <!-- OPEN按钮添加点击事件 -->
+                    <div class="gate-visual" id="gateButton" onclick="handleGateClick()">
                         <div class="whirlpool"></div>
                         <div class="gate-text">OPEN</div>
                     </div>
@@ -1129,15 +1269,17 @@
             </div>
         </section>
 
-  <!-- ENTRY 板块 (已加入过往优秀孩子图片) -->
+        <!-- ENTRY 板块 (已加入过往优秀孩子图片) -->
         <section id="entry" class="section">
             <h2 class="section-title">ENTRY <span style="color:var(--biolight);">深海への一歩</span></h2>
 
-            <!-- 新增：过往优秀孩子图片区域，激发憧憬感 -->
+            <!-- 过往优秀孩子图片区域 -->
             <div class="past-stars">
                 <img src="models.JPG" alt="Past JKFW Stars" class="past-stars-img">
                 <p class="past-stars-caption">— 夢を叶えた仲間たち —</p>
             </div>
+
+            <div style="display: flex; flex-wrap: wrap; gap: 40px; align-items: center; margin-bottom: 50px;">
                 <div style="flex: 2;">
                     <p style="font-size: 22px; font-weight: 700; color: var(--metamorph-gold); margin-bottom: 20px;">エントリー受付中 / 追加募集決定</p>
                     <ul style="margin: 20px 0; list-style: none; background: rgba(0,212,200,0.05); padding: 30px; border-radius: 24px;">
@@ -1145,16 +1287,24 @@
                         <li>✔ 必要書類：写真3点／自己紹介動画(任意)／参加同意書</li>
                     </ul>
                 </div>
-                <div style="flex: 1; background: rgba(0,212,200,0.1); padding: 30px; border-radius: 32px; text-align: center;">
-                    <p style="color:var(--metamorph-gold); font-weight:700; font-size: 18px;">LINEで情報受信</p>
-                    <a href="#" class="line-btn" style="margin: 20px 0;">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="white"><path d="M19.2 4.8H4.8C3.6 4.8 2.4 6 2.4 7.2v9.6c0 1.2 1.2 2.4 2.4 2.4h14.4c1.2 0 2.4-1.2 2.4-2.4V7.2c0-1.2-1.2-2.4-2.4-2.4z"/></svg>
-                        LINEで情報をゲット
-                    </a>
-                    <p style="font-size: 14px;">@jkfw2026 をID検索</p>
+                <div style="flex: 1;">
+                    <!-- 替换为荧光水母二维码 -->
+                    <div class="jellyfish-qr">
+                        <a href="https://lin.ee/1n4YOHY" target="_blank" rel="noopener noreferrer">
+                            <img src="https://chart.googleapis.com/chart?chs=150x150&cht=qr&chl=https://lin.ee/1n4YOHY" alt="LINE QR Code" class="qr-code-img">
+                        </a>
+                        <p>LINEで情報受信</p>
+                        <p style="font-size: 12px; margin-top: 5px;">@jkfw2026</p>
+                    </div>
                 </div>
             </div>
-            <div style="display: flex; flex-wrap: wrap; justify-content: space-around; gap: 20px;">
+
+            <!-- 步骤引导水母 (仅在桌面显示) -->
+            <div class="step-guide">
+                <i class="fas fa-jellyfish guide-jellyfish"></i>
+            </div>
+
+            <div style="display: flex; flex-wrap: wrap; justify-content: space-around; gap: 20px; position: relative;">
                 <div class="entry-step"><span>1</span><p>エントリー</p></div>
                 <div class="entry-step"><span>2</span><p>書類選考</p></div>
                 <div class="entry-step"><span>3</span><p>面接</p></div>
@@ -1187,8 +1337,21 @@
         </footer>
     </main>
 
-    <!-- 鼠标交互荧光气泡脚本 (修复滑动问题) -->
+    <!-- JavaScript 处理 OPEN 按钮点击 -->
     <script>
+        function handleGateClick() {
+            // 添加闪亮动画
+            const gate = document.getElementById('gateButton');
+            gate.classList.add('gate-flash');
+            setTimeout(() => {
+                gate.classList.remove('gate-flash');
+            }, 500);
+
+            // 平滑滚动到 ENTRY 部分
+            document.getElementById('entry').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // 鼠标交互荧光气泡脚本 (保持不变)
         (function() {
             const canvas = document.getElementById('bubble-canvas');
             const ctx = canvas.getContext('2d');
