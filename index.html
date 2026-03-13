@@ -1304,7 +1304,28 @@
             </div>
             <p style="margin-top: 40px; text-align: center; font-size: 20px; color: var(--metamorph-gold);">—— 次の深海へ羽ばたくのは、あなた。</p>
         </section>
-         <!-- ========== GLOBAL FOOTPRINT 板块 (新地图) ========== -->
+
+        <!-- VENUE (保持不变) -->
+        <section id="venue" class="section">
+            <h2 class="section-title">VENUE <span style="color:var(--biolight);">2026</span></h2>
+            <div class="venue-main" style="display: flex; flex-wrap: wrap; gap: 40px;">
+                <div style="flex: 2; min-width: 300px;">
+                    <h3 class="venue-highlight">淡路島夢舞台国際会議場</h3>
+                    <p style="font-size: 18px; margin-bottom: 20px;">安藤忠雄氏による静謐とした空間はホテルと回廊で結ばれ、唯一無二のステージを作り上げる。</p>
+                    <div style="background: rgba(0,212,200,0.1); padding: 20px; border-radius: 16px; margin-top: 20px;">
+                        <p style="color: var(--biolight); font-weight: 700;">➕ 特設コラボレーション</p>
+                        <p style="margin-top: 10px;">兵庫・淡路島 NATUREVERSE（坂茂設計）—— 深海の龍が舞う木造ドームで、リアルとバーチャルが融合する幻想空間。</p>
+                    </div>
+                </div>
+                <div class="venue-support" style="flex: 1;">
+                    <p>後援・協力</p>
+                    <p style="font-size: 16px; margin: 15px 0;">淡路島 / 神戸市 / 淡路市 / 東海テレビ</p>
+                    <p style="font-size: 14px; opacity: 0.8;">and more partners</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========== GLOBAL FOOTPRINT 板块 (新地图) ========== -->
         <section class="section global-footprint">
             <h2 class="section-title">GLOBAL <span class="gradient-text">FOOTPRINT</span></h2>
             <p class="section-sub">JKFW has expanded its wings across the world — explore our international milestones.</p>
@@ -1312,80 +1333,48 @@
             <div class="map-wrapper">
                 <div class="map-container" id="mapContainer">
                     <!-- 底图：请将 map.jpg 放在与HTML同目录下，或修改 src 为正确路径 -->
-                    <img src="images/map.jpg" alt="JKFW の世界夢マップ" class="map-img" id="mapImage">
+                    <img src="map.jpg" alt="JKFW 世界梦想地图" class="map-img" id="mapImage">
 
-                    <!-- ========== 热点配置区域 ========== -->
-                    <!-- 每个 hotspot 的 left/top 为相对于父容器的百分比（基于图片尺寸） -->
-                    <!-- 用户可根据实际地图位置调整数值，并修改 data-* 属性 -->
-                    <div class="hotspot" style="left: 55%; top: 40%;" 
-                         data-name="香港" 
-                         data-img="images/hkkfw1.jpg" 
-                         data-title="Hong Kong Kids Fashion Week" 
-                         data-date="Dec 2022" 
-                         data-desc="2022年12月、香港で初開催。JKFW公式パートナーとして参加し、国際交流の第一歩を踏み出しました。">
+                    <!-- ========== 热点配置区域 (已更新坐标) ========== -->
+                    <!-- 香港第一次 (hkfw1) -->
+                    <div class="hotspot" style="left: 82.80%; top: 40.60%;" 
+                         data-name="香港" data-img="images/hkkfw1.jpg" data-title="Hong Kong Kids Fashion Week" data-date="Dec 2022" data-desc="2022年12月、香港で初開催。JKFW公式パートナーとして参加し、国際交流の第一歩を踏み出しました。">
                     </div>
-                    <div class="hotspot" style="left: 52%; top: 30%;" 
-                         data-name="巴黎" 
-                         data-img="images/gkfw.jpg" 
-                         data-title="Global Kids Fashion Show Paris" 
-                         data-date="Mar 2023" 
-                         data-desc="2023年3月、パリのシャングリラホテルで開催。日本チームがOUTSTANDING TEAM AWARDを受賞。">
+                    <!-- 巴黎 -->
+                    <div class="hotspot" style="left: 52.80%; top: 27.93%;" 
+                         data-name="巴黎" data-img="images/gkfw.jpg" data-title="Global Kids Fashion Show Paris" data-date="Mar 2023" data-desc="2023年3月、パリのシャングリラホテルで開催。日本チームがOUTSTANDING TEAM AWARDを受賞。">
                     </div>
-                    <div class="hotspot" style="left: 75%; top: 45%;" 
-                         data-name="香港" 
-                         data-img="images/hkkfw2.jpg" 
-                         data-title="Hong Kong Kids Fashion Week" 
-                         data-date="Sep 2023" 
-                         data-desc="2023年9月、再び香港へ。JKFWから多くのモデルが参加し、アジアの架け橋に。">
+                    <!-- 香港第二次 (hkfw2) -->
+                    <div class="hotspot" style="left: 83.00%; top: 40.60%;" 
+                         data-name="香港" data-img="images/hkkfw2.jpg" data-title="Hong Kong Kids Fashion Week" data-date="Sep 2023" data-desc="2023年9月、再び香港へ。JKFWから多くのモデルが参加し、アジアの架け橋に。">
                     </div>
-                    <div class="hotspot" style="left: 70%; top: 55%;" 
-                         data-name="首尔" 
-                         data-img="images/skrw1.jpg" 
-                         data-title="Seoul Street Style Fashion Show" 
-                         data-date="Oct 2023" 
-                         data-desc="2023年10月、韓国SKRW初参加。AKANEがBest Modelを獲得し、韓国デビューの足がかりに。">
+                    <!-- 韩国第一次 (skrw1) -->
+                    <div class="hotspot" style="left: 88.10%; top: 33.40%;" 
+                         data-name="首尔" data-img="images/skrw1.jpg" data-title="Seoul Street Style Fashion Show" data-date="Oct 2023" data-desc="2023年10月、韓国SKRW初参加。AKANEがBest Modelを獲得し、韓国デビューの足がかりに。">
                     </div>
-                    <div class="hotspot" style="left: 30%; top: 25%;" 
-                         data-name="加拿大" 
-                         data-img="images/gala.jpg" 
-                         data-title="International Fashion Gala Canada" 
-                         data-date="Dec 2023" 
-                         data-desc="2023年12月、カナダで開催。Avery Chanが出場し、国際的な舞台での経験を積みました。">
+                    <!-- 加拿大 -->
+                    <div class="hotspot" style="left: 25.20%; top: 26.60%;" 
+                         data-name="加拿大" data-img="images/gala.jpg" data-title="International Fashion Gala Canada" data-date="Dec 2023" data-desc="2023年12月、カナダで開催。Avery Chanが出場し、国際的な舞台での経験を積みました。">
                     </div>
-                    <div class="hotspot" style="left: 75%; top: 50%;" 
-                         data-name="香港" 
-                         data-img="images/hkkfw3.jpg" 
-                         data-title="Hong Kong Kids Fashion Week" 
-                         data-date="2024" 
-                         data-desc="2024年、香港での継続的な交流。JKFWの存在感がさらに高まりました。">
+                    <!-- 香港第三次 (hkfw3) -->
+                    <div class="hotspot" style="left: 82.50%; top: 39.53%;" 
+                         data-name="香港" data-img="images/hkkfw3.jpg" data-title="Hong Kong Kids Fashion Week" data-date="2024" data-desc="2024年、香港での継続的な交流。JKFWの存在感がさらに高まりました。">
                     </div>
-                    <div class="hotspot" style="left: 70%; top: 60%;" 
-                         data-name="首尔" 
-                         data-img="images/skrw2.jpg" 
-                         data-title="Seoul Visual Fashion Week" 
-                         data-date="Mar 2024" 
-                         data-desc="2024年3月、韓国SKRW再び。多くのモデルが参加し、日韓ファッション交流が加速。">
+                    <!-- 韩国第二次 (skrw2) -->
+                    <div class="hotspot" style="left: 87.80%; top: 32.33%;" 
+                         data-name="首尔" data-img="images/skrw2.jpg" data-title="Seoul Visual Fashion Week" data-date="Mar 2024" data-desc="2024年3月、韓国SKRW再び。多くのモデルが参加し、日韓ファッション交流が加速。">
                     </div>
-                    <div class="hotspot" style="left: 70%; top: 40%;" 
-                         data-name="日本" 
-                         data-img="images/kcon.jpg" 
-                         data-title="KCON JAPAN" 
-                         data-date="May 2024" 
-                         data-desc="2024年5月、KCON JAPANでJKFW SPECIAL STAGEを開催。32名のモデルがKPOPダンスと融合したパフォーマンスを披露。">
+                    <!-- KCON -->
+                    <div class="hotspot" style="left: 91.10%; top: 33.66%;" 
+                         data-name="日本" data-img="images/kcon.jpg" data-title="KCON JAPAN" data-date="May 2024" data-desc="2024年5月、KCON JAPANでJKFW SPECIAL STAGEを開催。32名のモデルがKPOPダンスと融合したパフォーマンスを披露。">
                     </div>
-                    <div class="hotspot" style="left: 72%; top: 48%;" 
-                         data-name="首尔" 
-                         data-img="images/TFIRS.jpg" 
-                         data-title="THE FUTURE IDOL RUNWAY STAGE" 
-                         data-date="May 2025" 
-                         data-desc="2025年5月、ソウルで開催。JKFWから6名が出場し、2名が韓国事務所からスカウトされました。">
+                    <!-- 韩国TFIRS (futureidol) -->
+                    <div class="hotspot" style="left: 87.30%; top: 32.86%;" 
+                         data-name="首尔" data-img="images/TFIRS.jpg" data-title="THE FUTURE IDOL RUNWAY STAGE" data-date="May 2025" data-desc="2025年5月、ソウルで開催。JKFWから6名が出場し、2名が韓国事務所からスカウトされました。">
                     </div>
-                    <div class="hotspot" style="left: 68%; top: 52%;" 
-                         data-name="首尔" 
-                         data-img="images/AMF.jpg" 
-                         data-title="Asia Model Festival" 
-                         data-date="Oct 2025" 
-                         data-desc="2025年10月、韓国・ハイアットリゾートで開催。JKFWモデルがアジアの舞台で活躍。">
+                    <!-- 韩国AMF (asiamodel) -->
+                    <div class="hotspot" style="left: 87.80%; top: 34.33%;" 
+                         data-name="首尔" data-img="images/AMF.jpg" data-title="Asia Model Festival" data-date="Oct 2025" data-desc="2025年10月、韓国・ハイアットリゾートで開催。JKFWモデルがアジアの舞台で活躍。">
                     </div>
                     <!-- ========== 热点配置结束 ========== -->
 
@@ -1399,26 +1388,6 @@
                 </div>
                 <div class="map-note">
                     ⚡ 鼠标悬停在发光点上查看详情 · 坐标可根据实际底图调整
-                </div>
-            </div>
-        </section>
-
-        <!-- VENUE (保持不变) -->
-        <section id="venue" class="section">
-            <h2 class="section-title">VENUE <span style="color:var(--biolight);">2026</span></h2>
-            <div class="venue-main" style="display: flex; flex-wrap: wrap; gap: 40px;">
-                <div style="flex: 2; min-width: 300px;">
-                    <h3 class="venue-highlight">淡路島夢舞台国際会議場</h3>
-                    <p style="font-size: 18px; margin-bottom: 20px;">安藤忠雄氏による静謐とした空間はホテルと回廊で結ばれ、唯一無二のステージを作り上げる。</p>
-                    <div style="background: rgba(0,212,200,0.1); padding: 20px; border-radius: 16px; margin-top: 20px;">
-                        <p style="color: var(--biolight); font-weight: 700;">➕ 特設ステージ</p>
-                        <p style="margin-top: 10px;">兵庫・淡路島 NATUREVERSE（坂茂設計）—— 深海の龍が舞う木造ドームで、リアルとバーチャルが融合する幻想空間。</p>
-                    </div>
-                </div>
-                <div class="venue-support" style="flex: 1;">
-                    <p>後援・協力</p>
-                    <p style="font-size: 16px; margin: 15px 0;">淡路島 / 神戸市 / 淡路市 / 東海テレビ</p>
-                    <p style="font-size: 14px; opacity: 0.8;">and more partners</p>
                 </div>
             </div>
         </section>
@@ -1441,9 +1410,9 @@
                 <div style="flex: 1;">
                     <div class="jellyfish-qr">
                         <a href="https://lin.ee/1n4YOHY" target="_blank" rel="noopener noreferrer">
-                            <img src="https://chart.googleapis.com/chart?chs=150x150&cht=qr&chl=https://lin.ee/1n4YOHY" alt="LINE QR Code" class="qr-code-img">
+                            <img src="line.png" alt="LINE QR Code" class="qr-code-img">
                         </a>
-                        <p>LINEで情報受信</p>
+                        <p>LINEで情報をGET！</p>
                         <p style="font-size: 12px; margin-top: 5px;">@jkfw2026</p>
                     </div>
                 </div>
