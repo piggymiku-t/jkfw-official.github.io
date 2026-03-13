@@ -795,6 +795,31 @@
             box-shadow: 0 10px 30px rgba(0,212,200,0.3);
             border: 1px solid rgba(0,212,200,0.4);
         }
+
+        /* ===== 新增：过往优秀孩子图片区域 ===== */
+        .past-stars {
+            margin: 40px 0 60px;
+            text-align: center;
+        }
+        .past-stars-img {
+            max-width: 100%;
+            border-radius: 24px;
+            box-shadow: 0 15px 40px rgba(0,212,200,0.4), 0 0 0 2px rgba(230,200,124,0.2);
+            border: 1px solid var(--biolight);
+            transition: transform 0.3s ease;
+        }
+        .past-stars-img:hover {
+            transform: scale(1.01);
+            box-shadow: 0 20px 50px rgba(0,212,200,0.6);
+        }
+        .past-stars-caption {
+            margin-top: 20px;
+            font-size: 18px;
+            color: var(--metamorph-gold);
+            letter-spacing: 2px;
+            font-weight: 500;
+            text-shadow: 0 0 10px rgba(230,200,124,0.5);
+        }
     </style>
 </head>
 <body id="top">
@@ -937,7 +962,7 @@
             </div>
         </section>
 
-        <!-- ===== STATS 板块 (历史实绩) ===== -->
+        <!-- STATS 板块 (历史实绩) -->
         <section id="stats" class="section">
             <h2 class="section-title">ACHIEVEMENTS</h2>
             <!-- 历史图片横幅 -->
@@ -987,47 +1012,47 @@
             </div>
         </section>
 
-        <!-- ===== OUR TEAM / DREAMERS 板块 (PDF 43-45页) ===== -->
+        <!-- OUR TEAM / DREAMERS 板块 (PDF 43-45页) -->
         <section id="team" class="section">
             <h2 class="section-title">OUR TEAM <span style="color:var(--biolight);">DREAMERS</span></h2>
-            <p class="section-sub">未来を創るために、夢を信じる者たちが集まった — それが『DREAMERS』です！</p>
+            <p class="section-sub">未来創の、夢信者集 — 情熱と専門性で子どもたちの夢を支えるチーム</p>
 
             <!-- 核心团队 (PDF 44页) -->
             <h3 class="values-title">Core Team | 核心チーム</h3>
             <div class="grid-3">
                 <!-- 田中英一 -->
                 <div class="team-card">
-                    <div class="team-photo"><img src="team-hidekazu.jpg" alt="田中英一"></div>
+                    <div class="team-photo"><img src="images/team-hidekazu.jpg" alt="田中英一"></div>
                     <div class="team-name">田中英一</div>
                     <div class="team-title">代表理事</div>
                     <div class="team-desc">子どもたちの夢を応援し、多くの協力パートナーを結集。彼のリーダーシップのもとJKFWは国際的な成功を収めています。</div>
                 </div>
                 <!-- 田中莉斯 -->
                 <div class="team-card">
-                    <div class="team-photo"><img src="team-leesu.jpg" alt="田中莉斯"></div>
+                    <div class="team-photo"><img src="images/team-leesu.jpg" alt="田中莉斯"></div>
                     <div class="team-name">田中莉斯</div>
                     <div class="team-title">専務理事</div>
                     <div class="team-desc">イベント運営を統括し、ステージやパートナーとの調整を担当。彼女の手腕で毎年スムーズに進行しています。</div>
                 </div>
                 <!-- 博林寬曉 -->
                 <div class="team-card">
-                    <div class="team-photo"><img src="team-hiroaki.jpg" alt="博林寬曉"></div>
+                    <div class="team-photo"><img src="images/team-hiroaki.jpg" alt="博林寬曉"></div>
                     <div class="team-name">博林寬曉</div>
                     <div class="team-title">顧問（元学校教員）</div>
                     <div class="team-desc">元学校教員の経験を活かし、ボランティアチームをまとめ、子どもたちをステージへ導きます。</div>
                 </div>
                 <!-- 俞丽丽 -->
                 <div class="team-card">
-                    <div class="team-photo"><img src="team-lily.jpg" alt="俞丽丽"></div>
+                    <div class="team-photo"><img src="images/team-lily.jpg" alt="俞丽丽"></div>
                     <div class="team-name">俞丽丽</div>
                     <div class="team-title">海外名誉顧問</div>
                     <div class="team-desc">香港キッズファッションウィーク創設者。JKFWメンバーと共に子どもたちの夢を応援しています。</div>
                 </div>
                 <!-- 浪江倫子 -->
                 <div class="team-card">
-                    <div class="team-photo"><img src="team-michiko.jpg" alt="浪江倫子"></div>
+                    <div class="team-photo"><img src="images/team-michiko.jpg" alt="浪江倫子"></div>
                     <div class="team-name">浪江倫子</div>
-                    <div class="team-title">執行委員</div>
+                    <div class="team-title">一般社団法人 彌榮 代表理事</div>
                     <div class="team-desc">文化外交を通じて各業界の旗振り役を務め、日本文化の可能性を伝えています。</div>
                 </div>
             </div>
@@ -1035,30 +1060,30 @@
             <!-- 特别认定讲师 (PDF 45页) -->
             <h3 class="values-title" style="margin-top: 60px;">Special Instructors | 特別認定講師</h3>
             <div class="grid-4">
-                <!-- 結子 -->
-                <div class="team-card">
-                    <div class="team-photo"><img src="instructor-yuiko.jpg" alt="結子"></div>
-                    <div class="team-name">結子</div>
-                    <div class="team-title">World Supermodel Production 2019 世界大会優勝</div>
-                    <div class="team-desc">プロフェッショナルとしての姿勢と世界レベルのパフォーマンスを指導します。</div>
-                </div>
                 <!-- 岩田沙織 -->
                 <div class="team-card">
-                    <div class="team-photo"><img src="instructor-saori.jpg" alt="岩田沙織"></div>
+                    <div class="team-photo"><img src="images/instructor-saori.jpg" alt="岩田沙織"></div>
                     <div class="team-name">岩田沙織</div>
                     <div class="team-title">MRS LEGEND UNIVERSAL2022 準グランプリ</div>
                     <div class="team-desc">モデルとしての表現力や自信を子どもたちに教え、成長をサポートしています。</div>
                 </div>
+                <!-- 結子 -->
+                <div class="team-card">
+                    <div class="team-photo"><img src="images/instructor-yuiko.jpg" alt="結子"></div>
+                    <div class="team-name">結子</div>
+                    <div class="team-title">World Supermodel Production 2019 世界大会優勝</div>
+                    <div class="team-desc">プロフェッショナルとしての姿勢と世界レベルのパフォーマンスを指導します。</div>
+                </div>
                 <!-- 片岡まこ -->
                 <div class="team-card">
-                    <div class="team-photo"><img src="instructor-mako.jpg" alt="片岡まこ"></div>
+                    <div class="team-photo"><img src="images/instructor-mako.jpg" alt="片岡まこ"></div>
                     <div class="team-name">片岡まこ</div>
                     <div class="team-title">ウェルビーイングディレクター</div>
                     <div class="team-desc">子どもたちの心身のバランスを整え、内面からの美しさと健康を引き出します。</div>
                 </div>
                 <!-- 浪江倫子 (讲师) -->
                 <div class="team-card">
-                    <div class="team-photo"><img src="instructor-michiko.jpg" alt="浪江倫子"></div>
+                    <div class="team-photo"><img src="images/instructor-michiko.jpg" alt="浪江倫子"></div>
                     <div class="team-name">浪江倫子</div>
                     <div class="team-title">特別認定講師</div>
                     <div class="team-desc">本質や本来の良さを引き出し、コーチングと心理学の要素で心身をより良い方向へ導きます。</div>
@@ -1066,43 +1091,43 @@
             </div>
         </section>
 
-        <!-- ===== MODELS 板块 (添加2024冠军) ===== -->
+        <!-- MODELS 板块 (已包含2024冠军) -->
         <section id="models" class="section">
             <h2 class="section-title">JKFW’S MODEL <span style="color:var(--biolight);">ACTIVE WORLDWIDE</span></h2>
             <div class="grid-3">
                 <!-- 原有6位模特 -->
                 <div class="model-card">
-                    <div class="model-photo"><img src="model-miu.jpg" alt="MIU"></div>
+                    <div class="model-photo"><img src="images/model-miu.jpg" alt="MIU"></div>
                     <div><span>MIU</span> (2021 GP) : 2022香港Kids Fashion Week NYチャリティーショー出演</div>
                 </div>
                 <div class="model-card">
-                    <div class="model-photo"><img src="model-hanna.jpg" alt="室はんな"></div>
+                    <div class="model-photo"><img src="images/model-hanna.jpg" alt="室はんな"></div>
                     <div><span>室はんな</span> (2022準GP) : 2023パリGlobal Kids Fashion Show 総合グランプリ</div>
                 </div>
                 <div class="model-card">
-                    <div class="model-photo"><img src="model-sazanami.jpg" alt="さざなみ"></div>
+                    <div class="model-photo"><img src="images/model-sazanami.jpg" alt="さざなみ"></div>
                     <div><span>さざなみ</span> (2022 BEST HOPE) : 2023パリGlobal Kids キッズ部門グランプリ</div>
                 </div>
                 <div class="model-card">
-                    <div class="model-photo"><img src="model-kotomi.jpg" alt="ことみ"></div>
+                    <div class="model-photo"><img src="images/model-kotomi.jpg" alt="ことみ"></div>
                     <div><span>ことみ</span> (2023 GP) : 2023香港CENTRESTAGE HKKFW出演</div>
                 </div>
                 <div class="model-card">
-                    <div class="model-photo"><img src="model-akane.jpg" alt="AKANE"></div>
+                    <div class="model-photo"><img src="images/model-akane.jpg" alt="AKANE"></div>
                     <div><span>AKANE</span> (2023準GP) : 2023韓国SKRW Best Model & 契約・雑誌表紙</div>
                 </div>
                 <div class="model-card">
-                    <div class="model-photo"><img src="model-avery.jpg" alt="Avery Chan"></div>
+                    <div class="model-photo"><img src="images/model-avery.jpg" alt="Avery Chan"></div>
                     <div><span>Avery Chan</span> (2023キッズGP) : 2023カナダInternational Fashion Gala出演</div>
                 </div>
                 <!-- 新增：2024综合冠军 MIKO -->
                 <div class="model-card">
-                    <div class="model-photo"><img src="model-miko.jpg" alt="MIKO"></div>
+                    <div class="model-photo"><img src="images/model-miko.jpg" alt="MIKO"></div>
                     <div><span>MIKO</span> (2024 総合GP) : 2024 KCON JAPAN出演 / 韓国SKRW進出</div>
                 </div>
                 <!-- 新增：2024少儿组冠军 Micheal Taigar -->
                 <div class="model-card">
-                    <div class="model-photo"><img src="model-micheal.jpg" alt="Micheal Taigar"></div>
+                    <div class="model-photo"><img src="images/model-micheal.jpg" alt="Micheal Taigar"></div>
                     <div><span>Micheal Taigar</span> (2024 キッズ部門GP) : 2024 KCON JAPAN出演 / 日韓文化交流</div>
                 </div>
             </div>
@@ -1129,9 +1154,16 @@
             </div>
         </section>
 
-        <!-- ENTRY 板块 -->
+        <!-- ENTRY 板块 (已加入过往优秀孩子图片) -->
         <section id="entry" class="section">
             <h2 class="section-title">ENTRY <span style="color:var(--biolight);">深海への一歩</span></h2>
+
+            <!-- 新增：过往优秀孩子图片区域，激发憧憬感 -->
+            <div class="past-stars">
+                <img src="models.JPG" alt="Past JKFW Stars" class="past-stars-img">
+                <p class="past-stars-caption">— 夢を叶えた仲間たち —</p>
+            </div>
+
             <div style="display: flex; flex-wrap: wrap; gap: 40px; align-items: center; margin-bottom: 50px;">
                 <div style="flex: 2;">
                     <p style="font-size: 22px; font-weight: 700; color: var(--metamorph-gold); margin-bottom: 20px;">エントリー受付中 / 追加募集決定</p>
