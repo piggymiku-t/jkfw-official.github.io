@@ -3,10 +3,94 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.5, user-scalable=yes">
-    <title>JKFW 2026 深海DeepOcean | Japan Kids Fashion Week</title>
+    
+    <!-- ========== 基本SEO ========== -->
+    <title>JKFW 2026 Deep Ocean | 日本最大級キッズファッションイベント</title>
+    <meta name="description" content="Japan Kids Fashion Week 2026 - 深海をテーマにした世界最大級のキッズファッションイベント。子どもたちの無限の可能性を舞台に、リアルとバーチャルが融合する新体験。モデル募集受付中。">
+    <meta name="keywords" content="JKFW,キッズファッション,ファッションショー,子どもモデル,淡路島,深海,オーディション,国際ファッション,Japan Kids Fashion Week">
+    <meta name="author" content="JKFW運営委員会">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://jkfw2026.com/">
+    
+    <!-- ========== Open Graph (Facebook, LinkedIn等) ========== -->
+    <meta property="og:title" content="JKFW 2026 Deep Ocean | 子どもたちの夢が輝く深海ステージ">
+    <meta property="og:description" content="JKFW2026は、深海をテーマにしたキッズファッションの祭典。世界の子どもたちがリアルとバーチャルの舞台で輝きます。モデル募集中！">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://jkfw2026.com/">
+    <meta property="og:image" content="https://raw.githubusercontent.com/piggymiku-T/jkfw-official.github.io/main/images/og-image.jpg">
+    <meta property="og:image:alt" content="JKFW 2026 Deep Ocean">
+    <meta property="og:locale" content="ja_JP">
+    <meta property="og:site_name" content="Japan Kids Fashion Week">
+    
+    <!-- ========== Twitter Card ========== -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="JKFW 2026 Deep Ocean | キッズファッションの未来を深海から">
+    <meta name="twitter:description" content="JKFW2026 - リアルとバーチャルが融合する新しいファッション体験。子どもたちの才能を世界へ。">
+    <meta name="twitter:image" content="https://raw.githubusercontent.com/piggymiku-T/jkfw-official.github.io/main/images/og-image.jpg">
+    <meta name="twitter:site" content="@jkfw_official">
+    
+    <!-- ========== 構造化データ (JSON-LD) ========== -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Event",
+      "name": "JKFW 2026 Deep Ocean",
+      "description": "日本最大級のキッズファッションイベント。深海をテーマに、リアルとバーチャルの二つの舞台で子どもたちの才能を世界に発信します。",
+      "startDate": "2026-08-06",
+      "endDate": "2026-08-09",
+      "location": {
+        "@type": "Place",
+        "name": "淡路島夢舞台国際会議場・禅坊靖寧",
+        "address": {
+          "@type": "PostalAddress",
+          "addressLocality": "淡路市",
+          "addressRegion": "兵庫県",
+          "addressCountry": "JP"
+        }
+      },
+      "image": "https://raw.githubusercontent.com/piggymiku-T/jkfw-official.github.io/main/images/og-image.jpg",
+      "url": "https://jkfw2026.com/",
+      "organizer": {
+        "@type": "Organization",
+        "name": "一般社団法人日本キッズ協会",
+        "url": "https://jkfw2026.com/"
+      },
+      "offers": {
+        "@type": "Offer",
+        "url": "https://jkfw2026.com/#entry",
+        "availability": "https://schema.org/InStock"
+      }
+    }
+    </script>
+    
+    <!-- 追加で組織の構造化データ（フォールバック） -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": "Japan Kids Fashion Week",
+      "url": "https://jkfw2026.com/",
+      "logo": "https://raw.githubusercontent.com/piggymiku-T/jkfw-official.github.io/main/logo.png",
+      "sameAs": [
+        "https://www.instagram.com/japankidsfashionweek",
+        "https://www.facebook.com/japankidsfashionweek",
+        "https://lin.ee/1n4YOHY"
+      ]
+    }
+    </script>
+    
+    <!-- ファビコン（ブラウザタブアイコン） -->
+    <link rel="icon" type="image/png" href="logo.png">
+    <link rel="apple-touch-icon" href="logo.png">
+    
+    <!-- フォントと外部リソース -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300..800&display=swap" rel="stylesheet">
-    <!-- Font Awesome 用于图标（水母、心形） -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    
+    <!-- プリコネクトで読み込み高速化 -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    
     <style>
         /* ===== 原有的全局样式保持不变，仅新增或修改部分样式 ===== */
         * {
@@ -993,7 +1077,7 @@
             position: relative;
         }
         .map-wrapper {
-            max-width: 800px; /* 从1000px减小到800px，整体缩小 */
+            max-width: 800px;
             margin: 0 auto;
             background: transparent;
             border-radius: 24px;
@@ -1003,29 +1087,27 @@
         .map-container {
             position: relative;
             width: 100%;
-            line-height: 0; /* 消除图片下方空隙 */
+            line-height: 0;
         }
         .map-img {
             width: 100%;
             height: auto;
             display: block;
             border-radius: 24px 24px 0 0;
-            pointer-events: none; /* 图片不阻挡热点点击 */
+            pointer-events: none;
         }
-        /* 线条画布 */
         .map-lines-canvas {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            pointer-events: none; /* 允许点击穿透到热点 */
+            pointer-events: none;
             z-index: 5;
         }
-        /* 热点样式增强 */
         .hotspot {
             position: absolute;
-            width: 18px; /* 增大尺寸 */
+            width: 18px;
             height: 18px;
             background: var(--metamorph-gold);
             border-radius: 50%;
@@ -1034,7 +1116,7 @@
             cursor: pointer;
             transition: all 0.3s ease;
             z-index: 10;
-            animation: pulse-hotspot 2s infinite ease-in-out; /* 呼吸动画 */
+            animation: pulse-hotspot 2s infinite ease-in-out;
         }
         .hotspot:hover {
             width: 24px;
@@ -1120,7 +1202,6 @@
             padding: 8px;
             border-radius: 40px;
         }
-        /* 大本营心形标记 */
         .base-heart {
             position: absolute;
             z-index: 20;
@@ -1369,69 +1450,53 @@
             <p style="margin-top: 40px; text-align: center; font-size: 20px; color: var(--metamorph-gold);">—— 次の深海へ羽ばたくのは、あなた。</p>
         </section>
 
-        <!-- ========== GLOBAL FOOTPRINT 板块 (新地图) ========== -->
+        <!-- ========== GLOBAL FOOTPRINT 板块 ========== -->
         <section class="section global-footprint">
             <h2 class="section-title">GLOBAL <span class="gradient-text">FOOTPRINT</span></h2>
             <p class="section-sub">JKFW has expanded its wings across the world — explore our international milestones.</p>
 
             <div class="map-wrapper">
                 <div class="map-container" id="mapContainer">
-                    <!-- 底图：请将 map.jpg 放在与HTML同目录下，或修改 src 为正确路径 -->
                     <img src="images/map.jpg" alt="JKFW 夢世界" class="map-img" id="mapImage">
-                    
-                    <!-- 线条画布 -->
                     <canvas id="mapLinesCanvas" class="map-lines-canvas"></canvas>
 
-                    <!-- ========== 热点配置区域 (已更新坐标) ========== -->
-                    <!-- 香港第一次 (hkkfw1) -->
+                    <!-- 热点配置 -->
                     <div class="hotspot" style="left: 83.25%; top: 50.87%;" 
                          data-name="香港" data-img="images/hkkfw1.jpg" data-title="Hong Kong Kids Fashion Week" data-date="Dec 2022" data-desc="2022年12月、香港で初開催。JKFW公式パートナーとして参加し、国際交流の第一歩を踏み出しました。">
                     </div>
-                    <!-- 巴黎 -->
                     <div class="hotspot" style="left: 52.80%; top: 27.93%;" 
                          data-name="巴黎" data-img="images/gkfw.jpg" data-title="Global Kids Fashion Show Paris" data-date="Mar 2023" data-desc="2023年3月、パリのシャングリラホテルで開催。日本チームがOUTSTANDING TEAM AWARDを受賞。">
                     </div>
-                    <!-- 香港第二次 (hkkfw2) -->
                     <div class="hotspot" style="left: 83.63%; top: 49.12%;" 
                          data-name="香港" data-img="images/hkkfw2.jpg" data-title="Hong Kong Kids Fashion Week" data-date="Sep 2023" data-desc="2023年9月、再び香港へ。JKFWから多くのモデルが参加し、アジアの架け橋に。">
                     </div>
-                    <!-- 韩国第一次 (skrw1) -->
                     <div class="hotspot" style="left: 88.63%; top: 39.62%;" 
                          data-name="首尔" data-img="images/skrw1.jpg" data-title="Seoul Street Style Fashion Show" data-date="Oct 2023" data-desc="2023年10月、韓国SKRW初参加。AKANEがBest Modelを獲得し、韓国デビューの足がかりに。">
                     </div>
-                    <!-- 加拿大 -->
                     <div class="hotspot" style="left: 25.20%; top: 26.60%;" 
                          data-name="加拿大" data-img="images/gala.jpg" data-title="International Fashion Gala Canada" data-date="Dec 2023" data-desc="2023年12月、カナダで開催。Avery Chanが出場し、国際的な舞台での経験を積みました。">
                     </div>
-                    <!-- 香港第三次 (hkkfw3) -->
                     <div class="hotspot" style="left: 82.63%; top: 48.87%;" 
                          data-name="香港" data-img="images/hkkfw3.jpg" data-title="Hong Kong Kids Fashion Week" data-date="2024" data-desc="2024年、香港での継続的な交流。JKFWの存在感がさらに高まりました。">
                     </div>
-                    <!-- 韩国第二次 (skrw2) -->
                     <div class="hotspot" style="left: 88.88%; top: 37.62%;" 
                          data-name="首尔" data-img="images/skrw2.jpg" data-title="Seoul Visual Fashion Week" data-date="Mar 2024" data-desc="2024年3月、韓国SKRW再び。多くのモデルが参加し、日韓ファッション交流が加速。">
                     </div>
-                    <!-- KCON (东京) - 将作为大本营中心 -->
                     <div class="hotspot" style="left: 92.50%; top: 39.62%;" 
                          data-name="日本" data-img="images/kcon.jpg" data-title="KCON JAPAN" data-date="May 2024" data-desc="2024年5月、KCON JAPANでJKFW SPECIAL STAGEを開催。32名のモデルがKPOPダンスと融合したパフォーマンスを披露。">
                     </div>
-                    <!-- 韩国TFIRS (futureidol) -->
                     <div class="hotspot" style="left: 88.88%; top: 36.37%;" 
                          data-name="首尔" data-img="images/TFIRS.jpg" data-title="THE FUTURE IDOL RUNWAY STAGE" data-date="May 2025" data-desc="2025年5月、ソウルで開催。JKFWから6名が出場し、2名が韓国事務所からスカウトされました。">
                     </div>
-                    <!-- 韩国AMF (asiamodel) -->
                     <div class="hotspot" style="left: 87.13%; top: 38.87%;" 
                          data-name="首尔" data-img="images/AMF.jpg" data-title="Asia Model Festival" data-date="Oct 2025" data-desc="2025年10月、韓国・ハイアットリゾートで開催。JKFWモデルがアジアの舞台で活躍。">
                     </div>
-                    <!-- ========== 热点配置结束 ========== -->
 
-                    <!-- 心形大本营标记 (基于KCON热点坐标) -->
                     <div id="baseHeart" class="base-heart" style="left: 92.50%; top: 39.62%;">
                         <i class="fas fa-heart"></i>
                         <span>JKFW</span>
                     </div>
 
-                    <!-- 悬浮卡片容器 -->
                     <div id="hotspotCard" class="hotspot-card">
                         <img src="" alt="" id="cardImg">
                         <h4 id="cardTitle"></h4>
@@ -1539,7 +1604,7 @@
             document.getElementById('entry').scrollIntoView({ behavior: 'smooth' });
         }
 
-        // 热点悬浮卡片逻辑 (新地图)
+        // 热点悬浮卡片逻辑
         (function() {
             const mapContainer = document.getElementById('mapContainer');
             if (!mapContainer) return;
@@ -1587,7 +1652,7 @@
             });
         })();
 
-        // 绘制荧光线 (以KCON为中心)
+        // 绘制荧光线
         function drawMapLines() {
             const canvas = document.getElementById('mapLinesCanvas');
             if (!canvas) return;
@@ -1601,11 +1666,9 @@
             const ctx = canvas.getContext('2d');
             ctx.clearRect(0, 0, width, height);
 
-            // 获取所有热点坐标 (百分比转像素)
             const hotspots = document.querySelectorAll('.hotspot');
             if (hotspots.length === 0) return;
 
-            // 找到中心点 (KCON热点, 可根据data-name或直接取第8个)
             let centerX, centerY;
             for (let hs of hotspots) {
                 if (hs.getAttribute('data-name') === '日本') {
@@ -1616,18 +1679,17 @@
                     break;
                 }
             }
-            if (centerX === undefined) return; // 没找到
+            if (centerX === undefined) return;
 
-            // 绘制线条
             ctx.save();
             ctx.strokeStyle = 'rgba(0,212,200,0.7)';
             ctx.lineWidth = 2;
-            ctx.setLineDash([5, 5]); // 虚线
+            ctx.setLineDash([5, 5]);
             ctx.shadowColor = '#00D4C8';
             ctx.shadowBlur = 10;
 
             hotspots.forEach(hs => {
-                if (hs.getAttribute('data-name') === '日本') return; // 不画到自身
+                if (hs.getAttribute('data-name') === '日本') return;
 
                 const left = parseFloat(hs.style.left) / 100;
                 const top = parseFloat(hs.style.top) / 100;
@@ -1636,9 +1698,8 @@
 
                 ctx.beginPath();
                 ctx.moveTo(centerX, centerY);
-                // 添加贝塞尔曲线，让线条更柔和
                 const midX = (centerX + x) / 2;
-                const midY = (centerY + y) / 2 - 20; // 向上偏移20px
+                const midY = (centerY + y) / 2 - 20;
                 ctx.quadraticCurveTo(midX, midY, x, y);
                 ctx.stroke();
             });
@@ -1646,14 +1707,12 @@
             ctx.restore();
         }
 
-        // 监听窗口大小变化和图片加载
         window.addEventListener('load', () => {
             drawMapLines();
         });
         window.addEventListener('resize', () => {
             drawMapLines();
         });
-        // 如果图片是异步加载的，也可以观察变化
         const mapImg = document.getElementById('mapImage');
         if (mapImg) {
             mapImg.addEventListener('load', drawMapLines);
