@@ -182,17 +182,15 @@
             flex-wrap: wrap;
             gap: 20px;
         }
-        .logo {
-            display: inline-flex;
-            align-items: center;
-        }
-        .nav-logo-main {
-            height: 42px;
-            width: auto;
-            vertical-align: middle;
-            filter: drop-shadow(0 0 6px rgba(0,212,200,0.4));
-            transition: filter 0.3s ease;
-        }
+       .logo {
+    display: flex;
+    align-items: center;
+}
+.nav-logo-main {
+    height: 40px;   /* 可根据实际图片比例调整，例如 36px~48px */
+    width: auto;
+    display: block;
+}
         .nav-logo-main:hover {
             filter: drop-shadow(0 0 12px var(--biolight));
         }
@@ -1186,9 +1184,8 @@
     <div class="container">
         <div class="navbar">
             <div class="logo">
-                <img src="logo-small.png" alt="JKFW" class="nav-logo-main">
-                <span class="logo-year">2026</span>
-            </div>
+    <img src="logo-nav.png" alt="JKFW 2026" class="nav-logo-main">
+</div>
             <div class="nav-links">
                 <a href="#concept">CONCEPT</a>
                 <a href="#theme">DEEPOCEAN</a>
