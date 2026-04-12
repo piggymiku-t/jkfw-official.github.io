@@ -201,7 +201,26 @@
     display: flex;
     gap: 20px;
     flex-wrap: wrap;
-    flex-shrink: 0;
+    margin-left: 40px;   /* 新增 */
+}
+.nav-links a {
+    color: var(--data-white);
+    text-decoration: none;
+    font-weight: 700;    /* 改为700 */
+    font-size: 15px;
+    padding: 8px 16px;
+    border-radius: 40px;
+    transition: 0.3s;
+}
+.nav-links a:hover {
+    background: rgba(0,212,200,0.1);
+    color: var(--data-white);  /* 悬停保持白色 */
+}
+.nav-links a:active,
+.nav-links a:focus,
+.nav-links a:visited {
+    color: var(--data-white);
+    text-decoration: none;
 }
 @media (max-width: 768px) {
     .navbar {
@@ -216,6 +235,7 @@
         height: 60px;
     }
     .nav-links {
+        margin-left: 0;
         justify-content: center;
     }
 }
