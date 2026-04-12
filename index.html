@@ -188,10 +188,10 @@
     flex: 1;
 }
 .nav-logo-main {
-    height: 100px;
+    height: 100px;          /* 只改这个数值，其他保持原样 */
     width: auto;
-    max-width: 300px;
-    filter: brightness(1.1) saturate(1.2) drop-shadow(0 6px rgba(0,212,200,0.4));
+    vertical-align: middle;
+    filter: drop-shadow(0 0 6px rgba(0,212,200,0.4));
     transition: filter 0.3s ease;
 }
 .nav-logo-main:hover {
@@ -214,7 +214,6 @@
     }
     .nav-logo-main {
         height: 60px;
-        max-width: 200px;
     }
     .nav-links {
         justify-content: center;
