@@ -203,9 +203,24 @@
             font-weight: 800;
             letter-spacing: 4px;
         }
-        .logo span {
-            color: var(--metamorph-gold);
-        }
+        .nav-logo {
+    height: 26px;
+    width: auto;
+    vertical-align: middle;
+    margin-right: 10px;
+    filter: drop-shadow(0 0 4px rgba(0,212,200,0.5));
+    transition: filter 0.3s ease;
+}
+.nav-logo:hover {
+    filter: drop-shadow(0 0 8px var(--biolight));
+}
+.logo {
+    display: inline-flex;
+    align-items: center;
+    font-size: 30px;
+    font-weight: 800;
+    letter-spacing: 4px;
+}
         .nav-links {
             display: flex;
             gap: 20px;
@@ -1253,7 +1268,8 @@
     <!-- 固定导航 -->
     <div class="container">
         <div class="navbar">
-            <div class="logo">
+           <div class="logo">
+    <img src="logo-small.png" alt="JKFW" class="nav-logo">
     JKFW<span>2026</span>
 </div>
             <div class="nav-links">
