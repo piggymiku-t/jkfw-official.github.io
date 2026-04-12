@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.5, user-scalable=yes">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     
     <!-- ========== 基本SEO ========== -->
     <title>JKFW 2026 Deep Ocean | 日本最大級キッズファッションイベント</title>
@@ -198,28 +199,26 @@
             flex-wrap: wrap;
             gap: 20px;
         }
-        .logo {
-            font-size: 30px;
-            font-weight: 800;
-            letter-spacing: 4px;
-        }
-        .nav-logo {
-    height: 26px;
-    width: auto;
-    vertical-align: middle;
-    margin-right: 10px;
-    filter: drop-shadow(0 0 4px rgba(0,212,200,0.5));
-    transition: filter 0.3s ease;
-}
-.nav-logo:hover {
-    filter: drop-shadow(0 0 8px var(--biolight));
-}
-.logo {
+   .logo {
     display: inline-flex;
     align-items: center;
-    font-size: 30px;
-    font-weight: 800;
-    letter-spacing: 4px;
+}
+.nav-logo-main {
+    height: 42px;      /* 适当增大，更有存在感 */
+    width: auto;
+    vertical-align: middle;
+    filter: drop-shadow(0 0 6px rgba(0,212,200,0.4));
+    transition: filter 0.3s ease;
+}
+.nav-logo-main:hover {
+    filter: drop-shadow(0 0 12px var(--biolight));
+}
+.logo-year {
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--metamorph-gold);
+    margin-left: 10px;
+    letter-spacing: 2px;
 }
         .nav-links {
             display: flex;
@@ -943,40 +942,48 @@
         }
 
         /* 荧光水母返回顶部按钮 */
-        .jellyfish-top {
-            position: fixed;
-            bottom: 30px;
-            right: 30px;
-            width: 60px;
-            height: 60px;
-            background: rgba(10,26,47,0.7);
-            backdrop-filter: blur(8px);
-            border: 2px solid var(--biolight);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--biolight);
-            font-size: 30px;
-            box-shadow: 0 0 30px rgba(0,212,200,0.5);
-            cursor: pointer;
-            transition: all 0.3s ease;
-            z-index: 1000;
-            animation: float 3s infinite ease-in-out;
-            text-decoration: none;
-        }
-        .jellyfish-top:hover {
-            transform: scale(1.1);
-            background: var(--biolight);
-            color: var(--abyss);
-            box-shadow: 0 0 50px rgba(0,212,200,0.9);
-        }
-        .jellyfish-top i {
-            transition: transform 0.3s;
-        }
-        .jellyfish-top:hover i {
-            transform: translateY(-5px);
-        }
+.jellyfish-top {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    width: 60px;
+    height: 60px;
+    background: rgba(10,26,47,0.7);
+    backdrop-filter: blur(8px);
+    border: 2px solid var(--biolight);
+    border-radius: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: var(--biolight);
+    font-size: 24px;
+    box-shadow: 0 0 30px rgba(0,212,200,0.5);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    z-index: 1000;
+    animation: float 3s infinite ease-in-out;
+    text-decoration: none;
+}
+.jellyfish-top i {
+    font-size: 24px;
+    margin-bottom: 2px;
+}
+.top-text {
+    font-size: 10px;
+    font-weight: bold;
+    letter-spacing: 1px;
+    color: var(--biolight);
+}
+.jellyfish-top:hover {
+    transform: scale(1.1);
+    background: var(--biolight);
+    color: var(--abyss);
+}
+.jellyfish-top:hover i,
+.jellyfish-top:hover .top-text {
+    color: var(--abyss);
+}
         @keyframes float {
             0% { transform: translateY(0px); }
             50% { transform: translateY(-10px); }
@@ -1268,9 +1275,9 @@
     <!-- 固定导航 -->
     <div class="container">
         <div class="navbar">
-           <div class="logo">
-    <img src="logo-small.png" alt="JKFW" class="nav-logo">
-    JKFW<span>2026</span>
+    <div class="logo">
+    <img src="logo-small.png" alt="JKFW" class="nav-logo-main">
+    <span class="logo-year">2026</span>
 </div>
             <div class="nav-links">
                 <a href="#concept">CONCEPT</a>
@@ -1286,8 +1293,9 @@
 
     <!-- 荧光水母返回顶部按钮 -->
     <a href="#top" class="jellyfish-top" title="トップへ戻る">
-        <i class="fas fa-jellyfish"></i>
-    </a>
+    <i class="fas fa-jellyfish"></i>
+    <span class="top-text">TOP</span>
+</a>
 
     <main class="container">
         <!-- HERO (保持不变) -->
