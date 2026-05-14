@@ -11,6 +11,7 @@
     <meta name="robots" content="index, follow">
     <link rel="canonical" href="https://jkfw2026.com/">
     
+    <!-- Open Graph -->
     <meta property="og:title" content="JKFW 2026 Deep Ocean | 子どもたちの夢が輝く深海ステージ">
     <meta property="og:description" content="JKFW2026は、深海をテーマにしたキッズファッションの祭典。世界の子どもたちがリアルとバーチャルの舞台で輝きます。モデル募集中！">
     <meta property="og:type" content="website">
@@ -20,6 +21,7 @@
     <meta property="og:locale" content="ja_JP">
     <meta property="og:site_name" content="Japan Kids Fashion Week">
     
+    <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="JKFW 2026 Deep Ocean | キッズファッションの未来を深海から">
     <meta name="twitter:description" content="JKFW2026 - リアルとバーチャルが融合する新しいファッション体験。子どもたちの才能を世界へ。">
@@ -1193,6 +1195,63 @@
             70% { transform: scale(1.1); }
             100% { transform: scale(1); }
         }
+
+        /* ===== 统一卡片样式（新增，用于修复手机端图文分离问题） ===== */
+        .unified-concept {
+            display: block;
+            margin: 60px 0;
+        }
+        .concept-card {
+            background: rgba(10,26,47,0.85);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 24px;
+            overflow: hidden;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 30px;
+            transition: transform 0.3s ease, border-color 0.3s ease;
+            margin-bottom: 40px;
+        }
+        .concept-card:hover {
+            border-color: var(--biolight);
+            transform: translateY(-6px);
+            background: rgba(0,212,200,0.08);
+        }
+        .concept-card .concept-img-wrap {
+            flex: 1 1 300px;
+            padding: 30px 20px;
+            text-align: center;
+        }
+        .concept-card .concept-text-wrap {
+            flex: 1 1 300px;
+            background: transparent !important;
+            backdrop-filter: none !important;
+            padding: 30px 40px 30px 20px;
+        }
+        .concept-card .concept-img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 16px;
+            display: inline-block;
+            box-shadow: 0 0 20px rgba(0,212,200,0.1);
+        }
+        @media (max-width: 768px) {
+            .concept-card {
+                flex-direction: column;
+                gap: 0;
+            }
+            .concept-card .concept-img-wrap,
+            .concept-card .concept-text-wrap {
+                flex: auto;
+                width: 100%;
+                padding: 25px;
+            }
+            .concept-card .concept-text-wrap {
+                padding-top: 0;
+            }
+        }
     </style>
 </head>
 <body id="top">
@@ -1256,11 +1315,13 @@
             </div>
         </section>
 
-        <!-- CONCEPT -->
+        <!-- CONCEPT (已统一卡片) -->
         <section id="concept" class="section">
             <h2 class="section-title">OUR TEAM CONCEPT</h2>
             <p class="section-sub">子どもの可能性は無限大 —— 夢を叶える舞台を提供し、未来への一歩を踏み出す瞬間を創り出す</p>
-            <div class="concept-block concept-left-img">
+            
+            <!-- 卡片 1 -->
+            <div class="concept-card">
                 <div class="concept-img-wrap">
                     <img src="https://raw.githubusercontent.com/piggymiku-T/jkfw-official.github.io/main/images/concept01.jpg" alt="子どもの可能性は無限大" class="concept-img">
                 </div>
@@ -1270,15 +1331,19 @@
                     <p class="concept-highlight">2026年は深海へ。生命の源から、未来の自分を孵す。</p>
                 </div>
             </div>
-            <div class="concept-block concept-right-img">
+
+            <!-- 卡片 2 -->
+            <div class="concept-card">
+                <div class="concept-img-wrap">
+                    <img src="https://raw.githubusercontent.com/piggymiku-T/jkfw-official.github.io/main/images/concept02.jpg" alt="公正･公平な評価" class="concept-img">
+                </div>
                 <div class="concept-text-wrap">
                     <p class="concept-main-title">Truly fair stage for all|公正･公平な評価</p>
                     <p class="concept-desc">Japan Kids Fashion Week では、すべての子どもたちが平等にその才能を評価されるステージを提供しています。出身や所属する事務所の規模に関わらず、すべての参加者が同じチャンスを手にします。<br>このステージは、子どもたち一人ひとりの輝きを引き出し、その個性を尊重する場です。</p>
                 </div>
-                <div class="concept-img-wrap">
-                    <img src="https://raw.githubusercontent.com/piggymiku-T/jkfw-official.github.io/main/images/concept02.jpg" alt="公正･公平な評価" class="concept-img">
-                </div>
             </div>
+
+            <!-- 4大价值观部分保持不变 -->
             <div class="concept-values">
                 <h3 class="values-title">Core Values | 核となる価値観</h3>
                 <div class="values-grid">
@@ -1302,11 +1367,13 @@
             </div>
         </section>
 
-        <!-- THEME -->
+        <!-- THEME (已统一卡片) -->
         <section id="theme" class="section">
             <h2 class="section-title">DeepOcean × NATUREVERSE</h2>
             <p class="section-sub">2026年のテーマ「深海」—— 生命の源から未来を孵し、リアルとバーチャルが融合する新たな世界</p>
-            <div class="concept-block concept-left-img">
+            
+            <!-- 卡片 1 -->
+            <div class="concept-card">
                 <div class="concept-img-wrap">
                     <img src="images/theme-deep.jpg" alt="深海DeepOcean" class="concept-img">
                 </div>
@@ -1316,16 +1383,20 @@
                     <p class="concept-highlight">DeepOcean：<br>深海の静けさの中に秘められた、生命の輝きを表現する</p>
                 </div>
             </div>
-            <div class="concept-block concept-right-img">
+
+            <!-- 卡片 2 -->
+            <div class="concept-card">
+                <div class="concept-img-wrap">
+                    <img src="images/theme-nature.jpg" alt="NATUREVERSE" class="concept-img">
+                </div>
                 <div class="concept-text-wrap">
                     <p class="concept-main-title">NATUREVERSE：自然とバーチャルの融合</p>
                     <p class="concept-desc">坂茂氏設計の木造ドーム「NATUREVERSE」では、リアルなランウェイとバーチャルな深海空間が融合し、<br>子どもたちは現実と仮想の境界を超えて、自分だけのストーリーを創り上げることができます。</p>
                     <p class="concept-highlight">深海の龍が舞う木造ドームで、新たな体験が待っている</p>
                 </div>
-                <div class="concept-img-wrap">
-                    <img src="images/theme-nature.jpg" alt="NATUREVERSE" class="concept-img">
-                </div>
             </div>
+
+            <!-- THEME KEYWORDS 保持不变 -->
             <div class="concept-values">
                 <h3 class="values-title">THEME KEYWORDS | テーマキーワード</h3>
                 <div class="values-grid">
@@ -1375,7 +1446,7 @@
                 <div class="team-card"><div class="team-photo"><img src="images/team-luoman.jpg" alt="羅熳Mandy"></div><div class="team-name">羅熳Mandy</div><div class="team-title">海外名誉顧問</div><div class="team-desc">長年韓国エンターテインメントの海外事業責任者としての経験や国際的なキッズタレントのネットワークを活かし、グローバルな人材発掘と育成を牽引。</div></div>
             </div>
             
-            <!-- 特別認定講師 (已恢复) -->
+            <!-- 特別認定講師 -->
             <h3 class="values-title" style="margin-top: 60px;">Special Instructors | 特別認定講師</h3>
             <div class="grid-4">
                 <div class="team-card">
@@ -1385,7 +1456,7 @@
                     <div class="team-desc">プロフェッショナルとしての姿勢と世界レベルのパフォーマンスを指導します。</div>
                 </div>
                 <div class="team-card">
-                    <div class="team-photo"><img src="instructor-saori.jpg" alt="岩田沙織"></div>
+                    <div class="team-photo"><img src="instructor-saori.jpg" alt="岩田さおり"></div>
                     <div class="team-name">岩田さおり</div>
                     <div class="team-title">MRS LEGEND UNIVERSAL2022 準グランプリ</div>
                     <div class="team-desc">モデルとしての表現力や自信を子どもたちに教え、成長をサポートしています。</div>
