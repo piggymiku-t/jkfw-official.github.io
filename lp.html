@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>JKFW2026 キッズ夢フェス | 淡路島で子どもが主役の2日間</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700&family=Noto+Sans+JP:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            background: linear-gradient(145deg, #cbe9ff 0%, #e0f3ff 100%);
+            font-family: 'Noto Sans JP', 'Inter', sans-serif;
+            min-height: 100vh;
+            padding: 1rem;
+            position: relative;
+            overflow-x: hidden;
+        }
+        .magic-container {
+            position: relative;
+            max-width: 1300px;
+            margin: 0 auto;
+            min-height: 90vh;
+            display: flex;
+            flex-direction: column;
+        }
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.8rem;
+            margin-top: 2rem;
+            margin-bottom: 3rem;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+            pointer-events: none;
+        }
+        .cards-grid.visible {
+            opacity: 1;
+            transform: translateY(0);
+            pointer-events: auto;
+        }
+        .event-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(2px);
+            border-radius: 2rem;
+            padding: 1.5rem;
+            box-shadow: 0 20px 35px -12px rgba(0, 0, 0, 0.2), 0 0 0 1px rgba(255,255,240,0.6);
+            transition: all 0.25s ease;
+            cursor: pointer;
+            border: 1px solid rgba(255,245,200,0.8);
+        }
+        .event-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 28px 36px -14px rgba(0, 0, 0, 0.25);
+            background: white;
+        }
+        .card-icon { font-size: 2.8rem; margin-bottom: 0.6rem; }
+        .event-card h3 {
+            font-size: 1.5rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #1f6d49, #3b9b6b);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+            margin-bottom: 0.5rem;
+        }
+        .event-card p { color: #2c3e2f; font-weight: 500; line-height: 1.4; margin: 0.5rem 0; }
+        .card-detail {
+            font-size: 0.85rem;
+            color: #4a6741;
+            border-top: 1px solid #d9e6c3;
+            margin-top: 0.8rem;
+            padding-top: 0.6rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .card-detail span { font-weight: 700; color: #f9a26c; }
+        .line-section {
+            text-align: center;
+            background: #06c75510;
+            backdrop-filter: blur(8px);
+            border-radius: 3rem;
+            padding: 2rem 1.5rem;
+            margin: 2rem 0 3rem;
+            border: 2px dashed #06c755;
+            transition: all 0.3s;
+        }
+        .line-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            background: #06c755;
+            color: white;
+            font-weight: 800;
+            font-size: 1.4rem;
+            padding: 0.9rem 2.2rem;
+            border-radius: 60px;
+            text-decoration: none;
+            box-shadow: 0 12px 18px -8px rgba(6,199,85,0.4);
+            transition: 0.2s;
+            margin-top: 0.8rem;
+            border: none;
+            cursor: pointer;
+        }
+        .line-button:hover { background: #05a347; transform: scale(1.02); }
+        .line-offer {
+            background: #fff8e7;
+            display: inline-block;
+            padding: 0.4rem 1rem;
+            border-radius: 40px;
+            font-size: 0.85rem;
+            font-weight: bold;
+            color: #b45f1b;
+            margin-top: 1rem;
+        }
+        /* 小男孩固定区 */
+        .boy-area {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 30;
+            width: 140px;
+            height: 140px;
+            pointer-events: none;
+        }
+        @media (max-width: 640px) {
+            .boy-area { width: 100px; height: 100px; bottom: 10px; right: 10px; }
+        }
+        .boy-image {
+            width: 100%;
+            height: auto;
+            filter: drop-shadow(4px 8px 12px rgba(0,0,0,0.2));
+            pointer-events: none;
+        }
+        .bubbles-layer {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 40;
+            overflow: visible;
+        }
+        .bubble {
+            position: absolute;
+            background: radial-gradient(circle at 30% 30%, rgba(255,255,245,0.95), rgba(210,240,255,0.8));
+            border-radius: 50%;
+            box-shadow: 0 8px 18px rgba(0,0,0,0.1), inset -3px -3px 5px rgba(0,0,0,0.05), inset 2px 2px 8px rgba(255,255,255,0.8);
+            backdrop-filter: blur(1px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            font-weight: bold;
+            color: #0b4f2e;
+            transition: all 0.2s linear;
+            will-change: transform, left, top;
+            cursor: default;
+        }
+        .hero-message {
+            text-align: center;
+            margin-bottom: 2rem;
+            background: rgba(255,246,205,0.7);
+            border-radius: 70px;
+            padding: 1rem;
+            backdrop-filter: blur(4px);
+        }
+        .hero-message h1 { font-size: 1.9rem; font-weight: 900; color: #2e5c2e; }
+        .footer-note { text-align: center; font-size: 0.7rem; color: #3a6741; margin-top: 2rem; }
+        @keyframes popIn {
+            0% { transform: scale(0.2) rotate(-10deg); opacity: 0; }
+            80% { transform: scale(1.05) rotate(1deg); }
+            100% { transform: scale(1) rotate(0deg); opacity: 1; }
+        }
+        .card-pop { animation: popIn 0.4s cubic-bezier(0.34, 1.2, 0.64, 1) forwards; }
+        .hidden { display: none !important; }
+    </style>
+</head>
+<body>
+<div class="magic-container">
+    <div class="hero-message">
+        <h1>🎈 ぷくっと吹いたら、夢が広がる 🎈</h1>
+        <p>JKFW2026｜淡路夢舞台 8月8日(土)・9日(日)</p>
+    </div>
+    <div id="cardsGrid" class="cards-grid"></div>
+    <div id="lineArea" class="line-section" style="display: none;">
+        <div style="font-size: 1.8rem;">📱💚</div>
+        <h3 style="color:#1d5a3e;">LINEで限定特典＆最新情報を受け取る</h3>
+        <p>🍭 ワークショップ事前予約枠<br>🍬 当日使える「子ども500円割引クーポン」<br>☔ 雨天プログラムのお知らせ</p>
+        <a href="https://lin.ee/xxxxxx" target="_blank" class="line-button" id="lineLink">➕ 公式LINEを追加する</a>
+        <div class="line-offer">🎁 先着200組にキッズドリンク無料！</div>
+        <p style="margin-top: 12px; font-size: 0.8rem;">＼ イベント詳細もLINEでゲット ／</p>
+    </div>
+    <div class="footer-note">
+        ⭐ 主催：JKFW2026実行委員会 / 同時開催 Dream World Fes2026・キッチンカーEXPO
+    </div>
+</div>
+
+<div class="boy-area">
+    <img class="boy-image" src="images/boy-bubble.png" alt="ふわっと男の子">
+</div>
+<div id="bubbleLayer" class="bubbles-layer"></div>
+
+<script>
+    (function(){
+        const activities = [
+            { id: "fashion", icon: "👗✨", title: "キッズファッションショー", desc: "お子様がランウェイを歩く！夢の2Fフロア", detail: "プロカメラマン撮影＆特別ステージ" },
+            { id: "oshigoto", icon: "🍰🔧", title: "おしごと体験", desc: "パティシエ・医者・デザイナー…本物の職業体験", detail: "子ども店長としておもてなし" },
+            { id: "gourmet", icon: "🌍🍜", title: "世界のグルメ", desc: "キッチンカー15台！淡路で世界一周食べ歩き", detail: "台湾・イタリア・ブラジルetc" },
+            { id: "dance", icon: "💃🕺", title: "キッズダンスステージ", desc: "今まで頑張った努力を最高の舞台で", detail: "世界中のダンサーが熱演" },
+            { id: "en'nichi", icon: "🎯🎏", title: "子ども縁日", desc: "こども店長が射的・ヨーヨー釣りを仕切る", detail: "おもてなし体験＆わくわく遊び" },
+            { id: "handmade", icon: "🧸🎨", title: "ハンドメイドマーケット", desc: "世界にひとつ！こども作品＆雑貨", detail: "ユニークな宝物を探そう" }
+        ];
+        const targetPositions = [
+            { left: "12%", top: "28%" }, { left: "68%", top: "22%" }, { left: "35%", top: "48%" },
+            { left: "78%", top: "65%" }, { left: "22%", top: "72%" }, { left: "52%", top: "85%" }
+        ];
+        let addedToGrid = new Set();
+        let animationCompletedCount = 0;
+        const totalBubbles = activities.length;
+        let isAnimationFinished = false;
+        const bubbleLayer = document.getElementById('bubbleLayer');
+        const cardsGrid = document.getElementById('cardsGrid');
+        const lineArea = document.getElementById('lineArea');
+
+        function getStartPoint() {
+            const boyRect = document.querySelector('.boy-area').getBoundingClientRect();
+            let startX = boyRect.left + boyRect.width * 0.78;
+            let startY = boyRect.top + boyRect.height * 0.48;
+            return { x: startX, y: startY };
+        }
+        function getEndPoint(percentLeft, percentTop) {
+            const w = window.innerWidth, h = window.innerHeight;
+            let leftVal = typeof percentLeft === 'string' ? parseFloat(percentLeft) / 100 * w : percentLeft;
+            let topVal = typeof percentTop === 'string' ? parseFloat(percentTop) / 100 * h : percentTop;
+            return { x: leftVal, y: topVal };
+        }
+        function addCardToGrid(activity) {
+            const cardDiv = document.createElement('div');
+            cardDiv.className = 'event-card';
+            cardDiv.innerHTML = `
+                <div class="card-icon">${activity.icon}</div>
+                <h3>${activity.title}</h3>
+                <p>${activity.desc}</p>
+                <div class="card-detail"><span>🎪 もっと見る</span>  ${activity.detail}</div>
+            `;
+            cardDiv.addEventListener('click', () => document.getElementById('lineArea').scrollIntoView({ behavior: 'smooth', block: 'center' }));
+            cardsGrid.appendChild(cardDiv);
+        }
+        function showTempCardAndAddToGrid(activity, x, y) {
+            if(addedToGrid.has(activity.id)) return;
+            const tempCard = document.createElement('div');
+            tempCard.className = 'event-card card-pop';
+            tempCard.style.position = 'fixed';
+            tempCard.style.left = (x - 140) + 'px';
+            tempCard.style.top = (y - 80) + 'px';
+            tempCard.style.width = '260px';
+            tempCard.style.zIndex = 100;
+            tempCard.style.background = 'white';
+            tempCard.innerHTML = `<div class="card-icon">${activity.icon}</div><h3>${activity.title}</h3><p>${activity.desc}</p><div class="card-detail"><span>✨ 詳細へ</span>  ${activity.detail}</div>`;
+            document.body.appendChild(tempCard);
+            setTimeout(() => {
+                if(tempCard && tempCard.isConnected) tempCard.remove();
+                if(!addedToGrid.has(activity.id)) {
+                    addCardToGrid(activity);
+                    addedToGrid.add(activity.id);
+                    animationCompletedCount++;
+                }
+                if(animationCompletedCount === totalBubbles && !isAnimationFinished) {
+                    isAnimationFinished = true;
+                    cardsGrid.classList.add('visible');
+                    if(bubbleLayer) bubbleLayer.innerHTML = '';
+                    lineArea.style.display = 'block';
+                    lineArea.style.animation = 'popIn 0.6s ease';
+                }
+            }, 500);
+        }
+        function evolveBubbleToCard(bubble, activity, endX, endY) {
+            if(!bubble.isConnected) return;
+            const rect = bubble.getBoundingClientRect();
+            const centerX = rect.left + rect.width/2;
+            const centerY = rect.top + rect.height/2;
+            bubble.style.transition = 'all 0.2s ease';
+            bubble.style.transform = 'scale(0.2)';
+            bubble.style.opacity = '0';
+            setTimeout(() => {
+                bubble.remove();
+                showTempCardAndAddToGrid(activity, centerX, centerY);
+            }, 150);
+        }
+        function createBubble(activityIndex, targetPos) {
+            if(isAnimationFinished) return;
+            const activity = activities[activityIndex];
+            const start = getStartPoint();
+            const end = getEndPoint(targetPos.left, targetPos.top);
+            const bubble = document.createElement('div');
+            bubble.className = 'bubble';
+            const size = 70;
+            bubble.style.width = size + 'px';
+            bubble.style.height = size + 'px';
+            bubble.style.left = (start.x - size/2) + 'px';
+            bubble.style.top = (start.y - size/2) + 'px';
+            bubble.style.position = 'fixed';
+            bubble.innerHTML = `<span style="font-size:2.4rem;">${activity.icon.slice(0,2)}</span>`;
+            bubble.style.display = 'flex';
+            bubble.style.alignItems = 'center';
+            bubble.style.justifyContent = 'center';
+            bubbleLayer.appendChild(bubble);
+            bubble.offsetHeight;
+            bubble.style.transition = 'all 1.2s cubic-bezier(0.2, 0.9, 0.4, 1.1)';
+            bubble.style.left = (end.x - size/2) + 'px';
+            bubble.style.top = (end.y - size/2) + 'px';
+            bubble.style.transform = 'scale(1.02)';
+            const onFinish = () => { if(bubble.isConnected) evolveBubbleToCard(bubble, activity, end.x, end.y); bubble.removeEventListener('transitionend', onFinish); };
+            bubble.addEventListener('transitionend', onFinish, { once: true });
+            setTimeout(() => { if(bubble && bubble.isConnected) evolveBubbleToCard(bubble, activity, end.x, end.y); }, 1400);
+        }
+        function startBubbleSequence() {
+            let idx = 0;
+            function nextBubble() {
+                if(idx >= totalBubbles) return;
+                createBubble(idx, targetPositions[idx]);
+                idx++;
+                if(idx < totalBubbles) setTimeout(nextBubble, 750);
+            }
+            nextBubble();
+            setTimeout(() => {
+                if(animationCompletedCount < totalBubbles && !isAnimationFinished) {
+                    for(let i=0; i<activities.length; i++) if(!addedToGrid.has(activities[i].id)) { addCardToGrid(activities[i]); addedToGrid.add(activities[i].id); animationCompletedCount++; }
+                    cardsGrid.classList.add('visible');
+                    lineArea.style.display = 'block';
+                    isAnimationFinished = true;
+                }
+            }, 10000);
+        }
+        cardsGrid.classList.remove('visible');
+        startBubbleSequence();
+        const lineLink = document.getElementById('lineLink');
+        if(lineLink) lineLink.href = "https://lin.ee/xxxxxx";
+    })();
+</script>
+</body>
+</html>
