@@ -12,12 +12,25 @@
             box-sizing: border-box;
         }
         body {
-            background: linear-gradient(145deg, #cbe9ff 0%, #e0f3ff 100%);
+            /* 背景：淡路島らしい爽やかなグラデーション + 軽い波模様 */
+            background: linear-gradient(145deg, #cbe9ff 0%, #d4f0ff 40%, #e6f7ff 100%);
             font-family: 'Noto Sans JP', 'Inter', sans-serif;
             min-height: 100vh;
-            padding: 1rem;
+            padding: 1.5rem;
             position: relative;
             overflow-x: hidden;
+        }
+        /* 追加：背景にそっと浮かぶ雲のような丸 */
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 20% 30%, rgba(255,245,200,0.2) 0%, transparent 50%);
+            pointer-events: none;
+            z-index: 0;
         }
         .magic-container {
             position: relative;
@@ -26,6 +39,7 @@
             min-height: 90vh;
             display: flex;
             flex-direction: column;
+            z-index: 2;
         }
         .cards-grid {
             display: grid;
@@ -44,14 +58,14 @@
             pointer-events: auto;
         }
         .event-card {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(2px);
+            background: rgba(255, 255, 255, 0.96);
+            backdrop-filter: blur(4px);
             border-radius: 2rem;
             padding: 1.5rem;
-            box-shadow: 0 20px 35px -12px rgba(0, 0, 0, 0.2), 0 0 0 1px rgba(255,255,240,0.6);
+            box-shadow: 0 20px 35px -12px rgba(0, 0, 0, 0.15), 0 0 0 1px rgba(255,250,210,0.8);
             transition: all 0.25s ease;
             cursor: pointer;
-            border: 1px solid rgba(255,245,200,0.8);
+            border: 1px solid rgba(255,245,200,0.9);
         }
         .event-card:hover {
             transform: translateY(-6px);
@@ -118,25 +132,30 @@
             color: #b45f1b;
             margin-top: 1rem;
         }
-        /* 小男孩固定区 */
-        .boy-area {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            z-index: 30;
-            width: 140px;
-            height: 140px;
-            pointer-events: none;
-        }
-        @media (max-width: 640px) {
-            .boy-area { width: 100px; height: 100px; bottom: 10px; right: 10px; }
-        }
-        .boy-image {
+        /* 小男孩区域 —— 作为背景插画的一部分，不再fixed角落 */
+        .boy-scene {
+            position: relative;
             width: 100%;
-            height: auto;
-            filter: drop-shadow(4px 8px 12px rgba(0,0,0,0.2));
+            margin: 2rem 0 0 0;
+            display: flex;
+            justify-content: flex-end;
+            pointer-events: none;
+            z-index: 1;
+        }
+        .boy-illustration {
+            max-width: 240px;
+            width: 35%;
+            min-width: 140px;
+            filter: drop-shadow(8px 12px 18px rgba(0,0,0,0.15));
+            transition: transform 0.3s ease;
             pointer-events: none;
         }
+        /* 响应式：手机不要太大 */
+        @media (max-width: 640px) {
+            .boy-illustration { max-width: 160px; }
+            body { padding: 1rem; }
+        }
+        /* 泡泡动画层 */
         .bubbles-layer {
             position: fixed;
             top: 0;
@@ -149,7 +168,7 @@
         }
         .bubble {
             position: absolute;
-            background: radial-gradient(circle at 30% 30%, rgba(255,255,245,0.95), rgba(210,240,255,0.8));
+            background: radial-gradient(circle at 30% 30%, rgba(255,255,245,0.96), rgba(190,230,250,0.85));
             border-radius: 50%;
             box-shadow: 0 8px 18px rgba(0,0,0,0.1), inset -3px -3px 5px rgba(0,0,0,0.05), inset 2px 2px 8px rgba(255,255,255,0.8);
             backdrop-filter: blur(1px);
@@ -166,7 +185,7 @@
         .hero-message {
             text-align: center;
             margin-bottom: 2rem;
-            background: rgba(255,246,205,0.7);
+            background: rgba(255,246,205,0.75);
             border-radius: 70px;
             padding: 1rem;
             backdrop-filter: blur(4px);
@@ -202,13 +221,16 @@
     </div>
 </div>
 
-<div class="boy-area">
-    <img class="boy-image" src="images/boy-bubble.png" alt="ふわっと男の子">
+<!-- 小男孩插画：作为背景一部分，放在右下但跟随内容流，不fixed -->
+<div class="boy-scene">
+    <img class="boy-illustration" src="images/boy-bubble.png" alt="ふわっと男の子">
 </div>
+
 <div id="bubbleLayer" class="bubbles-layer"></div>
 
 <script>
     (function(){
+        // 活动数据（修正重复问题，共6个不同活动）
         const activities = [
             { id: "fashion", icon: "👗✨", title: "キッズファッションショー", desc: "お子様がランウェイを歩く！夢の2Fフロア", detail: "プロカメラマン撮影＆特別ステージ" },
             { id: "oshigoto", icon: "🍰🔧", title: "おしごと体験", desc: "パティシエ・医者・デザイナー…本物の職業体験", detail: "子ども店長としておもてなし" },
@@ -229,18 +251,24 @@
         const cardsGrid = document.getElementById('cardsGrid');
         const lineArea = document.getElementById('lineArea');
 
+        // 动态获取小男孩嘴巴位置（基于真实渲染位置）
         function getStartPoint() {
-            const boyRect = document.querySelector('.boy-area').getBoundingClientRect();
-            let startX = boyRect.left + boyRect.width * 0.78;
-            let startY = boyRect.top + boyRect.height * 0.48;
+            const boyImg = document.querySelector('.boy-illustration');
+            if (!boyImg) return { x: window.innerWidth * 0.85, y: window.innerHeight * 0.85 };
+            const rect = boyImg.getBoundingClientRect();
+            // 嘴巴大约在图片的右上方区域 (根据图片构图微调)
+            let startX = rect.left + rect.width * 0.78;
+            let startY = rect.top + rect.height * 0.42;
             return { x: startX, y: startY };
         }
+
         function getEndPoint(percentLeft, percentTop) {
             const w = window.innerWidth, h = window.innerHeight;
             let leftVal = typeof percentLeft === 'string' ? parseFloat(percentLeft) / 100 * w : percentLeft;
             let topVal = typeof percentTop === 'string' ? parseFloat(percentTop) / 100 * h : percentTop;
             return { x: leftVal, y: topVal };
         }
+
         function addCardToGrid(activity) {
             const cardDiv = document.createElement('div');
             cardDiv.className = 'event-card';
@@ -253,6 +281,7 @@
             cardDiv.addEventListener('click', () => document.getElementById('lineArea').scrollIntoView({ behavior: 'smooth', block: 'center' }));
             cardsGrid.appendChild(cardDiv);
         }
+
         function showTempCardAndAddToGrid(activity, x, y) {
             if(addedToGrid.has(activity.id)) return;
             const tempCard = document.createElement('div');
@@ -281,6 +310,7 @@
                 }
             }, 500);
         }
+
         function evolveBubbleToCard(bubble, activity, endX, endY) {
             if(!bubble.isConnected) return;
             const rect = bubble.getBoundingClientRect();
@@ -294,6 +324,7 @@
                 showTempCardAndAddToGrid(activity, centerX, centerY);
             }, 150);
         }
+
         function createBubble(activityIndex, targetPos) {
             if(isAnimationFinished) return;
             const activity = activities[activityIndex];
@@ -321,6 +352,7 @@
             bubble.addEventListener('transitionend', onFinish, { once: true });
             setTimeout(() => { if(bubble && bubble.isConnected) evolveBubbleToCard(bubble, activity, end.x, end.y); }, 1400);
         }
+
         function startBubbleSequence() {
             let idx = 0;
             function nextBubble() {
@@ -339,10 +371,19 @@
                 }
             }, 10000);
         }
+
         cardsGrid.classList.remove('visible');
         startBubbleSequence();
+
         const lineLink = document.getElementById('lineLink');
-        if(lineLink) lineLink.href = "https://lin.ee/xxxxxx";
+        if(lineLink) lineLink.href = "https://lin.ee/xxxxxx";  // 替换为真实链接
+
+        // 监听窗口大小变化，重新定位泡泡起点（不影响已飞行的泡泡，但新泡泡会使用新起点）
+        window.addEventListener('resize', () => {
+            if(!isAnimationFinished) {
+                // 什么都不做，只保证后续泡泡起点正确，因为每次createBubble都会重新getStartPoint
+            }
+        });
     })();
 </script>
 </body>
