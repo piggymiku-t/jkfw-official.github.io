@@ -64,7 +64,6 @@
     }
     </script>
     
-    <!-- 追加のAI対策（クローラー向け） -->
     <meta name="chatgpt" content="index">
     <meta name="ai-optimized" content="structured-data, semantic-html">
     
@@ -80,7 +79,6 @@
             box-sizing: border-box;
         }
         body {
-            /* 全屏背景图：确保 images/boy-bubble-full.png 已上传（完整海报） */
             background-image: url('images/boy-bubble-full.png');
             background-size: cover;
             background-position: right bottom;
@@ -92,14 +90,7 @@
             position: relative;
             overflow-x: auto;
         }
-        /* スマートフォンでは背景を「contain」にして全体を表示（上下または左右に余白ができる） */
-        @media (max-width: 768px) {
-            body {
-                background-size: contain;
-                background-color: #0a1a2f; /* 余白部分を暗い色で埋める（画像の雰囲気に合わせる） */
-            }
-        }
-        /* 軽いオーバーレイ：文字の可読性を高める */
+        /* オーバーレイで文字を少し読みやすく */
         body::before {
             content: "";
             position: fixed;
@@ -107,7 +98,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(10, 30, 40, 0.2);
+            background: rgba(10, 30, 40, 0.25);
             pointer-events: none;
             z-index: 0;
         }
@@ -227,6 +218,8 @@
             100% { transform: scale(1) rotate(0deg); opacity: 1; }
         }
         .card-pop { animation: popIn 0.4s cubic-bezier(0.34, 1.2, 0.64, 1) forwards; }
+        
+        /* 泡泡层 - 更透明、活泼 */
         .bubbles-layer {
             position: fixed;
             top: 0;
@@ -239,21 +232,35 @@
         }
         .bubble {
             position: absolute;
-            background: radial-gradient(circle at 30% 30%, rgba(255,255,245,0.96), rgba(190,230,250,0.85));
+            background: radial-gradient(circle at 30% 30%, rgba(255, 255, 245, 0.55), rgba(200, 230, 250, 0.35));
             border-radius: 50%;
-            box-shadow: 0 8px 18px rgba(0,0,0,0.1), inset -3px -3px 5px rgba(0,0,0,0.05), inset 2px 2px 8px rgba(255,255,255,0.8);
-            backdrop-filter: blur(1px);
+            box-shadow: 0 0 15px rgba(255,255,210,0.7), inset -2px -2px 4px rgba(0,0,0,0.05), inset 3px 3px 10px rgba(255,255,255,0.8);
+            backdrop-filter: blur(2px);
             display: flex;
             align-items: center;
             justify-content: center;
             font-size: 2rem;
             font-weight: bold;
-            color: #0b4f2e;
+            color: rgba(11, 79, 46, 0.7);
             transition: all 0.2s linear;
-            will-change: transform, left, top;
+            will-change: transform, left, top, opacity;
             cursor: default;
+            animation: bubbleAppear 0.2s ease-out;
         }
-        /* デバッグパネル */
+        @keyframes bubbleAppear {
+            0% { transform: scale(0.6); opacity: 0.4; }
+            100% { transform: scale(1); opacity: 0.95; }
+        }
+        /* 破裂动画 */
+        .bubble-popping {
+            animation: bubblePop 0.2s forwards !important;
+        }
+        @keyframes bubblePop {
+            0% { transform: scale(1); opacity: 0.8; }
+            100% { transform: scale(0.2); opacity: 0; }
+        }
+        
+        /* 调试工具 */
         .debug-panel {
             position: fixed;
             bottom: 20px;
@@ -276,9 +283,6 @@
             pointer-events: auto;
             background: rgba(0,0,0,0.9);
             cursor: crosshair;
-        }
-        .debug-panel span {
-            color: #ffaa44;
         }
         .debug-crosshair {
             position: fixed;
@@ -335,7 +339,6 @@
         let MOUTH_PERCENT_Y = 0.82;   // 垂直 (0=上端, 1=下端)
         // =================================================
         
-        // 活動データ（6つの夢）
         const activities = [
             { id: "fashion", icon: "👗✨", title: "キッズファッションショー", desc: "お子様がランウェイを歩く！夢の2Fフロア", detail: "プロカメラマン撮影＆特別ステージ" },
             { id: "oshigoto", icon: "🍰🔧", title: "おしごと体験", desc: "パティシエ・医者・デザイナー…本物の職業体験", detail: "子ども店長としておもてなし" },
@@ -362,7 +365,7 @@
         const debugPanel = document.getElementById('debugPanel');
         const crosshair = document.getElementById('crosshair');
         
-        // 获取背景图实际显示区域的边界 (支持 cover 和 contain，且支持 background-position: right bottom)
+        // 获取背景图实际显示区域（background-size: cover + right bottom）
         function getBackgroundImageRect() {
             return new Promise((resolve) => {
                 const bodyStyle = getComputedStyle(document.body);
@@ -380,88 +383,48 @@
                     const imgH = img.height;
                     const imgRatio = imgW / imgH;
                     const viewRatio = viewW / viewH;
-                    const bgSize = bodyStyle.backgroundSize; // 'cover' 或 'contain'
                     let bgWidth, bgHeight, bgLeft, bgTop;
                     
-                    if (bgSize === 'cover') {
-                        if (imgRatio > viewRatio) {
-                            bgHeight = viewH;
-                            bgWidth = bgHeight * imgRatio;
-                            bgLeft = (viewW - bgWidth) / 2;
-                            bgTop = 0;
-                        } else {
-                            bgWidth = viewW;
-                            bgHeight = bgWidth / imgRatio;
-                            bgLeft = 0;
-                            bgTop = (viewH - bgHeight) / 2;
-                        }
-                        // cover + right bottom: 图片右下角对齐视口右下角
-                        const finalLeft = viewW - bgWidth;
-                        const finalTop = viewH - bgHeight;
-                        resolve({
-                            left: finalLeft,
-                            top: finalTop,
-                            width: bgWidth,
-                            height: bgHeight,
-                            imgW: imgW,
-                            imgH: imgH
-                        });
-                    } 
-                    else if (bgSize === 'contain') {
-                        if (imgRatio > viewRatio) {
-                            bgWidth = viewW;
-                            bgHeight = bgWidth / imgRatio;
-                            bgLeft = 0;
-                            bgTop = (viewH - bgHeight) / 2;
-                        } else {
-                            bgHeight = viewH;
-                            bgWidth = bgHeight * imgRatio;
-                            bgLeft = (viewW - bgWidth) / 2;
-                            bgTop = 0;
-                        }
-                        // contain + right bottom: 图片右下角对齐视口右下角
-                        const finalLeft = viewW - bgWidth;
-                        const finalTop = viewH - bgHeight;
-                        resolve({
-                            left: finalLeft,
-                            top: finalTop,
-                            width: bgWidth,
-                            height: bgHeight,
-                            imgW: imgW,
-                            imgH: imgH
-                        });
+                    if (imgRatio > viewRatio) {
+                        bgHeight = viewH;
+                        bgWidth = bgHeight * imgRatio;
+                        bgLeft = (viewW - bgWidth) / 2;
+                        bgTop = 0;
+                    } else {
+                        bgWidth = viewW;
+                        bgHeight = bgWidth / imgRatio;
+                        bgLeft = 0;
+                        bgTop = (viewH - bgHeight) / 2;
                     }
-                    else {
-                        // fallback: 假设 cover
-                        resolve(null);
-                    }
+                    // right bottom 偏移
+                    const finalLeft = viewW - bgWidth;
+                    const finalTop = viewH - bgHeight;
+                    resolve({
+                        left: finalLeft,
+                        top: finalTop,
+                        width: bgWidth,
+                        height: bgHeight,
+                        imgW: imgW,
+                        imgH: imgH
+                    });
                 };
                 img.onerror = () => resolve(null);
                 img.src = bgImageUrl;
             });
         }
         
-        // 根据鼠标坐标获取在背景图实际显示区域中的百分比 (0-1)
         async function getMousePercent(clientX, clientY) {
             const rect = await getBackgroundImageRect();
             if (!rect) return null;
             const relativeX = clientX - rect.left;
             const relativeY = clientY - rect.top;
-            if (relativeX < 0 || relativeX > rect.width || relativeY < 0 || relativeY > rect.height) {
-                return null; // 鼠标在背景图外
-            }
-            const percentX = relativeX / rect.width;
-            const percentY = relativeY / rect.height;
-            return { x: percentX, y: percentY };
+            if (relativeX < 0 || relativeX > rect.width || relativeY < 0 || relativeY > rect.height) return null;
+            return { x: relativeX / rect.width, y: relativeY / rect.height };
         }
         
-        // 获取泡泡起点 (基于当前 MOUTH_PERCENT_X/Y)
         async function getStartPoint() {
             const rect = await getBackgroundImageRect();
-            if (!rect) {
-                // fallback
-                return { x: window.innerWidth * MOUTH_PERCENT_X, y: window.innerHeight * MOUTH_PERCENT_Y };
-            }
+            if (!rect) return { x: window.innerWidth * MOUTH_PERCENT_X, y: window.innerHeight * MOUTH_PERCENT_Y };
             return {
                 x: rect.left + rect.width * MOUTH_PERCENT_X,
                 y: rect.top + rect.height * MOUTH_PERCENT_Y
@@ -519,16 +482,15 @@
         
         function evolveBubbleToCard(bubble, activity, endX, endY) {
             if(!bubble.isConnected) return;
+            // 破裂动画
+            bubble.classList.add('bubble-popping');
             const rect = bubble.getBoundingClientRect();
             const centerX = rect.left + rect.width/2;
             const centerY = rect.top + rect.height/2;
-            bubble.style.transition = 'all 0.2s ease';
-            bubble.style.transform = 'scale(0.2)';
-            bubble.style.opacity = '0';
             setTimeout(() => {
                 bubble.remove();
                 showTempCardAndAddToGrid(activity, centerX, centerY);
-            }, 150);
+            }, 180);
         }
         
         async function createBubbleAsync(activityIndex, targetPos) {
@@ -544,7 +506,8 @@
             bubble.style.left = (start.x - size/2) + 'px';
             bubble.style.top = (start.y - size/2) + 'px';
             bubble.style.position = 'fixed';
-            bubble.innerHTML = `<span style="font-size:2.4rem;">${activity.icon.slice(0,2)}</span>`;
+            // 半透明图标
+            bubble.innerHTML = `<span style="font-size:1.8rem; opacity:0.6;">${activity.icon.slice(0,2)}</span>`;
             bubble.style.display = 'flex';
             bubble.style.alignItems = 'center';
             bubble.style.justifyContent = 'center';
@@ -575,7 +538,7 @@
             }, 10000);
         }
         
-        // 调试模式: 鼠标移动显示百分比，点击设置数值并更新预览
+        // 调试模式
         function enableDebugMode() {
             debugActive = true;
             debugPanel.classList.add('active');
@@ -607,7 +570,6 @@
                     if (tempSpan) tempSpan.innerHTML = '';
                 }
             };
-            
             const onClick = async (e) => {
                 if (!debugActive) return;
                 const percent = await getMousePercent(e.clientX, e.clientY);
@@ -618,34 +580,15 @@
                     document.getElementById('debugY').innerText = MOUTH_PERCENT_Y.toFixed(4);
                     const toast = document.createElement('div');
                     toast.textContent = `✅ 口座標を設定: X=${MOUTH_PERCENT_X.toFixed(4)} Y=${MOUTH_PERCENT_Y.toFixed(4)} (コード内の数値をこの値に変更してください)`;
-                    toast.style.position = 'fixed';
-                    toast.style.bottom = '80px';
-                    toast.style.left = '20px';
-                    toast.style.background = '#333';
-                    toast.style.color = '#0f0';
-                    toast.style.padding = '8px 12px';
-                    toast.style.borderRadius = '8px';
-                    toast.style.zIndex = '10001';
-                    toast.style.fontSize = '12px';
+                    toast.style.cssText = 'position:fixed; bottom:80px; left:20px; background:#333; color:#0f0; padding:8px 12px; border-radius:8px; z-index:10001; font-size:12px;';
                     document.body.appendChild(toast);
                     setTimeout(() => toast.remove(), 3000);
-                    
                     const preview = document.createElement('div');
-                    preview.style.position = 'fixed';
-                    preview.style.width = '30px';
-                    preview.style.height = '30px';
-                    preview.style.borderRadius = '50%';
-                    preview.style.background = 'rgba(0,255,0,0.5)';
-                    preview.style.border = '2px solid lime';
-                    preview.style.left = (e.clientX - 15) + 'px';
-                    preview.style.top = (e.clientY - 15) + 'px';
-                    preview.style.zIndex = '10002';
-                    preview.style.pointerEvents = 'none';
+                    preview.style.cssText = 'position:fixed; width:30px; height:30px; border-radius:50%; background:rgba(0,255,0,0.5); border:2px solid lime; left:'+(e.clientX-15)+'px; top:'+(e.clientY-15)+'px; z-index:10002; pointer-events:none;';
                     document.body.appendChild(preview);
                     setTimeout(() => preview.remove(), 1000);
                 }
             };
-            
             window.addEventListener('mousemove', onMouseMove);
             window.addEventListener('click', onClick);
             window.__debugHandlers = { onMouseMove, onClick };
@@ -665,29 +608,19 @@
             if (tempSpan) tempSpan.remove();
         }
         
-        // 快捷键 Ctrl+Shift+M 切换调试模式
         window.addEventListener('keydown', (e) => {
             if (e.ctrlKey && e.shiftKey && e.code === 'KeyM') {
                 e.preventDefault();
-                if (debugActive) {
-                    disableDebugMode();
-                } else {
-                    enableDebugMode();
-                }
+                if (debugActive) disableDebugMode();
+                else enableDebugMode();
             }
         });
         
-        // 初始化动画
         cardsGrid.classList.remove('visible');
         startBubbleSequence();
         
-        // LINE URL确认
         const lineLink = document.getElementById('lineLink');
-        if(lineLink && lineLink.getAttribute('href') !== 'https://lin.ee/1n4YOHY') {
-            lineLink.href = "https://lin.ee/1n4YOHY";
-        }
-        
-        // 窗口大小改变时，不会重新开始动画，但调试模式下不影响
+        if(lineLink && lineLink.getAttribute('href') !== 'https://lin.ee/1n4YOHY') lineLink.href = "https://lin.ee/1n4YOHY";
     })();
 </script>
 </body>
