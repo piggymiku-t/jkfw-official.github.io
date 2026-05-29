@@ -27,7 +27,6 @@
             position: relative;
             overflow-x: auto;
         }
-        /* 背景画像はJSで動的に切り替え */
         body::before {
             content: "";
             position: fixed;
@@ -97,7 +96,7 @@
             display: flex;
             justify-content: space-between;
         }
-        /* 会場マップセクション */
+        /* 会場マップテキストセクション */
         .map-section {
             background: rgba(255, 255, 255, 0.88);
             backdrop-filter: blur(12px);
@@ -117,9 +116,6 @@
             align-items: center;
             justify-content: center;
             gap: 12px;
-        }
-        .map-title i {
-            font-size: 2rem;
         }
         .map-grid {
             display: grid;
@@ -169,7 +165,67 @@
             border-radius: 30px;
             padding: 0.5rem;
         }
-        /* LINEセクション etc は元のまま */
+        /* フロアマップ画像ギャラリー */
+        .floorplan-gallery {
+            background: rgba(255, 255, 255, 0.88);
+            backdrop-filter: blur(12px);
+            border-radius: 2rem;
+            padding: 2rem;
+            margin: 2rem 0;
+            box-shadow: 0 20px 35px -12px rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(0,212,200,0.4);
+        }
+        .gallery-title {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: #1f6d49;
+            text-align: center;
+            margin-bottom: 1.5rem;
+        }
+        .floorplan-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2rem;
+            justify-content: center;
+        }
+        .floorplan-item {
+            flex: 1 1 400px;
+            background: rgba(10, 30, 40, 0.5);
+            border-radius: 1.5rem;
+            padding: 1rem;
+            backdrop-filter: blur(4px);
+            transition: transform 0.2s;
+        }
+        .floorplan-item:hover {
+            transform: scale(1.02);
+            background: rgba(10, 30, 40, 0.7);
+        }
+        .floorplan-item h3 {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: #E6C87C;
+            text-align: center;
+            margin-bottom: 1rem;
+        }
+        .floorplan-item img {
+            width: 100%;
+            height: auto;
+            border-radius: 1rem;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+            border: 1px solid rgba(0,212,200,0.6);
+        }
+        .floorplan-caption {
+            font-size: 0.85rem;
+            color: #F0F8FF;
+            text-align: center;
+            margin-top: 0.8rem;
+            line-height: 1.4;
+        }
+        @media (max-width: 768px) {
+            .floorplan-container { flex-direction: column; }
+            .floorplan-item { flex: auto; }
+        }
+        /* LINEセクション etc */
         .line-section {
             text-align: center;
             background: rgba(6, 199, 85, 0.15);
@@ -255,8 +311,7 @@
         @media (max-width: 640px) {
             body { padding: 1rem; }
             .hero-message h1 { font-size: 1.4rem; }
-            .map-title { font-size: 1.4rem; }
-            .map-grid { grid-template-columns: 1fr; }
+            .map-title, .gallery-title { font-size: 1.4rem; }
         }
     </style>
 </head>
@@ -268,10 +323,10 @@
     </div>
     <div id="cardsGrid" class="cards-grid"></div>
 
-    <!-- 会場マップセクション（PDF第二頁内容） -->
+    <!-- 会場マップテキストセクション（エリア説明） -->
     <div class="map-section">
         <div class="map-title">
-            <span>🗺️</span> 淡路夢舞台 イベントマップ <span>🗺️</span>
+            <span>🗺️</span> イベントエリアガイド <span>🗺️</span>
         </div>
         <div class="map-grid">
             <div class="map-area">
@@ -307,6 +362,31 @@
         </div>
         <div class="map-note">
             ⭐ 各エリアでスタンプラリー開催！ 3つ集めて素敵なプレゼント ⭐
+        </div>
+    </div>
+
+    <!-- フロアマップ画像ギャラリー（2F平面図 + 1F/全体図） -->
+    <div class="floorplan-gallery">
+        <div class="gallery-title">
+            🏛️ フロアマップ / 会場見取り図 🏛️
+        </div>
+        <div class="floorplan-container">
+            <div class="floorplan-item">
+                <h3>🌟 2F - こどもの夢を実現するフロア</h3>
+                <img src="images/2f.png" alt="2F フロアマップ" loading="lazy">
+                <div class="floorplan-caption">
+                    メインホールでファッションショー予選・決勝、アイドルオーディションも開催。<br>
+                    JKFW2026 特別ステージ。
+                </div>
+            </div>
+            <div class="floorplan-item">
+                <h3>🎪 1F & 屋外エリア</h3>
+                <img src="images/firstfloor.png" alt="1F 全体マップ" loading="lazy">
+                <div class="floorplan-caption">
+                    企業ブース、キッチンカーEXPO、サブステージ、マルシェ、子ども縁日、夢の絵コンテストなど盛りだくさん。<br>
+                    両日10:00～（最終日18:00終了）。
+                </div>
+            </div>
         </div>
     </div>
 
