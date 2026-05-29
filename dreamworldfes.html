@@ -26,11 +26,6 @@
             padding: 1.5rem;
             position: relative;
             overflow-x: auto;
-            transition: background-image 0.2s;
-        }
-        /* 初期背景（PC用） */
-        body {
-            background-image: url('images/boy-bubble-full.png');
         }
         body::before {
             content: "";
@@ -181,41 +176,9 @@
         @keyframes bubblePop {
             100% { transform: scale(0.2); opacity: 0; }
         }
-        
-        /* 调试面板 */
-        .debug-panel {
-            position: fixed;
-            bottom: 20px;
-            left: 20px;
-            background: rgba(0,0,0,0.85);
-            color: #0f0;
-            font-family: monospace;
-            font-size: 14px;
-            padding: 10px 15px;
-            border-radius: 8px;
-            z-index: 10000;
-            pointer-events: auto;
-            backdrop-filter: blur(4px);
-            border-left: 4px solid #0f0;
-            white-space: pre;
-            line-height: 1.4;
-            cursor: crosshair;
-        }
-        .debug-crosshair {
-            position: fixed;
-            width: 20px;
-            height: 20px;
-            border: 2px solid red;
-            border-radius: 50%;
-            transform: translate(-50%, -50%);
-            pointer-events: none;
-            z-index: 9999;
-            background: rgba(255,0,0,0.2);
-        }
         @media (max-width: 640px) {
             body { padding: 1rem; }
             .hero-message h1 { font-size: 1.4rem; }
-            .debug-panel { font-size: 10px; bottom: 10px; left: 10px; }
         }
     </style>
 </head>
@@ -239,47 +202,29 @@
 </div>
 <div id="bubbleLayer" class="bubbles-layer"></div>
 
-<div id="debugPanel" class="debug-panel">
-    🔧 デバッグモード: ON<br>
-    現在の口座標: X=<span id="debugX">0.78</span> Y=<span id="debugY">0.82</span><br>
-    🖱️ クリックで座標を設定 (背景画像上のマウス位置)
-</div>
-<div id="crosshair" class="debug-crosshair"></div>
-
 <script>
     (function(){
-        // ========== ここに PC と スマホ それぞれの口の座標を設定 ==========
-        let PC_X = 0.78;
-        let PC_Y = 0.82;
-        let MOBILE_X = 0.78;
-        let MOBILE_Y = 0.82;
-        // =================================================================
+        // ========== 校准后的坐标值（请替换为实际数值） ==========
+        const PC_X = 0.78;      // PC端嘴巴X坐标
+        const PC_Y = 0.82;      // PC端嘴巴Y坐标
+        const MOBILE_X = 0.4841;   // 手机端嘴巴X坐标
+        const MOBILE_Y = 0.9117;   // 手机端嘴巴Y坐标
+        // ====================================================
         
-        // 背景画像切り替え（画面幅768px以下でモバイル用画像）
         const isMobile = () => window.innerWidth <= 768;
         function setBackgroundByDevice() {
-            const mobile = isMobile();
-            const bgUrl = mobile 
+            const bgUrl = isMobile() 
                 ? 'url(\'images/boy-bubble-full-mobile.png\')' 
                 : 'url(\'images/boy-bubble-full.png\')';
             document.body.style.backgroundImage = bgUrl;
         }
         setBackgroundByDevice();
-        window.addEventListener('resize', () => {
-            setBackgroundByDevice();
-            updateDebugDisplay();
-        });
+        window.addEventListener('resize', setBackgroundByDevice);
         
         function getCurrentMouthPercent() {
             return isMobile() 
                 ? { x: MOBILE_X, y: MOBILE_Y }
                 : { x: PC_X, y: PC_Y };
-        }
-        
-        function updateDebugDisplay() {
-            const cur = getCurrentMouthPercent();
-            document.getElementById('debugX').innerText = cur.x.toFixed(4);
-            document.getElementById('debugY').innerText = cur.y.toFixed(4);
         }
         
         const activities = [
@@ -303,7 +248,6 @@
         const cardsGrid = document.getElementById('cardsGrid');
         const lineArea = document.getElementById('lineArea');
         
-        // 获取当前背景图实际显示区域（background-size: cover, 居中）
         function getBackgroundImageRect() {
             return new Promise((resolve) => {
                 const bodyStyle = getComputedStyle(document.body);
@@ -335,15 +279,6 @@
                 img.onerror = () => resolve(null);
                 img.src = bgImageUrl;
             });
-        }
-        
-        async function getMousePercentFromClick(clientX, clientY) {
-            const rect = await getBackgroundImageRect();
-            if (!rect) return null;
-            const relativeX = clientX - rect.left;
-            const relativeY = clientY - rect.top;
-            if (relativeX < 0 || relativeX > rect.width || relativeY < 0 || relativeY > rect.height) return null;
-            return { x: relativeX / rect.width, y: relativeY / rect.height };
         }
         
         async function getStartPoint() {
@@ -459,35 +394,6 @@
                 }
             }, 10000);
         }
-        
-        // 调试：点击获取坐标
-        async function onDebugClick(e) {
-            const percent = await getMousePercentFromClick(e.clientX, e.clientY);
-            if (!percent) return;
-            const mobile = isMobile();
-            if (mobile) {
-                MOBILE_X = percent.x;
-                MOBILE_Y = percent.y;
-            } else {
-                PC_X = percent.x;
-                PC_Y = percent.y;
-            }
-            updateDebugDisplay();
-            const toast = document.createElement('div');
-            toast.textContent = `✅ ${mobile ? 'スマホ' : 'PC'} 口座標: X=${percent.x.toFixed(4)} Y=${percent.y.toFixed(4)} (コード内の値を更新)`;
-            toast.style.cssText = 'position:fixed; bottom:80px; left:20px; background:#333; color:#0f0; padding:8px 12px; border-radius:8px; z-index:10001; font-size:12px;';
-            document.body.appendChild(toast);
-            setTimeout(() => toast.remove(), 4000);
-            const preview = document.createElement('div');
-            preview.style.cssText = `position:fixed; width:30px; height:30px; border-radius:50%; background:rgba(0,255,0,0.5); border:2px solid lime; left:${e.clientX-15}px; top:${e.clientY-15}px; z-index:10002; pointer-events:none;`;
-            document.body.appendChild(preview);
-            setTimeout(() => preview.remove(), 800);
-        }
-        
-        const debugPanelDiv = document.getElementById('debugPanel');
-        debugPanelDiv.addEventListener('click', onDebugClick);
-        
-        updateDebugDisplay();
         
         cardsGrid.classList.remove('visible');
         startBubbleSequence();
