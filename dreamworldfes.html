@@ -83,7 +83,7 @@
             /* 全屏背景图：确保 images/boy-bubble-full.png 已上传（完整海报） */
             background-image: url('images/boy-bubble-full.png');
             background-size: cover;
-            background-position: center center;
+            background-position: right bottom;  /* 关键修改：强制右下角对齐 */
             background-attachment: fixed;
             background-repeat: no-repeat;
             font-family: 'Noto Sans JP', 'Inter', sans-serif;
@@ -246,6 +246,19 @@
             will-change: transform, left, top;
             cursor: default;
         }
+        /* デバッグマーカー（赤い丸） */
+        .debug-marker {
+            position: fixed;
+            width: 20px;
+            height: 20px;
+            background: red;
+            border-radius: 50%;
+            border: 2px solid white;
+            transform: translate(-50%, -50%);
+            z-index: 9999;
+            pointer-events: none;
+            display: none;
+        }
         @media (max-width: 640px) {
             body { padding: 1rem; }
             .hero-message h1 { font-size: 1.4rem; }
@@ -274,6 +287,9 @@
 
 <div id="bubbleLayer" class="bubbles-layer"></div>
 
+<!-- デバッグマーカー (Ctrl+Shift+D で表示) -->
+<div id="debugMarker" class="debug-marker"></div>
+
 <script>
     (function(){
         // 活動データ（6つの夢）
@@ -293,28 +309,109 @@
         let animationCompletedCount = 0;
         const totalBubbles = activities.length;
         let isAnimationFinished = false;
+        let currentBubbleIndex = 0;
+        let bubbleQueue = []; // 存储待创建的泡泡（异步起点准备）
+        
         const bubbleLayer = document.getElementById('bubbleLayer');
         const cardsGrid = document.getElementById('cardsGrid');
         const lineArea = document.getElementById('lineArea');
-
-        // ★ 背景画像内の男の子の口の位置（視口に対する割合）※画像に合わせて調整
-        const MOUTH_PERCENT_X = 0.78;
-        const MOUTH_PERCENT_Y = 0.82;
-
-        function getStartPoint() {
-            return {
-                x: window.innerWidth * MOUTH_PERCENT_X,
-                y: window.innerHeight * MOUTH_PERCENT_Y
-            };
+        
+        // 小男孩嘴巴在原始图片中的百分比坐标（根据实际海报微调）
+        const MOUTH_PERCENT_X = 0.78;   // 水平方向，0=左边缘，1=右边缘
+        const MOUTH_PERCENT_Y = 0.82;   // 垂直方向，0=顶边缘，1=底边缘
+        
+        // デバッグモードフラグ
+        let debugMode = false;
+        const debugMarker = document.getElementById('debugMarker');
+        
+        // 显示/隐藏调试标记
+        function toggleDebugMarker(show, x, y) {
+            if (show && debugMode) {
+                debugMarker.style.display = 'block';
+                debugMarker.style.left = x + 'px';
+                debugMarker.style.top = y + 'px';
+            } else if (!show) {
+                debugMarker.style.display = 'none';
+            }
         }
-
+        
+        // 智能获取背景图片实际显示区域中的嘴巴坐标（异步）
+        function getStartPointAsync() {
+            return new Promise((resolve) => {
+                const bodyStyle = getComputedStyle(document.body);
+                let bgImageUrl = bodyStyle.backgroundImage;
+                if (!bgImageUrl || bgImageUrl === 'none') {
+                    // fallback: 直接使用右下角固定比例
+                    resolve({
+                        x: window.innerWidth * MOUTH_PERCENT_X,
+                        y: window.innerHeight * MOUTH_PERCENT_Y
+                    });
+                    return;
+                }
+                // 提取URL
+                bgImageUrl = bgImageUrl.slice(4, -1).replace(/"/g, '');
+                const img = new Image();
+                img.onload = () => {
+                    const viewW = window.innerWidth;
+                    const viewH = window.innerHeight;
+                    const imgW = img.width;
+                    const imgH = img.height;
+                    const imgRatio = imgW / imgH;
+                    const viewRatio = viewW / viewH;
+                    
+                    let bgWidth, bgHeight, bgLeft, bgTop;
+                    // background-size: cover 的计算公式
+                    if (imgRatio > viewRatio) {
+                        bgHeight = viewH;
+                        bgWidth = bgHeight * imgRatio;
+                        bgLeft = (viewW - bgWidth) / 2;
+                        bgTop = 0;
+                    } else {
+                        bgWidth = viewW;
+                        bgHeight = bgWidth / imgRatio;
+                        bgLeft = 0;
+                        bgTop = (viewH - bgHeight) / 2;
+                    }
+                    
+                    // 再考虑 background-position: right bottom
+                    // 因为 background-position 设置为 right bottom，我们需要将图片的右下角对齐视口的右下角
+                    // 也就是图片的右边缘对齐视口右边缘，图片下边缘对齐视口下边缘
+                    // 对于 cover 模式，上述计算得到的 bgLeft, bgTop 是基于居中定位的。
+                    // 现在要调整为右下角对齐。
+                    // 计算公式：新的 left = 视口宽 - 图片宽；新的 top = 视口高 - 图片高
+                    const newLeft = viewW - bgWidth;
+                    const newTop = viewH - bgHeight;
+                    
+                    // 嘴巴在背景图上的绝对坐标
+                    const mouthX = newLeft + bgWidth * MOUTH_PERCENT_X;
+                    const mouthY = newTop + bgHeight * MOUTH_PERCENT_Y;
+                    
+                    // 调试模式下显示标记
+                    if (debugMode) {
+                        toggleDebugMarker(true, mouthX, mouthY);
+                        console.log(`Debug: mouth at (${mouthX}, ${mouthY})`);
+                    }
+                    
+                    resolve({ x: mouthX, y: mouthY });
+                };
+                img.onerror = () => {
+                    // 图片加载失败，fallback
+                    resolve({
+                        x: window.innerWidth * MOUTH_PERCENT_X,
+                        y: window.innerHeight * MOUTH_PERCENT_Y
+                    });
+                };
+                img.src = bgImageUrl;
+            });
+        }
+        
         function getEndPoint(percentLeft, percentTop) {
             const w = window.innerWidth, h = window.innerHeight;
             let leftVal = typeof percentLeft === 'string' ? parseFloat(percentLeft) / 100 * w : percentLeft;
             let topVal = typeof percentTop === 'string' ? parseFloat(percentTop) / 100 * h : percentTop;
             return { x: leftVal, y: topVal };
         }
-
+        
         function addCardToGrid(activity) {
             const cardDiv = document.createElement('div');
             cardDiv.className = 'event-card';
@@ -327,7 +424,7 @@
             cardDiv.addEventListener('click', () => document.getElementById('lineArea').scrollIntoView({ behavior: 'smooth', block: 'center' }));
             cardsGrid.appendChild(cardDiv);
         }
-
+        
         function showTempCardAndAddToGrid(activity, x, y) {
             if(addedToGrid.has(activity.id)) return;
             const tempCard = document.createElement('div');
@@ -356,7 +453,7 @@
                 }
             }, 500);
         }
-
+        
         function evolveBubbleToCard(bubble, activity, endX, endY) {
             if(!bubble.isConnected) return;
             const rect = bubble.getBoundingClientRect();
@@ -370,11 +467,11 @@
                 showTempCardAndAddToGrid(activity, centerX, centerY);
             }, 150);
         }
-
-        function createBubble(activityIndex, targetPos) {
+        
+        async function createBubbleAsync(activityIndex, targetPos) {
             if(isAnimationFinished) return;
             const activity = activities[activityIndex];
-            const start = getStartPoint();
+            const start = await getStartPointAsync();
             const end = getEndPoint(targetPos.left, targetPos.top);
             const bubble = document.createElement('div');
             bubble.className = 'bubble';
@@ -398,16 +495,14 @@
             bubble.addEventListener('transitionend', onFinish, { once: true });
             setTimeout(() => { if(bubble && bubble.isConnected) evolveBubbleToCard(bubble, activity, end.x, end.y); }, 1400);
         }
-
-        function startBubbleSequence() {
-            let idx = 0;
-            function nextBubble() {
-                if(idx >= totalBubbles) return;
-                createBubble(idx, targetPositions[idx]);
-                idx++;
-                if(idx < totalBubbles) setTimeout(nextBubble, 750);
+        
+        async function startBubbleSequence() {
+            for (let i = 0; i < totalBubbles; i++) {
+                if (isAnimationFinished) break;
+                await createBubbleAsync(i, targetPositions[i]);
+                if (i < totalBubbles - 1) await new Promise(r => setTimeout(r, 750));
             }
-            nextBubble();
+            // 10秒后强制完成（保险）
             setTimeout(() => {
                 if(animationCompletedCount < totalBubbles && !isAnimationFinished) {
                     for(let i=0; i<activities.length; i++) if(!addedToGrid.has(activities[i].id)) { addCardToGrid(activities[i]); addedToGrid.add(activities[i].id); animationCompletedCount++; }
@@ -417,15 +512,44 @@
                 }
             }, 10000);
         }
-
+        
+        // 初始化，隐藏卡片网格，开始动画
         cardsGrid.classList.remove('visible');
         startBubbleSequence();
-
-        // 既に実際のLINE URLを埋め込み済み（@jkfw2026 のリンク）
+        
+        // 调试模式：Ctrl+Shift+D 显示/隐藏红点标记，并刷新起点预览（不重新开始动画）
+        window.addEventListener('keydown', (e) => {
+            if (e.ctrlKey && e.shiftKey && e.code === 'KeyD') {
+                e.preventDefault();
+                debugMode = !debugMode;
+                if (debugMode) {
+                    // 获取当前起点并显示红点
+                    getStartPointAsync().then(pos => {
+                        toggleDebugMarker(true, pos.x, pos.y);
+                        console.log('Debug mode ON, mouth position:', pos);
+                    });
+                } else {
+                    toggleDebugMarker(false);
+                }
+            }
+        });
+        
+        // 窗口大小改变时，如果调试模式开启，刷新红点位置
+        let resizeTimer;
+        window.addEventListener('resize', () => {
+            if (debugMode) {
+                clearTimeout(resizeTimer);
+                resizeTimer = setTimeout(() => {
+                    getStartPointAsync().then(pos => {
+                        toggleDebugMarker(true, pos.x, pos.y);
+                    });
+                }, 200);
+            }
+        });
+        
+        // LINE URL 确认
         const lineLink = document.getElementById('lineLink');
-        if(lineLink && lineLink.getAttribute('href') === 'https://lin.ee/1n4YOHY') {
-            // 正しいまま
-        } else if(lineLink) {
+        if(lineLink && lineLink.getAttribute('href') !== 'https://lin.ee/1n4YOHY') {
             lineLink.href = "https://lin.ee/1n4YOHY";
         }
     })();
