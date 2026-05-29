@@ -11,7 +11,7 @@
     <meta name="robots" content="index, follow">
     <link rel="canonical" href="https://jkfw2026.com/dreamworldfes.html">
     
-    <!-- Open Graph (SNS分享) -->
+    <!-- Open Graph -->
     <meta property="og:title" content="Dream World Fes 2026 | 淡路島で子どもが主役の魔法の2日間">
     <meta property="og:description" content="子ども店長がおもてなし、世界のグルメ、キッズダンス、ファッションショー… 夢が泡泡から飛び出す！LINEで先行特典。">
     <meta property="og:type" content="website">
@@ -28,7 +28,7 @@
     <meta name="twitter:image" content="https://raw.githubusercontent.com/piggymiku-T/jkfw-official.github.io/main/images/og-dreamworldfes.jpg">
     <meta name="twitter:site" content="@jkfw_official">
     
-    <!-- 结构化数据 (イベント) -->
+    <!-- 结构化数据 -->
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -66,31 +66,36 @@
     
     <meta name="chatgpt" content="index">
     <meta name="ai-optimized" content="structured-data, semantic-html">
-    
     <link rel="icon" type="image/png" href="logo.png">
     <link rel="apple-touch-icon" href="logo.png">
-    
     <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700&family=Noto+Sans+JP:wght@300;400;500;700;900&display=swap" rel="stylesheet">
     
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
             background-image: url('images/boy-bubble-full.png');
-            background-size: cover;
-            background-position: right bottom;
-            background-attachment: fixed;
             background-repeat: no-repeat;
+            background-attachment: fixed;
             font-family: 'Noto Sans JP', 'Inter', sans-serif;
             min-height: 100vh;
             padding: 1.5rem;
             position: relative;
             overflow-x: auto;
         }
-        /* オーバーレイで文字を少し読みやすく */
+        /* デフォルト (PC/タブレット横置き) : cover + 右下 */
+        body {
+            background-size: cover;
+            background-position: right bottom;
+        }
+        /* スマートフォン縦置き (幅768px以下) : contain + 下中央寄せ + 背景色 */
+        @media (max-width: 768px) {
+            body {
+                background-size: contain;
+                background-position: center bottom;
+                background-color: #0a1a2f;  /* 深い海の色で余白を埋める */
+            }
+        }
+        /* 文字可読性オーバーレイ (少しだけ暗く) */
         body::before {
             content: "";
             position: fixed;
@@ -98,7 +103,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(10, 30, 40, 0.25);
+            background: rgba(10, 30, 40, 0.2);
             pointer-events: none;
             z-index: 0;
         }
@@ -219,7 +224,7 @@
         }
         .card-pop { animation: popIn 0.4s cubic-bezier(0.34, 1.2, 0.64, 1) forwards; }
         
-        /* 泡泡层 - 更透明、活泼 */
+        /* 泡泡层 - 透明活泼 */
         .bubbles-layer {
             position: fixed;
             top: 0;
@@ -251,7 +256,6 @@
             0% { transform: scale(0.6); opacity: 0.4; }
             100% { transform: scale(1); opacity: 0.95; }
         }
-        /* 破裂动画 */
         .bubble-popping {
             animation: bubblePop 0.2s forwards !important;
         }
@@ -324,7 +328,6 @@
 
 <div id="bubbleLayer" class="bubbles-layer"></div>
 
-<!-- 调试面板 -->
 <div id="debugPanel" class="debug-panel">
     🔧 デバッグモード: OFF (Ctrl+Shift+M)<br>
     💡 マウス位置で座標取得
@@ -360,20 +363,16 @@
         const cardsGrid = document.getElementById('cardsGrid');
         const lineArea = document.getElementById('lineArea');
         
-        // 调试相关
         let debugActive = false;
         const debugPanel = document.getElementById('debugPanel');
         const crosshair = document.getElementById('crosshair');
         
-        // 获取背景图实际显示区域（background-size: cover + right bottom）
+        // 获取背景图实际显示区域 (支持 cover 和 contain，且支持 background-position)
         function getBackgroundImageRect() {
             return new Promise((resolve) => {
                 const bodyStyle = getComputedStyle(document.body);
                 let bgImageUrl = bodyStyle.backgroundImage;
-                if (!bgImageUrl || bgImageUrl === 'none') {
-                    resolve(null);
-                    return;
-                }
+                if (!bgImageUrl || bgImageUrl === 'none') { resolve(null); return; }
                 bgImageUrl = bgImageUrl.slice(4, -1).replace(/"/g, '');
                 const img = new Image();
                 img.onload = () => {
@@ -383,30 +382,59 @@
                     const imgH = img.height;
                     const imgRatio = imgW / imgH;
                     const viewRatio = viewW / viewH;
+                    const bgSize = bodyStyle.backgroundSize;
+                    const bgPos = bodyStyle.backgroundPosition; // 例: "right bottom", "center bottom"
+                    
                     let bgWidth, bgHeight, bgLeft, bgTop;
                     
-                    if (imgRatio > viewRatio) {
-                        bgHeight = viewH;
-                        bgWidth = bgHeight * imgRatio;
-                        bgLeft = (viewW - bgWidth) / 2;
-                        bgTop = 0;
-                    } else {
-                        bgWidth = viewW;
-                        bgHeight = bgWidth / imgRatio;
-                        bgLeft = 0;
-                        bgTop = (viewH - bgHeight) / 2;
+                    if (bgSize === 'cover') {
+                        if (imgRatio > viewRatio) {
+                            bgHeight = viewH;
+                            bgWidth = bgHeight * imgRatio;
+                        } else {
+                            bgWidth = viewW;
+                            bgHeight = bgWidth / imgRatio;
+                        }
+                        // 解析 background-position (right bottom 或 center bottom)
+                        let posX = 'right', posY = 'bottom';
+                        if (bgPos) {
+                            const parts = bgPos.split(' ');
+                            if (parts[0]) posX = parts[0];
+                            if (parts[1]) posY = parts[1];
+                        }
+                        // 计算 left
+                        if (posX === 'right') bgLeft = viewW - bgWidth;
+                        else if (posX === 'center') bgLeft = (viewW - bgWidth) / 2;
+                        else bgLeft = 0;
+                        // 计算 top
+                        if (posY === 'bottom') bgTop = viewH - bgHeight;
+                        else if (posY === 'center') bgTop = (viewH - bgHeight) / 2;
+                        else bgTop = 0;
+                        resolve({ left: bgLeft, top: bgTop, width: bgWidth, height: bgHeight });
+                    } 
+                    else if (bgSize === 'contain') {
+                        if (imgRatio > viewRatio) {
+                            bgWidth = viewW;
+                            bgHeight = bgWidth / imgRatio;
+                        } else {
+                            bgHeight = viewH;
+                            bgWidth = bgHeight * imgRatio;
+                        }
+                        let posX = 'center', posY = 'bottom';
+                        if (bgPos) {
+                            const parts = bgPos.split(' ');
+                            if (parts[0]) posX = parts[0];
+                            if (parts[1]) posY = parts[1];
+                        }
+                        if (posX === 'right') bgLeft = viewW - bgWidth;
+                        else if (posX === 'center') bgLeft = (viewW - bgWidth) / 2;
+                        else bgLeft = 0;
+                        if (posY === 'bottom') bgTop = viewH - bgHeight;
+                        else if (posY === 'center') bgTop = (viewH - bgHeight) / 2;
+                        else bgTop = 0;
+                        resolve({ left: bgLeft, top: bgTop, width: bgWidth, height: bgHeight });
                     }
-                    // right bottom 偏移
-                    const finalLeft = viewW - bgWidth;
-                    const finalTop = viewH - bgHeight;
-                    resolve({
-                        left: finalLeft,
-                        top: finalTop,
-                        width: bgWidth,
-                        height: bgHeight,
-                        imgW: imgW,
-                        imgH: imgH
-                    });
+                    else { resolve(null); }
                 };
                 img.onerror = () => resolve(null);
                 img.src = bgImageUrl;
@@ -482,7 +510,6 @@
         
         function evolveBubbleToCard(bubble, activity, endX, endY) {
             if(!bubble.isConnected) return;
-            // 破裂动画
             bubble.classList.add('bubble-popping');
             const rect = bubble.getBoundingClientRect();
             const centerX = rect.left + rect.width/2;
@@ -506,7 +533,6 @@
             bubble.style.left = (start.x - size/2) + 'px';
             bubble.style.top = (start.y - size/2) + 'px';
             bubble.style.position = 'fixed';
-            // 半透明图标
             bubble.innerHTML = `<span style="font-size:1.8rem; opacity:0.6;">${activity.icon.slice(0,2)}</span>`;
             bubble.style.display = 'flex';
             bubble.style.alignItems = 'center';
