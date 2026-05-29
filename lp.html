@@ -12,15 +12,19 @@
             box-sizing: border-box;
         }
         body {
-            /* 背景：淡路島らしい爽やかなグラデーション + 軽い波模様 */
-            background: linear-gradient(145deg, #cbe9ff 0%, #d4f0ff 40%, #e6f7ff 100%);
+            /* 整张海报作为背景，覆盖全屏，固定在视口 */
+            background-image: url('images/boy-bubble-full.png'); /* 请确保上传完整的背景图（包含小男孩和周围环境） */
+            background-size: cover;
+            background-position: center center;
+            background-attachment: fixed;
+            background-repeat: no-repeat;
             font-family: 'Noto Sans JP', 'Inter', sans-serif;
             min-height: 100vh;
             padding: 1.5rem;
             position: relative;
-            overflow-x: hidden;
+            overflow-x: auto;
         }
-        /* 追加：背景にそっと浮かぶ雲のような丸 */
+        /* 半透明遮罩层，让文字更清晰（可选，保留背景可见度） */
         body::before {
             content: "";
             position: fixed;
@@ -28,7 +32,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: radial-gradient(circle at 20% 30%, rgba(255,245,200,0.2) 0%, transparent 50%);
+            background: rgba(10, 30, 40, 0.25); /* 轻度深色增加对比，可根据背景图亮度调整 */
             pointer-events: none;
             z-index: 0;
         }
@@ -57,20 +61,21 @@
             transform: translateY(0);
             pointer-events: auto;
         }
+        /* 卡片背景半透，保证背景图可见 */
         .event-card {
-            background: rgba(255, 255, 255, 0.96);
-            backdrop-filter: blur(4px);
+            background: rgba(255, 255, 255, 0.92);
+            backdrop-filter: blur(8px);
             border-radius: 2rem;
             padding: 1.5rem;
-            box-shadow: 0 20px 35px -12px rgba(0, 0, 0, 0.15), 0 0 0 1px rgba(255,250,210,0.8);
+            box-shadow: 0 20px 35px -12px rgba(0, 0, 0, 0.25), 0 0 0 1px rgba(255,250,210,0.6);
             transition: all 0.25s ease;
             cursor: pointer;
             border: 1px solid rgba(255,245,200,0.9);
         }
         .event-card:hover {
             transform: translateY(-6px);
-            box-shadow: 0 28px 36px -14px rgba(0, 0, 0, 0.25);
-            background: white;
+            background: rgba(255, 255, 255, 0.98);
+            box-shadow: 0 28px 36px -14px rgba(0, 0, 0, 0.3);
         }
         .card-icon { font-size: 2.8rem; margin-bottom: 0.6rem; }
         .event-card h3 {
@@ -96,8 +101,8 @@
         .card-detail span { font-weight: 700; color: #f9a26c; }
         .line-section {
             text-align: center;
-            background: #06c75510;
-            backdrop-filter: blur(8px);
+            background: rgba(6, 199, 85, 0.15);
+            backdrop-filter: blur(12px);
             border-radius: 3rem;
             padding: 2rem 1.5rem;
             margin: 2rem 0 3rem;
@@ -132,30 +137,24 @@
             color: #b45f1b;
             margin-top: 1rem;
         }
-        /* 小男孩区域 —— 作为背景插画的一部分，不再fixed角落 */
-        .boy-scene {
-            position: relative;
-            width: 100%;
-            margin: 2rem 0 0 0;
-            display: flex;
-            justify-content: flex-end;
-            pointer-events: none;
-            z-index: 1;
+        .hero-message {
+            text-align: center;
+            margin-bottom: 2rem;
+            background: rgba(255, 246, 205, 0.85);
+            border-radius: 70px;
+            padding: 1rem;
+            backdrop-filter: blur(4px);
         }
-        .boy-illustration {
-            max-width: 240px;
-            width: 35%;
-            min-width: 140px;
-            filter: drop-shadow(8px 12px 18px rgba(0,0,0,0.15));
-            transition: transform 0.3s ease;
-            pointer-events: none;
+        .hero-message h1 { font-size: 1.9rem; font-weight: 900; color: #2e5c2e; text-shadow: 0 0 5px white; }
+        .footer-note { text-align: center; font-size: 0.7rem; color: #ffffdd; background: rgba(0,0,0,0.3); display: inline-block; padding: 4px 16px; border-radius: 30px; margin-top: 2rem; backdrop-filter: blur(4px); }
+        @keyframes popIn {
+            0% { transform: scale(0.2) rotate(-10deg); opacity: 0; }
+            80% { transform: scale(1.05) rotate(1deg); }
+            100% { transform: scale(1) rotate(0deg); opacity: 1; }
         }
-        /* 响应式：手机不要太大 */
-        @media (max-width: 640px) {
-            .boy-illustration { max-width: 160px; }
-            body { padding: 1rem; }
-        }
-        /* 泡泡动画层 */
+        .card-pop { animation: popIn 0.4s cubic-bezier(0.34, 1.2, 0.64, 1) forwards; }
+        
+        /* 泡泡层 */
         .bubbles-layer {
             position: fixed;
             top: 0;
@@ -182,23 +181,10 @@
             will-change: transform, left, top;
             cursor: default;
         }
-        .hero-message {
-            text-align: center;
-            margin-bottom: 2rem;
-            background: rgba(255,246,205,0.75);
-            border-radius: 70px;
-            padding: 1rem;
-            backdrop-filter: blur(4px);
+        @media (max-width: 640px) {
+            body { padding: 1rem; }
+            .hero-message h1 { font-size: 1.4rem; }
         }
-        .hero-message h1 { font-size: 1.9rem; font-weight: 900; color: #2e5c2e; }
-        .footer-note { text-align: center; font-size: 0.7rem; color: #3a6741; margin-top: 2rem; }
-        @keyframes popIn {
-            0% { transform: scale(0.2) rotate(-10deg); opacity: 0; }
-            80% { transform: scale(1.05) rotate(1deg); }
-            100% { transform: scale(1) rotate(0deg); opacity: 1; }
-        }
-        .card-pop { animation: popIn 0.4s cubic-bezier(0.34, 1.2, 0.64, 1) forwards; }
-        .hidden { display: none !important; }
     </style>
 </head>
 <body>
@@ -221,16 +207,11 @@
     </div>
 </div>
 
-<!-- 小男孩插画：作为背景一部分，放在右下但跟随内容流，不fixed -->
-<div class="boy-scene">
-    <img class="boy-illustration" src="images/boy-bubble.png" alt="ふわっと男の子">
-</div>
-
 <div id="bubbleLayer" class="bubbles-layer"></div>
 
 <script>
     (function(){
-        // 活动数据（修正重复问题，共6个不同活动）
+        // 活动数据（6个不同活动）
         const activities = [
             { id: "fashion", icon: "👗✨", title: "キッズファッションショー", desc: "お子様がランウェイを歩く！夢の2Fフロア", detail: "プロカメラマン撮影＆特別ステージ" },
             { id: "oshigoto", icon: "🍰🔧", title: "おしごと体験", desc: "パティシエ・医者・デザイナー…本物の職業体験", detail: "子ども店長としておもてなし" },
@@ -251,15 +232,17 @@
         const cardsGrid = document.getElementById('cardsGrid');
         const lineArea = document.getElementById('lineArea');
 
-        // 动态获取小男孩嘴巴位置（基于真实渲染位置）
+        // ★ 关键：背景图中小男孩嘴巴的位置（相对于视口宽高的百分比）
+        // 根据你的实际图片调整这两个数值（例如 0.78 和 0.82）
+        // 可打开浏览器控制台实时调整后刷新测试
+        const MOUTH_PERCENT_X = 0.78;   // 从图片左侧算起，嘴巴水平位置约占宽度78%
+        const MOUTH_PERCENT_Y = 0.82;   // 从图片顶部算起，嘴巴垂直位置约占高度82%
+
         function getStartPoint() {
-            const boyImg = document.querySelector('.boy-illustration');
-            if (!boyImg) return { x: window.innerWidth * 0.85, y: window.innerHeight * 0.85 };
-            const rect = boyImg.getBoundingClientRect();
-            // 嘴巴大约在图片的右上方区域 (根据图片构图微调)
-            let startX = rect.left + rect.width * 0.78;
-            let startY = rect.top + rect.height * 0.42;
-            return { x: startX, y: startY };
+            return {
+                x: window.innerWidth * MOUTH_PERCENT_X,
+                y: window.innerHeight * MOUTH_PERCENT_Y
+            };
         }
 
         function getEndPoint(percentLeft, percentTop) {
@@ -376,14 +359,10 @@
         startBubbleSequence();
 
         const lineLink = document.getElementById('lineLink');
-        if(lineLink) lineLink.href = "https://lin.ee/xxxxxx";  // 替换为真实链接
-
-        // 监听窗口大小变化，重新定位泡泡起点（不影响已飞行的泡泡，但新泡泡会使用新起点）
-        window.addEventListener('resize', () => {
-            if(!isAnimationFinished) {
-                // 什么都不做，只保证后续泡泡起点正确，因为每次createBubble都会重新getStartPoint
-            }
-        });
+        if(lineLink) lineLink.href = "https://lin.ee/xxxxxx"; // 请替换为真实链接
+        
+        // 如果窗口大小改变，仅影响后续新泡泡（已经飞行的不受影响，不影响体验）
+        window.addEventListener('resize', () => {});
     })();
 </script>
 </body>
