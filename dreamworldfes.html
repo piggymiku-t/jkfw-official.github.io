@@ -96,76 +96,7 @@
             display: flex;
             justify-content: space-between;
         }
-        /* 会場マップテキストセクション */
-        .map-section {
-            background: rgba(255, 255, 255, 0.88);
-            backdrop-filter: blur(12px);
-            border-radius: 2rem;
-            padding: 2rem;
-            margin: 2rem 0 2rem;
-            box-shadow: 0 20px 35px -12px rgba(0, 0, 0, 0.2);
-            border: 1px solid rgba(0,212,200,0.4);
-        }
-        .map-title {
-            font-size: 1.8rem;
-            font-weight: 800;
-            color: #1f6d49;
-            text-align: center;
-            margin-bottom: 1.5rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 12px;
-        }
-        .map-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-            gap: 1.5rem;
-            margin-top: 1rem;
-        }
-        .map-area {
-            background: rgba(10, 30, 40, 0.6);
-            backdrop-filter: blur(4px);
-            border-radius: 1.5rem;
-            padding: 1.2rem;
-            border-left: 6px solid #00D4C8;
-            transition: 0.2s;
-        }
-        .map-area:hover {
-            transform: translateX(5px);
-            background: rgba(10, 30, 40, 0.8);
-        }
-        .area-name {
-            font-size: 1.3rem;
-            font-weight: 800;
-            color: #E6C87C;
-            margin-bottom: 0.5rem;
-        }
-        .area-desc {
-            font-size: 0.9rem;
-            color: #F0F8FF;
-            line-height: 1.4;
-        }
-        .area-floor {
-            display: inline-block;
-            background: #00D4C8;
-            color: #0A1A2F;
-            font-size: 0.7rem;
-            font-weight: bold;
-            padding: 0.2rem 0.6rem;
-            border-radius: 20px;
-            margin-top: 0.6rem;
-        }
-        .map-note {
-            text-align: center;
-            margin-top: 1.5rem;
-            font-size: 0.8rem;
-            color: #2c5e3a;
-            background: rgba(255,255,200,0.5);
-            border-radius: 30px;
-            padding: 0.5rem;
-        }
-        /* フロアマップ画像ギャラリー */
+        /* フロアマップ画像ギャラリー (削除されたテキストマップの代わり) */
         .floorplan-gallery {
             background: rgba(255, 255, 255, 0.88);
             backdrop-filter: blur(12px);
@@ -311,7 +242,7 @@
         @media (max-width: 640px) {
             body { padding: 1rem; }
             .hero-message h1 { font-size: 1.4rem; }
-            .map-title, .gallery-title { font-size: 1.4rem; }
+            .gallery-title { font-size: 1.4rem; }
         }
     </style>
 </head>
@@ -322,48 +253,6 @@
         <p>JKFW Dream World Fes2026｜淡路夢舞台 8月8日(土)・9日(日)</p>
     </div>
     <div id="cardsGrid" class="cards-grid"></div>
-
-    <!-- 会場マップテキストセクション（エリア説明） -->
-    <div class="map-section">
-        <div class="map-title">
-            <span>🗺️</span> イベントエリアガイド <span>🗺️</span>
-        </div>
-        <div class="map-grid">
-            <div class="map-area">
-                <div class="area-name">✨ キッズファッションショー</div>
-                <div class="area-desc">世界のキッズデザイナーが集結！ こども達がランウェイを歩く特別フロア。</div>
-                <div class="area-floor">📍 2F 国際会議場 メインホール</div>
-            </div>
-            <div class="map-area">
-                <div class="area-name">🍰 おしごと体験ゾーン</div>
-                <div class="area-desc">パティシエ、医者、デザイナーなど本物の職業を子ども店長として体験。</div>
-                <div class="area-floor">📍 1F イベントホールA</div>
-            </div>
-            <div class="map-area">
-                <div class="area-name">🌍 世界のグルメ広場</div>
-                <div class="area-desc">キッチンカー15台以上！台湾・イタリア・ブラジルなど食べ歩き。</div>
-                <div class="area-floor">📍 屋外テラス＆中庭</div>
-            </div>
-            <div class="map-area">
-                <div class="area-name">💃 キッズダンスステージ</div>
-                <div class="area-desc">世界中のキッズダンサーが熱演。観覧自由、一緒に盛り上がろう！</div>
-                <div class="area-floor">📍 1F 特設ステージ</div>
-            </div>
-            <div class="map-area">
-                <div class="area-name">🎯 子ども縁日</div>
-                <div class="area-desc">射的・ヨーヨー釣り・輪投げ。子どもが店長になっておもてなし。</div>
-                <div class="area-floor">📍 1F エントランスホール</div>
-            </div>
-            <div class="map-area">
-                <div class="area-name">🧸 ハンドメイドマーケット</div>
-                <div class="area-desc">こども作家の作品やユニークな雑貨。世界にひとつのお土産を。</div>
-                <div class="area-floor">📍 2F ギャラリー通路</div>
-            </div>
-        </div>
-        <div class="map-note">
-            ⭐ 各エリアでスタンプラリー開催！ 3つ集めて素敵なプレゼント ⭐
-        </div>
-    </div>
 
     <!-- フロアマップ画像ギャラリー（2F平面図 + 1F/全体図） -->
     <div class="floorplan-gallery">
