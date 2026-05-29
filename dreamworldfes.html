@@ -83,7 +83,7 @@
             /* 全屏背景图：确保 images/boy-bubble-full.png 已上传（完整海报） */
             background-image: url('images/boy-bubble-full.png');
             background-size: cover;
-            background-position: right bottom;  /* 强制右下角对齐，保证所有设备一致 */
+            background-position: right bottom;
             background-attachment: fixed;
             background-repeat: no-repeat;
             font-family: 'Noto Sans JP', 'Inter', sans-serif;
@@ -91,6 +91,13 @@
             padding: 1.5rem;
             position: relative;
             overflow-x: auto;
+        }
+        /* スマートフォンでは背景を「contain」にして全体を表示（上下または左右に余白ができる） */
+        @media (max-width: 768px) {
+            body {
+                background-size: contain;
+                background-color: #0a1a2f; /* 余白部分を暗い色で埋める（画像の雰囲気に合わせる） */
+            }
         }
         /* 軽いオーバーレイ：文字の可読性を高める */
         body::before {
@@ -324,8 +331,8 @@
     (function(){
         // ==================== 設定項目 ====================
         // ★ ここにマウスで取得したパーセント値を入れてください (例: 0.78, 0.82)
-        let MOUTH_PERCENT_X = 0.6427;   // 水平 (0=左端, 1=右端)
-        let MOUTH_PERCENT_Y = 0.7330;   // 垂直 (0=上端, 1=下端)
+        let MOUTH_PERCENT_X = 0.78;   // 水平 (0=左端, 1=右端)
+        let MOUTH_PERCENT_Y = 0.82;   // 垂直 (0=上端, 1=下端)
         // =================================================
         
         // 活動データ（6つの夢）
@@ -355,7 +362,7 @@
         const debugPanel = document.getElementById('debugPanel');
         const crosshair = document.getElementById('crosshair');
         
-        // 获取背景图实际显示区域的边界 (基于 background-position: right bottom 和 background-size: cover)
+        // 获取背景图实际显示区域的边界 (支持 cover 和 contain，且支持 background-position: right bottom)
         function getBackgroundImageRect() {
             return new Promise((resolve) => {
                 const bodyStyle = getComputedStyle(document.body);
@@ -373,30 +380,61 @@
                     const imgH = img.height;
                     const imgRatio = imgW / imgH;
                     const viewRatio = viewW / viewH;
-                    
+                    const bgSize = bodyStyle.backgroundSize; // 'cover' 或 'contain'
                     let bgWidth, bgHeight, bgLeft, bgTop;
-                    if (imgRatio > viewRatio) {
-                        bgHeight = viewH;
-                        bgWidth = bgHeight * imgRatio;
-                        bgLeft = (viewW - bgWidth) / 2;
-                        bgTop = 0;
-                    } else {
-                        bgWidth = viewW;
-                        bgHeight = bgWidth / imgRatio;
-                        bgLeft = 0;
-                        bgTop = (viewH - bgHeight) / 2;
+                    
+                    if (bgSize === 'cover') {
+                        if (imgRatio > viewRatio) {
+                            bgHeight = viewH;
+                            bgWidth = bgHeight * imgRatio;
+                            bgLeft = (viewW - bgWidth) / 2;
+                            bgTop = 0;
+                        } else {
+                            bgWidth = viewW;
+                            bgHeight = bgWidth / imgRatio;
+                            bgLeft = 0;
+                            bgTop = (viewH - bgHeight) / 2;
+                        }
+                        // cover + right bottom: 图片右下角对齐视口右下角
+                        const finalLeft = viewW - bgWidth;
+                        const finalTop = viewH - bgHeight;
+                        resolve({
+                            left: finalLeft,
+                            top: finalTop,
+                            width: bgWidth,
+                            height: bgHeight,
+                            imgW: imgW,
+                            imgH: imgH
+                        });
+                    } 
+                    else if (bgSize === 'contain') {
+                        if (imgRatio > viewRatio) {
+                            bgWidth = viewW;
+                            bgHeight = bgWidth / imgRatio;
+                            bgLeft = 0;
+                            bgTop = (viewH - bgHeight) / 2;
+                        } else {
+                            bgHeight = viewH;
+                            bgWidth = bgHeight * imgRatio;
+                            bgLeft = (viewW - bgWidth) / 2;
+                            bgTop = 0;
+                        }
+                        // contain + right bottom: 图片右下角对齐视口右下角
+                        const finalLeft = viewW - bgWidth;
+                        const finalTop = viewH - bgHeight;
+                        resolve({
+                            left: finalLeft,
+                            top: finalTop,
+                            width: bgWidth,
+                            height: bgHeight,
+                            imgW: imgW,
+                            imgH: imgH
+                        });
                     }
-                    // 因为 background-position: right bottom，需要将图片右下角对齐视口右下角
-                    const finalLeft = viewW - bgWidth;
-                    const finalTop = viewH - bgHeight;
-                    resolve({
-                        left: finalLeft,
-                        top: finalTop,
-                        width: bgWidth,
-                        height: bgHeight,
-                        imgW: imgW,
-                        imgH: imgH
-                    });
+                    else {
+                        // fallback: 假设 cover
+                        resolve(null);
+                    }
                 };
                 img.onerror = () => resolve(null);
                 img.src = bgImageUrl;
@@ -538,7 +576,6 @@
         }
         
         // 调试模式: 鼠标移动显示百分比，点击设置数值并更新预览
-        let tempMarker = null;
         function enableDebugMode() {
             debugActive = true;
             debugPanel.classList.add('active');
@@ -555,18 +592,19 @@
                     crosshair.style.left = e.clientX + 'px';
                     crosshair.style.top = e.clientY + 'px';
                     crosshair.style.display = 'block';
-                    // 更新面板临时显示
-                    const tempLine = document.getElementById('tempPercent');
-                    if (!tempLine) {
+                    let tempSpan = document.getElementById('tempPercent');
+                    if (!tempSpan) {
                         const span = document.createElement('div');
                         span.id = 'tempPercent';
                         span.style.color = '#ffaa88';
                         debugPanel.appendChild(span);
+                        tempSpan = span;
                     }
-                    document.getElementById('tempPercent').innerHTML = `📌 現在マウス: X=${percent.x.toFixed(4)} Y=${percent.y.toFixed(4)}`;
+                    tempSpan.innerHTML = `📌 現在マウス: X=${percent.x.toFixed(4)} Y=${percent.y.toFixed(4)}`;
                 } else {
                     crosshair.style.display = 'none';
-                    if (document.getElementById('tempPercent')) document.getElementById('tempPercent').innerHTML = '';
+                    const tempSpan = document.getElementById('tempPercent');
+                    if (tempSpan) tempSpan.innerHTML = '';
                 }
             };
             
@@ -576,10 +614,8 @@
                 if (percent) {
                     MOUTH_PERCENT_X = percent.x;
                     MOUTH_PERCENT_Y = percent.y;
-                    // 更新显示
                     document.getElementById('debugX').innerText = MOUTH_PERCENT_X.toFixed(4);
                     document.getElementById('debugY').innerText = MOUTH_PERCENT_Y.toFixed(4);
-                    // 显示一个临时提示
                     const toast = document.createElement('div');
                     toast.textContent = `✅ 口座標を設定: X=${MOUTH_PERCENT_X.toFixed(4)} Y=${MOUTH_PERCENT_Y.toFixed(4)} (コード内の数値をこの値に変更してください)`;
                     toast.style.position = 'fixed';
@@ -594,7 +630,6 @@
                     document.body.appendChild(toast);
                     setTimeout(() => toast.remove(), 3000);
                     
-                    // 可选：立即重新定位一个预览泡泡（但不影响已有动画，只做视觉反馈）
                     const preview = document.createElement('div');
                     preview.style.position = 'fixed';
                     preview.style.width = '30px';
@@ -613,7 +648,6 @@
             
             window.addEventListener('mousemove', onMouseMove);
             window.addEventListener('click', onClick);
-            // 存储以便关闭时移除
             window.__debugHandlers = { onMouseMove, onClick };
         }
         
@@ -653,13 +687,7 @@
             lineLink.href = "https://lin.ee/1n4YOHY";
         }
         
-        // 响应窗口大小变化，重新计算起点（但动画已经开始，不影响已飞泡泡，只影响后续新建，但动画是一次性的，所以没关系）
-        window.addEventListener('resize', () => {
-            // 如果调试模式开启，刷新面板的坐标显示（不重新开始动画）
-            if (debugActive) {
-                // 只是刷新面板中当前预设值显示，不需要额外动作
-            }
-        });
+        // 窗口大小改变时，不会重新开始动画，但调试模式下不影响
     })();
 </script>
 </body>
