@@ -264,15 +264,15 @@
                 <h3>🌟 2F - こどもの夢を実現するフロア</h3>
                 <img src="images/2f.png" alt="2F フロアマップ" loading="lazy">
                 <div class="floorplan-caption">
-                    メインホールでファッションショー予選・決勝、アイドルオーディションも開催。<br>
-                    JKFW2026 特別ステージ。
+                    メインホールで世界のキッズファッションショーJKFW2026予選・決勝を開催。<br>
+                    JAPAN KDIS FASHION WEEK2026 特別ステージ。
                 </div>
             </div>
             <div class="floorplan-item">
-                <h3>🎪 1F & 屋外エリア</h3>
+                <h3>🎪 B1F & 1F屋外エリア</h3>
                 <img src="images/firstfloor.png" alt="1F 全体マップ" loading="lazy">
                 <div class="floorplan-caption">
-                    企業ブース、キッチンカーEXPO、サブステージ、マルシェ、子ども縁日、夢の絵コンテストなど盛りだくさん。<br>
+                    企業ブース、子ども縁日、夢の絵コンテスト、キッチンカー、サブステージ、マルシェなど盛りだくさん。<br>
                     両日10:00～（最終日18:00終了）。
                 </div>
             </div>
@@ -287,7 +287,7 @@
         <div class="line-offer">🎁 来場者先着200組にキッズドリンク無料！</div>
     </div>
     <div class="footer-note">
-        ⭐ 主催：JKFW2026運営委員会 / 同時開催 Dream World Fes2026・キッチンカーEXPO
+        ⭐ 主催：JKFW2026運営委員会 / 同時開催 Dream World Fes2026
     </div>
 </div>
 <div id="bubbleLayer" class="bubbles-layer"></div>
@@ -318,12 +318,14 @@
         }
         
         const activities = [
-            { id: "fashion", icon: "👗✨", title: "キッズファッションショー", desc: "お子様がランウェイを歩く！夢の2Fフロア", detail: "プロカメラマン撮影＆特別ステージ" },
-            { id: "oshigoto", icon: "🍰🔧", title: "おしごと体験", desc: "パティシエ・医者・デザイナー…本物の職業体験", detail: "子ども店長としておもてなし" },
-            { id: "gourmet", icon: "🌍🍜", title: "世界のグルメ", desc: "キッチンカー15台！淡路で世界一周食べ歩き", detail: "台湾・イタリア・ブラジルetc" },
-            { id: "dance", icon: "💃🕺", title: "キッズダンスステージ", desc: "今まで頑張った努力を最高の舞台で", detail: "世界中のダンサーが熱演" },
-            { id: "en'nichi", icon: "🎯🎏", title: "子ども縁日", desc: "こども店長が射的・ヨーヨー釣りを仕切る", detail: "おもてなし体験＆わくわく遊び" },
-            { id: "handmade", icon: "🧸🎨", title: "ハンドメイドマーケット", desc: "世界にひとつ！こども作品＆雑貨", detail: "ユニークな宝物を探そう" }
+            { id: "fashion", icon: "👗✨", title: "JAPAN KIDS FASHION WEEK2026", desc: "夢の2Fフロア-本気で世界を目指すキッズモデルの夢舞台"<br>, detail: "世界レベルのキッズファッションショーを見逃さない！" },
+             { id: "dance", icon: "💃🕺", title: "Global Dance Youth Star2026", desc: "今まで頑張った努力を最高の舞台で", detail: "ダンスを愛するキッズダンサーが熱演" },
+             { id: "art", icon: "💃🕺", title: "多文化ステージ", desc: "地元のこども達が主役の演目", detail: "和太鼓やJazz、浄瑠璃などの発表" },
+            { id: "company", icon: "🧸🎨", title: "企業ブース", desc: "こどもの夢を応援する企業様が駆けつける", detail: "頑張っている企業様をもっと知ろう" }
+            { id: "jobjoy", icon: "🍰🔧", title: "おしごと体験", desc: "パティシエ・医者・校長先生…<br>本物の職業体験", detail: "子ども店長としておもてなし" },
+            { id: "foods", icon: "🌍🍜", title: "美味しいグルメ", desc: "キッチンカーが集結！<br>淡路で美味しいモノを食べ歩き", detail: "大人気のメニュー色々取り揃えてるetc" },
+            { id: "matsuli", icon: "🎯🎏", title: "子ども縁日", desc: "こども店長が射的・ヨーヨー釣りを仕切る", detail: "おもてなし体験＆わくわく遊び" },
+            { id: "marche", icon: "🧸🎨", title: "マルシェ", desc: "世界にひとつ！こども作品＆雑貨", detail: "ユニークな宝物を探そう" }
         ];
         const targetPositions = [
             { left: "12%", top: "28%" }, { left: "68%", top: "22%" }, { left: "35%", top: "48%" },
