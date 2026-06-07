@@ -17,6 +17,7 @@
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
+            background-color: #b8e1fc; /* fallback color */
             background-repeat: no-repeat;
             background-attachment: fixed;
             background-size: cover;
@@ -96,7 +97,7 @@
             display: flex;
             justify-content: space-between;
         }
-        /* フロアマップ画像ギャラリー (削除されたテキストマップの代わり) */
+        /* フロアマップ画像ギャラリー */
         .floorplan-gallery {
             background: rgba(255, 255, 255, 0.88);
             backdrop-filter: blur(12px);
@@ -294,12 +295,12 @@
 
 <script>
     (function(){
-        // ==================== 校正式座標（請替換為實際獲得的數值） ====================
+        // ==================== 校正用座標 ====================
         const PC_X = 0.78;      // PC端 嘴巴X (0~1)
         const PC_Y = 0.82;      // PC端 嘴巴Y
         const MOBILE_X = 0.78;   // 手機端 嘴巴X
         const MOBILE_Y = 0.82;   // 手機端 嘴巴Y
-        // =========================================================================
+        // =================================================
         
         const isMobile = () => window.innerWidth <= 768;
         function setBackgroundByDevice() {
@@ -317,20 +318,25 @@
                 : { x: PC_X, y: PC_Y };
         }
         
+        // ✅ 修复语法错误 + 调整图标使其更贴合
         const activities = [
-            { id: "fashion", icon: "👗✨", title: "JAPAN KIDS FASHION WEEK2026", desc: "夢の2Fフロア-本気で世界を目指すキッズモデルの夢舞台"<br>, detail: "世界レベルのキッズファッションショーを見逃さない！" },
-             { id: "dance", icon: "💃🕺", title: "Global Dance Youth Star2026", desc: "今まで頑張った努力を最高の舞台で", detail: "ダンスを愛するキッズダンサーが熱演" },
-             { id: "art", icon: "💃🕺", title: "多文化ステージ", desc: "地元のこども達が主役の演目", detail: "和太鼓やJazz、浄瑠璃などの発表" },
-            { id: "company", icon: "🧸🎨", title: "企業ブース", desc: "こどもの夢を応援する企業様が駆けつける", detail: "頑張っている企業様をもっと知ろう" }
-            { id: "jobjoy", icon: "🍰🔧", title: "おしごと体験", desc: "パティシエ・医者・校長先生…<br>本物の職業体験", detail: "子ども店長としておもてなし" },
-            { id: "foods", icon: "🌍🍜", title: "美味しいグルメ", desc: "キッチンカーが集結！<br>淡路で美味しいモノを食べ歩き", detail: "大人気のメニュー色々取り揃えてるetc" },
-            { id: "matsuli", icon: "🎯🎏", title: "子ども縁日", desc: "こども店長が射的・ヨーヨー釣りを仕切る", detail: "おもてなし体験＆わくわく遊び" },
-            { id: "marche", icon: "🧸🎨", title: "マルシェ", desc: "世界にひとつ！こども作品＆雑貨", detail: "ユニークな宝物を探そう" }
+            { id: "fashion", icon: "👗✨", title: "JAPAN KIDS FASHION WEEK2026", desc: "夢の2Fフロア-本気で世界を目指すキッズモデルの夢舞台", detail: "世界レベルのキッズファッションショーを見逃さない！" },
+            { id: "dance", icon: "💃🕺", title: "Global Dance Youth Star2026", desc: "今まで頑張った努力を最高の舞台で", detail: "ダンスを愛するキッズダンサーが熱演" },
+            { id: "art", icon: "🎭🎵", title: "多文化ステージ", desc: "地元のこども達が主役の演目", detail: "和太鼓やJazz、浄瑠璃などの発表" },
+            { id: "company", icon: "🧸🏢", title: "企業ブース", desc: "こどもの夢を応援する企業様が駆けつける", detail: "頑張っている企業様をもっと知ろう" },
+            { id: "jobjoy", icon: "🍰🔧", title: "おしごと体験", desc: "パティシエ・医者・校長先生…本物の職業体験", detail: "子ども店長としておもてなし" },
+            { id: "foods", icon: "🌍🍜", title: "美味しいグルメ", desc: "キッチンカーが集結！淡路で美味しいモノを食べ歩き", detail: "大人気のメニュー色々取り揃えてるetc" },
+            { id: "matsuri", icon: "🎯🎏", title: "子ども縁日", desc: "こども店長が射的・ヨーヨー釣りを仕切る", detail: "おもてなし体験＆わくわく遊び" },
+            { id: "marche", icon: "🛍️🎨", title: "マルシェ", desc: "世界にひとつ！こども作品＆雑貨", detail: "ユニークな宝物を探そう" }
         ];
+        
+        // ✅ 扩展目标位置为8个，与活动数量一致
         const targetPositions = [
             { left: "12%", top: "28%" }, { left: "68%", top: "22%" }, { left: "35%", top: "48%" },
-            { left: "78%", top: "65%" }, { left: "22%", top: "72%" }, { left: "52%", top: "85%" }
+            { left: "78%", top: "65%" }, { left: "22%", top: "72%" }, { left: "52%", top: "85%" },
+            { left: "84%", top: "40%" }, { left: "45%", top: "15%" }  // 新增两个终点
         ];
+        
         let addedToGrid = new Set();
         let animationCompletedCount = 0;
         const totalBubbles = activities.length;
@@ -462,7 +468,7 @@
             bubble.style.alignItems = 'center';
             bubble.style.justifyContent = 'center';
             bubbleLayer.appendChild(bubble);
-            bubble.offsetHeight;
+            bubble.offsetHeight; // force reflow
             bubble.style.left = (end.x - size/2) + 'px';
             bubble.style.top = (end.y - size/2) + 'px';
             bubble.style.transform = 'scale(1.02)';
@@ -477,6 +483,7 @@
                 await createBubbleAsync(i, targetPositions[i]);
                 if (i < totalBubbles - 1) await new Promise(r => setTimeout(r, 750));
             }
+            // 兜底：确保所有卡片最终显示
             setTimeout(() => {
                 if(animationCompletedCount < totalBubbles && !isAnimationFinished) {
                     for(let i=0; i<activities.length; i++) if(!addedToGrid.has(activities[i].id)) { addCardToGrid(activities[i]); addedToGrid.add(activities[i].id); animationCompletedCount++; }
