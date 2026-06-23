@@ -763,6 +763,28 @@
             color: rgba(240,248,255,0.9);
             line-height: 1.5;
         }
+        /* 磨砂玻璃（Glassmorphism）信息卡 */
+.glass-card {
+    background: rgba(10, 26, 47, 0.4) !important;          /* 半透明深色底 */
+    backdrop-filter: blur(12px) !important;                /* 背景模糊 */
+    -webkit-backdrop-filter: blur(12px) !important;
+    border: 1px solid rgba(0, 212, 200, 0.25) !important;  /* 发光边框 */
+    border-radius: 24px !important;
+    padding: 32px 28px !important;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4), 
+                inset 0 0 30px rgba(0, 212, 200, 0.05);    /* 内外光晕 */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    text-align: center;
+}
+.glass-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 40px rgba(0, 212, 200, 0.3), 
+                inset 0 0 40px rgba(0, 212, 200, 0.1);
+}
+/* 覆盖原有 .venue-support 的样式，避免冲突 */
+.venue-support {
+    /* 保留原有的基础样式，但将被 .glass-card 覆盖 */
+}
         @media (max-width: 1024px) and (min-width: 768px) {
             .values-grid { grid-template-columns: repeat(2, 1fr); gap: 25px; }
             .value-img-wrap { height: 180px; }
@@ -1566,29 +1588,29 @@
             </div>
         </section>
 
-        <!-- VENUE -->
-        <section id="venue" class="section">
-            <h2 class="section-title">VENUE <span style="color:var(--biolight);">2026</span></h2>
-            <div class="venue-main" style="display: flex; flex-wrap: wrap; gap: 40px;">
-                <div style="flex: 2; min-width: 300px;">
-                    <h3 class="venue-highlight">淡路島夢舞台国際会議場</h3>
-                    <p style="font-size: 18px; margin-bottom: 20px;">安藤忠雄氏による静謐とした空間はホテルと回廊で結ばれ、<br>唯一無二のステージを作り上げる。</p>
-                    <div style="background: rgba(0,212,200,0.1); padding: 20px; border-radius: 16px; margin-top: 20px;">
-                </div>
-                
-                <div class="venue-support" style="flex: 1; background: rgba(124,106,77,0.2); padding: 30px; border-radius: 24px; border: 1px solid rgba(230,200,124,0.2); text-align: center;">
-                    <p style="color: var(--metamorph-gold); font-size: 20px; font-weight: 700; margin-bottom: 15px;">後援</p>
-                    <p style="font-size: 16px; margin: 15px 0;">兵庫県</p>
-                    <p style="font-size: 16px; margin: 15px 0;">淡路市</p>
-                    <p style="font-size: 16px; margin: 15px 0;">淡路市教育委員会</p>
-                    <p style="font-size: 16px; margin: 15px 0;">南あわじ市</p>
-                    <p style="font-size: 16px; margin: 15px 0;">南あわじ市教育委員会</p>
-                    <p style="font-size: 16px; margin: 15px 0;">洲本市</p>
-                    <p style="font-size: 16px; margin: 15px 0;">洲本市教育委員会</p>
-                    <p style="font-size: 13px; opacity: 0.8; margin-top: 15px;">more to be confirmed</p>
-                </div>
+<section id="venue" class="section">
+    <h2 class="section-title">VENUE <span style="color:var(--biolight);">2026</span></h2>
+    <div class="venue-main" style="display: flex; flex-wrap: wrap; gap: 40px;">
+        <!-- 主会场介绍 -->
+        <div style="flex: 2; min-width: 300px;">
+            <h3 class="venue-highlight">淡路島夢舞台国際会議場</h3>
+            <p style="font-size: 18px; margin-bottom: 20px;">安藤忠雄氏による静謐とした空間はホテルと回廊で結ばれ、<br>唯一無二のステージを作り上げる。</p>
+            <div style="background: rgba(0,212,200,0.1); padding: 20px; border-radius: 16px; margin-top: 20px;">
+                <p style="color: var(--biolight); font-weight: 700;">➕ 特設ステージ</p>
+                <p style="margin-top: 10px;">メインホールは、最新技術を用いた特別演出により、<br>現実の空間を深海の世界へと変化させます。<br>世界各地から集まる子どもたちにより、ナショナルショーでカルチャーの盛典と広げる。</p>
             </div>
-        </section>
+        </div>
+        
+        <!-- ===== 磨砂玻璃（Glassmorphism）後援信息卡 ===== -->
+        <div class="venue-support glass-card" style="flex: 1; min-width: 220px; align-self: center;">
+            <p style="font-size: 12px; letter-spacing: 2px; opacity: 0.7; margin-bottom: 12px; text-transform: uppercase;">Supported by</p>
+            <div style="display: flex; flex-direction: column; gap: 4px;">
+                <p style="font-size: 18px; font-weight: 600; margin: 0; line-height: 1.4;">兵庫県・淡路市・淡路市教育委員会・洲本市・洲本市教育委員会・南あわじ市・南あわじ市教育委員会</p>
+                <p style="font-size: 14px; opacity: 0.8; margin: 0;">環境省（調整中）</p>
+            </div>
+        </div>
+    </div>
+</section>
 
         <!-- ENTRY -->
         <section id="entry" class="section">
