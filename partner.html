@@ -2,43 +2,517 @@
 <html lang="ja">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>JKFW 2026企画概要| 参加者向け</title>
-    <!-- 这里可引入你网站的全局CSS，确保样式统一 -->
-    <link rel="stylesheet" href="style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.5, user-scalable=yes">
+    
+    <title>JKFW 2026 方案书 | 赞助商资料</title>
+    <meta name="description" content="JKFW 2026 活動完整方案書，僅供內部及合作夥伴查閱。">
+    <meta name="robots" content="noindex, nofollow">
+    <link rel="canonical" href="https://jkfw2026.com/partner.html">
+    
+    <!-- Open Graph -->
+    <meta property="og:title" content="JKFW 2026 方案書">
+    <meta property="og:description" content="Japan Kids Fashion Week 2026 完整活動策劃方案。">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://jkfw2026.com/partner.html">
+    <meta property="og:image" content="https://raw.githubusercontent.com/piggymiku-T/jkfw-official.github.io/main/images/og-image.jpg">
+    
+    <link rel="icon" type="image/png" href="logo.png">
+    <link rel="apple-touch-icon" href="logo.png">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300..800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-box-sizing: border-box;
+        }
+        body {
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            text-rendering: optimizeLegibility;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background-color: #0A1A2F;
+            color: #F0F8FF;
+            line-height: 1.7;
+            overflow-x: hidden;
+            margin: 0;
+            min-height: 100vh;
+            scroll-behavior: smooth;
+        }
+        :root {
+            --abyss: #0A1A2F;
+            --deep-blue: #0C2738;
+            --biolight: #00D4C8;
+            --metamorph-gold: #E6C87C;
+            --data-white: #F0F8FF;
+            --wood-brown: #7C6A4D;
+            --dark-overlay: rgba(6, 18, 30, 0.85);
+        }
+        .video-bg-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: -2;
+            overflow: hidden;
+        }
+        .bg-video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0.85;
+        }
+        .video-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(10,26,47,0.6);
+            z-index: 1;
+        }
+        #bubble-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+            touch-action: none;
+        }
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 32px;
+            position: relative;
+            z-index: 5;
+        }
+        .gradient-text {
+            background: linear-gradient(135deg, var(--biolight), var(--metamorph-gold));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            font-weight: 800;
+        }
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 24px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.08);
+            backdrop-filter: blur(10px);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: rgba(10,26,47,0.7);
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        .logo {
+            display: flex;
+            align-items: center;
+            flex: 1;
+        }
+        .nav-logo-main {
+            height: 60px;
+            width: auto;
+            vertical-align: middle;
+            filter: drop-shadow(0 0 6px rgba(0,212,200,0.4));
+            transition: filter 0.3s ease;
+        }
+        .nav-logo-main:hover {
+            filter: brightness(1.2) saturate(1.3) drop-shadow(0 12px var(--biolight));
+        }
+        .nav-links {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin-left: 40px;
+        }
+        .nav-links a {
+            color: var(--data-white);
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 15px;
+            padding: 8px 16px;
+            border-radius: 40px;
+            transition: 0.3s;
+        }
+        .nav-links a:hover {
+            background: rgba(0,212,200,0.1);
+            color: var(--data-white);
+        }
+        .nav-links a:active,
+        .nav-links a:focus,
+        .nav-links a:visited {
+            color: var(--data-white);
+            text-decoration: none;
+        }
+        .nav-links a.special-lp {
+            background: rgba(0,212,200,0.15);
+            border: 1px solid var(--biolight);
+            box-shadow: 0 0 8px rgba(0,212,200,0.3);
+        }
+        .nav-links a.special-lp:hover {
+            background: rgba(0,212,200,0.3);
+            box-shadow: 0 0 15px rgba(0,212,200,0.6);
+        }
+        @media (max-width: 768px) {
+            .navbar {
+                flex-direction: column;
+                align-items: center;
+            }
+            .logo {
+                flex: none;
+                margin-bottom: 10px;
+            }
+            .nav-logo-main {
+                height: 60px;
+            }
+            .nav-links {
+                margin-left: 0;
+                justify-content: center;
+                gap: 12px;
+            }
+            .nav-links a {
+                font-size: 13px;
+                padding: 6px 12px;
+            }
+        }
+        .section {
+            padding: 90px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+        .section-title {
+            font-size: 44px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            position: relative;
+            display: inline-block;
+        }
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -12px;
+            left: 0;
+            width: 100px;
+            height: 4px;
+            background: linear-gradient(90deg, var(--biolight), var(--metamorph-gold));
+            border-radius: 4px;
+        }
+        .section-sub {
+            font-size: 18px;
+            color: rgba(240,248,255,0.7);
+            margin-bottom: 50px;
+            max-width: 800px;
+        }
+        .btn {
+            display: inline-block;
+            padding: 14px 38px;
+            border-radius: 50px;
+            font-weight: 700;
+            text-decoration: none;
+            transition: 0.3s;
+            border: 1px solid transparent;
+        }
+        .btn-primary {
+            background: var(--metamorph-gold);
+            color: var(--abyss);
+            box-shadow: 0 0 20px rgba(230,200,124,0.3);
+        }
+        .btn-primary:hover {
+            background: #f8d68f;
+            transform: translateY(-3px);
+        }
+        .btn-outline {
+            border: 1px solid var(--data-white);
+            color: var(--data-white);
+            background: transparent;
+        }
+        .btn-outline:hover {
+            border-color: var(--biolight);
+            color: var(--biolight);
+        }
+        footer {
+            padding: 60px 0 40px;
+            color: rgba(240,248,255,0.6);
+            font-size: 14px;
+            border-top: 1px solid rgba(255,255,255,0.05);
+        }
+        .jellyfish-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 60px;
+            height: 60px;
+            background: rgba(10,26,47,0.7);
+            backdrop-filter: blur(8px);
+            border: 2px solid var(--biolight);
+            border-radius: 50%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: var(--biolight);
+            font-size: 24px;
+            box-shadow: 0 0 30px rgba(0,212,200,0.5);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            z-index: 1000;
+            animation: float 3s infinite ease-in-out;
+            text-decoration: none;
+        }
+        .jellyfish-top i {
+            font-size: 24px;
+            margin-bottom: 2px;
+        }
+        .top-text {
+            font-size: 10px;
+            font-weight: bold;
+            letter-spacing: 1px;
+            color: var(--biolight);
+        }
+        .jellyfish-top:hover {
+            transform: scale(1.1);
+            background: var(--biolight);
+            color: var(--abyss);
+        }
+        .jellyfish-top:hover i,
+        .jellyfish-top:hover .top-text {
+            color: var(--abyss);
+        }
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+        /* PDF预览区磨砂玻璃卡片 */
+        .proposal-card {
+            background: rgba(10, 26, 47, 0.4);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(0, 212, 200, 0.25);
+            border-radius: 24px;
+            padding: 32px 28px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4), inset 0 0 30px rgba(0, 212, 200, 0.05);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .proposal-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 40px rgba(0, 212, 200, 0.3), inset 0 0 40px rgba(0, 212, 200, 0.1);
+        }
+        @media (max-width: 768px) {
+            .section-title {
+                font-size: 34px;
+            }
+            .container {
+                padding: 0 16px;
+            }
+            .proposal-card {
+                padding: 20px 16px;
+            }
+        }
+        /* 提示文字 */
+        .confidential-note {
+            text-align: center;
+            margin-top: 30px;
+            font-size: 14px;
+            opacity: 0.6;
+            letter-spacing: 1px;
+        }
+    </style>
 </head>
-<body>
-    <!-- 网站导航（保留原有的） -->
-    <header>...</header>
+<body id="top">
+    <div class="video-bg-container">
+        <video class="bg-video" autoplay loop muted playsinline>
+            <source src="https://raw.githubusercontent.com/piggymiku-T/jkfw-official.github.io/main/videos/videosbackground.mp4" type="video/mp4">
+        </video>
+        <div class="video-overlay"></div>
+    </div>
+    <canvas id="bubble-canvas"></canvas>
 
-    <!-- 页面内容 -->
-    <main class="container" style="padding: 40px 20px;">
-        <h1 style="font-size: 32px; margin-bottom: 20px;">📘 JKFW 2026 完整方案</h1>
-        <p style="margin-bottom: 30px;">以下为活动整体方案书，欢迎在线预览或下载。</p>
-
-        <!-- ===== PDF 内联预览区（横版适配） ===== -->
-        <!-- 1. PDF 预览框（比例调整为横版） -->
-        <div style="position: relative; width: 100%; height: 0; padding-bottom: 70.7%; /* 横版比例：1 / 1.414 ≈ 0.707 */ overflow: hidden; border-radius: 16px; box-shadow: 0 8px 30px rgba(0,0,0,0.4);">
-            <iframe src="files/JKFW2026-Proposal.pdf" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none;" allowfullscreen></iframe>
+    <div class="container">
+        <div class="navbar">
+            <div class="logo">
+                <a href="index.html"><img src="logo-nav.png" alt="JKFW 2026" class="nav-logo-main"></a>
+            </div>
+            <div class="nav-links">
+                <a href="index.html#concept">CONCEPT</a>
+                <a href="index.html#theme">DEEPOCEAN</a>
+                <a href="index.html#stats">HISTORYS</a>
+                <a href="index.html#team">TEAM</a>
+                <a href="index.html#models">MODELS</a>
+                <a href="index.html#venue">VENUE</a>
+                <a href="index.html#entry">ENTRY</a>
+                <a href="dreamworldfes.html" target="_blank" class="special-lp">🎈 DREAM WORLD FES夏祭り 🎈</a>
+            </div>
         </div>
+    </div>
 
-        <!-- 2. 高级定制：全屏查看 + 下载按钮 -->
-        <div style="display: flex; justify-content: center; gap: 20px; margin-top: 20px; flex-wrap: wrap;">
-            <a href="files/JKFW2026-Proposal.pdf" target="_blank" style="color: #00D4C8; text-decoration: underline; font-weight: 500;">
-                🔍 全屏查看方案
-            </a>
-            <a href="files/JKFW2026-Proposal.pdf" download style="color: #E6C87C; text-decoration: underline; font-weight: 500;">
-                ⬇️ 下载PDF文件
-            </a>
-        </div>
+    <a href="#top" class="jellyfish-top" title="トップへ戻る">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="24" height="24" fill="currentColor" style="margin-bottom: 2px;">
+            <path d="M368 160h-64c-8.8 0-16 7.2-16 16v16c0 8.8 7.2 16 16 16h64c8.8 0 16-7.2 16-16v-16c0-8.8-7.2-16-16-16zm-128 0h-64c-8.8 0-16 7.2-16 16v16c0 8.8 7.2 16 16 16h64c8.8 0 16-7.2 16-16v-16c0-8.8-7.2-16-16-16zm-128 0H48c-8.8 0-16 7.2-16 16v16c0 8.8 7.2 16 16 16h64c8.8 0 16-7.2 16-16v-16c0-8.8-7.2-16-16-16zm320 0h-32c-8.8 0-16 7.2-16 16v16c0 8.8 7.2 16 16 16h32c8.8 0 16-7.2 16-16v-16c0-8.8-7.2-16-16-16zM256 64C150 64 64 150 64 256s86 192 192 192 192-86 192-192S362 64 256 64z"/>
+        </svg>
+        <span class="top-text">TOP</span>
+    </a>
 
-        <!-- 3. 高级定制：访问提示（可选） -->
-        <p style="text-align: center; margin-top: 30px; font-size: 14px; opacity: 0.6;">
-            本文件仅限受邀方查阅，请勿公开传播。
-        </p>
+    <main class="container">
+        <!-- ===== 方案书专用区块 ===== -->
+        <section class="section" id="proposal">
+            <h1 class="section-title">📘 JKFW 2026 企画概要</h1>
+            <p class="section-sub">こちらはJKFW2026参加者様向けの企画概要です。このままご覧頂くかダウンロードも可能です。</p>
+
+            <div class="proposal-card">
+                <!-- PDF 内联预览（横版比例） -->
+                <div style="position: relative; width: 100%; height: 0; padding-bottom: 70.7%; overflow: hidden; border-radius: 16px; box-shadow: 0 8px 30px rgba(0,0,0,0.4);">
+                    <iframe src="files/JKFW2026-Proposal.pdf" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none;" allowfullscreen></iframe>
+                </div>
+
+                <!-- 操作按钮 -->
+                <div style="display: flex; justify-content: center; gap: 20px; margin-top: 24px; flex-wrap: wrap;">
+                    <a href="files/JKFW2026-Proposal.pdf" target="_blank" style="color: var(--biolight); text-decoration: underline; font-weight: 500; font-size: 16px;">
+                        🔍 詳細を確認する
+                    </a>
+                    <a href="files/JKFW2026-Proposal.pdf" download style="color: var(--metamorph-gold); text-decoration: underline; font-weight: 500; font-size: 16px;">
+                        ⬇️ PDFをダウンロード
+                    </a>
+                </div>
+            </div>
+
+            <p class="confidential-note">🔒 本資料は参加者のみに公開しております。転送や公開はお控えください。</p>
+        </section>
     </main>
 
-    <!-- 网站尾部（保留原有的） -->
-    <footer>...</footer>
+    <!-- FOOTER -->
+    <footer>
+        <div class="container" style="padding: 0 32px;">
+            <div style="display: flex; flex-wrap: wrap; justify-content: space-between; gap: 40px;">
+                <div>
+                    <div style="font-size: 26px; font-weight: 800; margin-bottom: 12px;">JKFW 2026</div>
+                    <div>Deep Ocean · INCUBATION</div>
+                    <div style="margin-top: 30px;">〒116-0014 東京都荒川区東日暮里6-14-2 SK.BLD 3階 301<br>MAIL: info@jkfw.jp / TEL: <strong>03-6453-8146</strong></div>
+                </div>
+                <div style="text-align: right;">
+                    <div>JKFW運営委員会</div>
+                    <div>一般社団法人 日本キッズ協会</div>
+                    <div style="margin-top: 30px;">© 2026 Japan Kids Fashion Week</div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ===== 气泡 Canvas 脚本（与首页一致） ===== -->
+    <script>
+        (function() {
+            const canvas = document.getElementById('bubble-canvas');
+            const ctx = canvas.getContext('2d');
+            let width, height;
+            let particles = [];
+            let lastMouseX = 0, lastMouseY = 0;
+            let mouseMoveTimer = null;
+            function resizeCanvas() {
+                width = window.innerWidth;
+                height = window.innerHeight;
+                canvas.width = width;
+                canvas.height = height;
+            }
+            function spawnBubbles(x, y, count = 2) {
+                for (let i = 0; i < count; i++) {
+                    const offsetX = (Math.random() - 0.5) * 60;
+                    const offsetY = (Math.random() - 0.5) * 40;
+                    const bubble = {
+                        x: (x + offsetX) / width,
+                        y: (y + offsetY) / height,
+                        size: 4 + Math.random() * 10,
+                        speedY: 0.0005 + Math.random() * 0.001,
+                        opacity: 0.4 + Math.random() * 0.3,
+                        life: 1.0,
+                        fadeSpeed: 0.002 + Math.random() * 0.003,
+                        colorType: Math.random() > 0.6 ? 'gold' : 'cyan',
+                        phase: Math.random() * Math.PI * 2,
+                    };
+                    particles.push(bubble);
+                }
+            }
+            function onMouseMove(e) {
+                const x = e.clientX;
+                const y = e.clientY;
+                const dist = Math.hypot(x - lastMouseX, y - lastMouseY);
+                if (dist > 30) {
+                    spawnBubbles(x, y, 1);
+                    lastMouseX = x;
+                    lastMouseY = y;
+                }
+                if (mouseMoveTimer) clearTimeout(mouseMoveTimer);
+                mouseMoveTimer = setTimeout(() => {}, 100);
+            }
+            function onTouchMove(e) {
+                if (e.touches.length > 0) {
+                    const touch = e.touches[0];
+                    onMouseMove(touch);
+                }
+            }
+            function updateParticles() {
+                for (let i = particles.length - 1; i >= 0; i--) {
+                    const p = particles[i];
+                    p.y -= p.speedY;
+                    p.x += Math.sin(Date.now() * 0.001 + p.phase) * 0.0003;
+                    p.life -= p.fadeSpeed;
+                    if (p.y < 0 || p.life <= 0) {
+                        particles.splice(i, 1);
+                    }
+                }
+            }
+            function drawParticles() {
+                ctx.clearRect(0, 0, width, height);
+                for (let p of particles) {
+                    const x = p.x * width;
+                    const y = p.y * height;
+                    const size = p.size * (0.8 + 0.4 * Math.sin(Date.now() * 0.002 + p.phase));
+                    let color1, color2;
+                    if (p.colorType === 'gold') {
+                        color1 = `rgba(255, 240, 200, ${p.life * 0.8})`;
+                        color2 = `rgba(230, 200, 124, ${p.life * 0.3})`;
+                    } else {
+                        color1 = `rgba(200, 255, 240, ${p.life * 0.8})`;
+                        color2 = `rgba(0, 212, 200, ${p.life * 0.3})`;
+                    }
+                    const gradient = ctx.createRadialGradient(x-2, y-2, 1, x, y, size*1.5);
+                    gradient.addColorStop(0, color1);
+                    gradient.addColorStop(0.6, color2);
+                    gradient.addColorStop(1, 'transparent');
+                    ctx.beginPath();
+                    ctx.arc(x, y, size, 0, Math.PI * 2);
+                    ctx.fillStyle = gradient;
+                    ctx.fill();
+                    ctx.beginPath();
+                    ctx.arc(x-1, y-1, size * 0.3, 0, Math.PI * 2);
+                    ctx.fillStyle = `rgba(255,255,255,${p.life * 0.3})`;
+                    ctx.fill();
+                }
+            }
+            function animate() {
+                updateParticles();
+                drawParticles();
+                requestAnimationFrame(animate);
+            }
+            function setup() {
+                resizeCanvas();
+                window.addEventListener('mousemove', onMouseMove);
+                window.addEventListener('touchmove', onTouchMove, { passive: true });
+                animate();
+            }
+            window.addEventListener('resize', resizeCanvas);
+            setup();
+        })();
+    </script>
 </body>
 </html>
