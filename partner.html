@@ -1,1 +1,44 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JKFW 2026企画概要| 参加者向け</title>
+    <!-- 这里可引入你网站的全局CSS，确保样式统一 -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- 网站导航（保留原有的） -->
+    <header>...</header>
 
+    <!-- 页面内容 -->
+    <main class="container" style="padding: 40px 20px;">
+        <h1 style="font-size: 32px; margin-bottom: 20px;">📘 JKFW 2026 完整方案</h1>
+        <p style="margin-bottom: 30px;">以下为活动整体方案书，欢迎在线预览或下载。</p>
+
+        <!-- ===== PDF 内联预览区（横版适配） ===== -->
+        <!-- 1. PDF 预览框（比例调整为横版） -->
+        <div style="position: relative; width: 100%; height: 0; padding-bottom: 70.7%; /* 横版比例：1 / 1.414 ≈ 0.707 */ overflow: hidden; border-radius: 16px; box-shadow: 0 8px 30px rgba(0,0,0,0.4);">
+            <iframe src="files/JKFW2026-Proposal.pdf" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none;" allowfullscreen></iframe>
+        </div>
+
+        <!-- 2. 高级定制：全屏查看 + 下载按钮 -->
+        <div style="display: flex; justify-content: center; gap: 20px; margin-top: 20px; flex-wrap: wrap;">
+            <a href="files/JKFW2026-Proposal.pdf" target="_blank" style="color: #00D4C8; text-decoration: underline; font-weight: 500;">
+                🔍 全屏查看方案
+            </a>
+            <a href="files/JKFW2026-Proposal.pdf" download style="color: #E6C87C; text-decoration: underline; font-weight: 500;">
+                ⬇️ 下载PDF文件
+            </a>
+        </div>
+
+        <!-- 3. 高级定制：访问提示（可选） -->
+        <p style="text-align: center; margin-top: 30px; font-size: 14px; opacity: 0.6;">
+            本文件仅限受邀方查阅，请勿公开传播。
+        </p>
+    </main>
+
+    <!-- 网站尾部（保留原有的） -->
+    <footer>...</footer>
+</body>
+</html>
