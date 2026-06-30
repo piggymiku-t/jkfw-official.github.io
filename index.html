@@ -1591,11 +1591,11 @@
             </div>
         </section>
 
-        <!-- ===== VENUE 修改部分（已优化） ===== -->
+        <!-- ===== VENUE 板块（已调整：支持卡移至右侧空位） ===== -->
         <section id="venue" class="section">
             <h2 class="section-title">VENUE <span style="color:var(--biolight);">2026</span></h2>
             <div class="venue-main" style="display: flex; flex-wrap: wrap; gap: 40px;">
-                <!-- 主会场介绍 -->
+                <!-- 主会场介绍（左侧） -->
                 <div style="flex: 2; min-width: 300px;">
                     <h3 class="venue-highlight">淡路島夢舞台国際会議場</h3>
                     <p style="font-size: 18px; margin-bottom: 20px;">安藤忠雄氏による静謐とした空間はホテルと回廊で結ばれ、<br>唯一無二のステージを作り上げる。</p>
@@ -1604,19 +1604,20 @@
                         <p style="margin-top: 10px;">メインホールは、最新技術を用いた特別演出により、<br>現実の空間を深海の世界へと変化させます。<br>世界各地から集まる子どもたちにより、ナショナルショーでカルチャーの盛典と広げる。</p>
                     </div>
                 </div>
-                <!-- 右侧原本可能有内容，现在为空，但保留 flex 以保持布局 -->
-                <div style="flex: 1; min-width: 220px;"></div>
-            </div>
-            <!-- ===== 磨砂玻璃（Glassmorphism）後援信息卡（长条底板） ===== -->
-            <div class="venue-support glass-card" style="margin-top: 40px; width: 100%; box-sizing: border-box;">
-                <p style="font-size: 12px; letter-spacing: 2px; opacity: 0.7; margin-bottom: 12px; text-transform: uppercase;">Supported by</p>
-                <div style="display: flex; flex-direction: column; gap: 4px; align-items: center;">
-                    <p style="font-size: 18px; font-weight: 600; margin: 0; line-height: 1.4;">
-                       環境省<br>兵庫県・淡路市・淡路市教育委員会・洲本市・洲本市教育委員会<br>
-                        南あわじ市・南あわじ市教育委員会
-                    </p>
+                <!-- 右侧：支持单位信息卡（磨砂玻璃） -->
+                <div class="venue-support glass-card" style="flex: 1; min-width: 220px; align-self: center; box-sizing: border-box;">
+                    <p style="font-size: 12px; letter-spacing: 2px; opacity: 0.7; margin-bottom: 12px; text-transform: uppercase;">Supported by</p>
+                    <div style="display: flex; flex-direction: column; gap: 6px; align-items: center;">
+                        <p style="font-size: 18px; font-weight: 600; margin: 0; line-height: 1.4; color: var(--metamorph-gold);">後援</p>
+                        <p style="font-size: 16px; font-weight: 500; margin: 0; line-height: 1.4;">環境省</p>
+                        <p style="font-size: 16px; font-weight: 500; margin: 0; line-height: 1.4;">兵庫県</p>
+                        <p style="font-size: 16px; font-weight: 500; margin: 0; line-height: 1.4;">淡路市・淡路市教育委員会</p>
+                        <p style="font-size: 16px; font-weight: 500; margin: 0; line-height: 1.4;">洲本市・洲本市教育委員会</p>
+                        <p style="font-size: 16px; font-weight: 500; margin: 0; line-height: 1.4;">南あわじ市・南あわじ市教育委員会</p>
+                    </div>
                 </div>
             </div>
+            <!-- 注：底部独立卡片已移除，避免重复 -->
         </section>
         <!-- ===== VENUE 修改结束 ===== -->
 
